@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="LineItem">
+        <attr name="iconDrawable" format="reference"/>
+        <attr name="titleText" format="reference|string"/>
+        <attr name="intervalGap" format="dimension|reference"/>
+        <attr name="paddingLeft" format="dimension|reference"/>
+        <attr name="textSelector" format="reference"/>
+        <attr name="itemSelector" format="reference"/>
+        <attr name="textColor" format="reference"/>
+        <attr name="textSize" format="dimension"/>
+        <!--<attr name="textSize" format="reference"/>-->
+    </declare-styleable>
+
+</resources>

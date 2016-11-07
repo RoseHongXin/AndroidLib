@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <TextView
+        android:id="@+id/_v_camera"
+        style="@style/DImgPicker_tv"
+        android:text="相机"/>
+   <!-- <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/primary_text_light"/>-->
+    <TextView
+        android:id="@+id/_v_gallery"
+        style="@style/DImgPicker_tv"
+        android:text="图库"/>
+    <TextView
+        android:layout_marginTop="12dp"
+        android:id="@+id/_v_cancel"
+        style="@style/DImgPicker_tv"
+        android:textColor="@android:color/secondary_text_dark"
+        android:text="@android:string/cancel"/>
+
+</LinearLayout>

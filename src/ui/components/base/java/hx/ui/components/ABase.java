@@ -27,7 +27,7 @@ public abstract class ABase extends AppCompatActivity {
     public abstract int _getLayoutRes();
     public abstract IRefreshCallback _registerRefreshCallback();
     //acting more like boolean, if null, then there would be no refresh widget.
-    public abstract Toolbar _askForToolbar();
+    public abstract View _askForToolbar();
 
     public SwipeRefreshLayout getSwipeRefreshLayout(){
         return _srl;
@@ -50,7 +50,7 @@ public abstract class ABase extends AppCompatActivity {
             layout = _srl;
         }
 
-        Toolbar _tb = _askForToolbar();
+        View _tb = _askForToolbar();
         if(_tb != null){
             //setSupportActionBar(_tb);
             LinearLayout content = new LinearLayout(getApplicationContext());
@@ -89,12 +89,10 @@ public abstract class ABase extends AppCompatActivity {
         //if(_srl != null) _srl.setRefreshing(true);
         //_srl.setProgressViewOffset(false, 0, 100);
         //_srl.setRefreshing(true);
-        if(_srl == null) return;
+        if(_srl == null || refreshCallback == null) return;
         _srl.post(() -> {
-            if(refreshCallback != null){
-                _srl.setRefreshing(true);
-                refreshCallback.onRefresh();
-            }
+            _srl.setRefreshing(true);
+            refreshCallback.onRefresh();
         });
     }
 

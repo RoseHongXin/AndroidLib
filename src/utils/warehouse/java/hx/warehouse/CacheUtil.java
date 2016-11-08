@@ -19,6 +19,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import hx.ui.widgets.Jackson;
+
 /**
  * Created by rose on 16-8-9.
  *
@@ -103,18 +105,20 @@ public class CacheUtil {
         }
         return data;
     }
-    public static <T> List<T> get(String key){
+    public static <T> List<T> getList(String key, Class<T> clz){
         List<T> data = new ArrayList<T>();
         try {
             DiskLruCache.Snapshot snap = cache.get(key);
-            if(snap == null) return null;
+            if(snap == null) return data;       //empty array
             String str = snap.getString(IDX);
-            if(TextUtils.isEmpty(str)) return null;
+            if(TextUtils.isEmpty(str)) return data; //empty array
             ObjectMapper mapper = new ObjectMapper();
-            data = mapper.readValue(str, new TypeReference<List<T>>(){});
+//            data = mapper.readValue(str, new TypeReference<List<T>>(){});
+            data = Jackson.fromStr2List(str, clz);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(data == null) data = new ArrayList<T>();
         return data;
     }
 }

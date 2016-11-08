@@ -8,5 +8,4 @@ public abstract class AWithRefresh extends ABase {
     public abstract IRefreshCallback _registerRefreshCallback();
     //acting more like boolean, if null, then there would be no refresh widget.
 
-
 }

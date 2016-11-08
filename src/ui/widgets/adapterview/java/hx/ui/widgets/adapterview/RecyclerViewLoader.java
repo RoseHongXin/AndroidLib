@@ -14,7 +14,7 @@ import rx.Observable;
  */
 
 
-public class RecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends RecyclerView.ViewHolder, T> {
+public class RecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
 
 
     RecyclerView _rv;

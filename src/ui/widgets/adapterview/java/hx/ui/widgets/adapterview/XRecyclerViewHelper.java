@@ -15,7 +15,7 @@ import rx.Observable;
  */
 
 
-public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends RecyclerView.ViewHolder, T> {
+public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
 
 
     XRecyclerView _rv;
@@ -146,7 +146,7 @@ public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends RecyclerVi
         return this;
     }
     public void doRefresh(){
-        _rv.setRefreshing(true);
+        _rv.post(() -> _rv.setRefreshing(true));
     }
 
     public interface IReqObservableApi<T>{

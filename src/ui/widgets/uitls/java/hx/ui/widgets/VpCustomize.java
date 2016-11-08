@@ -32,7 +32,7 @@ public class VpCustomize {
         } catch (Exception e) {
         }*/
         //_vp.setOnTouchListener((v, event) -> true);
-        _vp.clearAnimation();
+//        _vp.clearAnimation();
     }
 
     private static class FixedSpeedScroller extends Scroller {

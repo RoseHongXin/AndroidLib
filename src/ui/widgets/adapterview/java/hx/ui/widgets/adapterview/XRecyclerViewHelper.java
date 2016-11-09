@@ -17,7 +17,7 @@ import rx.Observable;
 
 public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
 
-
+    final int REFRESH_TIME_THRESHOLD = 256;
     XRecyclerView _rv;
     Ap adapter;
     IReqObservableApi<T> reqCallback;
@@ -146,7 +146,7 @@ public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
         return this;
     }
     public void doRefresh(){
-        _rv.post(() -> _rv.setRefreshing(true));
+        _rv.postDelayed(() -> _rv.setRefreshing(true), REFRESH_TIME_THRESHOLD);
     }
 
     public interface IReqObservableApi<T>{

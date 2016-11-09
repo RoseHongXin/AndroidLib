@@ -2,9 +2,6 @@ package hx.ui.widgets.adapterview;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ import java.util.List;
  * Created by rose on 16-8-12.
  */
 
-public abstract class ApBase<VH extends VhBase<T>, T> extends RecyclerView.Adapter<VH> {
+public abstract class ApBase2<VH extends VhBase<T>, T> extends RecyclerView.Adapter<VH> {
 
     final String TAG = "--ApBase--";
 
@@ -26,13 +23,13 @@ public abstract class ApBase<VH extends VhBase<T>, T> extends RecyclerView.Adapt
 
     private boolean isScrolling = false;
 
-    public abstract VH getVH(Activity act);
+    public abstract VH getVH(Activity act, int viewType);
     public abstract void bind(VH holder, T data);
     public void bind(VH holder, T data, int position){
         bind(holder, data);
     }
 
-     protected ApBase(Activity act, RecyclerView rv){
+     protected ApBase2(Activity act, RecyclerView rv){
         this.act = act;
         this.rv = rv;
          /*rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -68,16 +65,20 @@ public abstract class ApBase<VH extends VhBase<T>, T> extends RecyclerView.Adapt
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return getVH(act);
+        return getVH(act, viewType);
     }
 
     @Override
     public void onBindViewHolder(VH holder, int position) {
-//        holder.itemView.post(() -> bind(holder, data.get(position), position));
-        bind(holder, data.get(position), position);
+        holder.itemView.post(() -> bind(holder, data.get(position), position));
         /*if(!isScrolling){
             holder.itemView.post(() -> bind(holder, data.get(position), position));
         }*/
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override
@@ -86,8 +87,6 @@ public abstract class ApBase<VH extends VhBase<T>, T> extends RecyclerView.Adapt
     }
 
     public void setData(List<T> d){
-        /*if(data == null) data = new ArrayList<T>();
-        else data.clear();*/
         data = new ArrayList<>();
         data.addAll(d);
         notifyDataSetChanged();

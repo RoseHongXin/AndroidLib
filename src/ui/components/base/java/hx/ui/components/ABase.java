@@ -20,6 +20,7 @@ import hx.global.R;
 
 public abstract class ABase extends AppCompatActivity {
 
+    final int REFRESH_TIME_THRESHOLD = 256;
     SwipeRefreshLayout _srl;
     IRefreshCallback refreshCallback;
 
@@ -90,10 +91,10 @@ public abstract class ABase extends AppCompatActivity {
         //_srl.setProgressViewOffset(false, 0, 100);
         //_srl.setRefreshing(true);
         if(_srl == null || refreshCallback == null) return;
-        _srl.post(() -> {
+        _srl.postDelayed(() -> {
             _srl.setRefreshing(true);
             refreshCallback.onRefresh();
-        });
+        }, REFRESH_TIME_THRESHOLD);
     }
 
 }

@@ -97,7 +97,12 @@ public abstract class FBase extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(ifNeedRefreshPage()) fraRefreshListener.onPageRefresh();
+        if(ifNeedRefreshPage()) {
+            fraRefreshListener.onPageRefresh();
+            /*this.getView().postDelayed(() -> {
+                fraRefreshListener.onPageRefresh();
+            }, 1000);*/
+        }
     }
 
     @Override

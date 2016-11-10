@@ -34,7 +34,7 @@ public class VpNoSwipe extends ViewPager {
     }
 
     //去除页面切换时的滑动翻页效果
-    /*@Override
+    @Override
     public void setCurrentItem(int item, boolean smoothScroll) {
         super.setCurrentItem(item, false);
     }
@@ -42,5 +42,5 @@ public class VpNoSwipe extends ViewPager {
     @Override
     public void setCurrentItem(int item) {
         super.setCurrentItem(item, false);
-    }*/
+    }
 }

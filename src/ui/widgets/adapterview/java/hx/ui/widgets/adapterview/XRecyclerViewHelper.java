@@ -4,9 +4,15 @@ import android.app.Activity;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
+import com.jcodecraeer.xrecyclerview.ArrowRefreshHeader;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import java.lang.reflect.Field;
+
 import hx.req.bean.Pager;
 import rx.Observable;
 
@@ -24,9 +30,11 @@ public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
     HandlerCallback<T> handlerCallback;
     HandlerCallback2<T> handlerCallback2;
     Activity act;
+    XRecyclerView.LoadingListener listener;
+    ArrowRefreshHeader refreshHeader;
 
     public XRecyclerViewHelper init(){
-        _rv.setLoadingListener(new XRecyclerView.LoadingListener() {
+        this.listener = new XRecyclerView.LoadingListener() {
             volatile int curPage = 1;
             @Override
             public void onRefresh() {
@@ -35,7 +43,12 @@ public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
                         //because the RetrofitBase request, has takeWhile stream,
                         //if the onErrorReturn override the original method, if it would jump over the takeWhile stream flow ?
 //                        .onErrorReturn(throwable -> null)
-                        .doOnCompleted(() -> _rv.refreshComplete())
+                        .doOnCompleted(() -> {
+                            _rv.postDelayed(() -> {
+                                _rv.refreshComplete();
+                            }, REFRESH_TIME_THRESHOLD);
+
+                        })
                         .subscribe(res -> {
                             if(res != null){
                                 curPage = 1;
@@ -54,11 +67,22 @@ public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
                             }
                         });
             }
-        });
+        };
+        _rv.setLoadingListener(listener);
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
         _rv.setAdapter(adapter);
+        try {
+            Field rh = _rv.getClass().getDeclaredField("mRefreshHeader");
+            rh.setAccessible(true);
+            refreshHeader = (ArrowRefreshHeader)rh.get(_rv);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         return this;
     }
 
@@ -68,36 +92,6 @@ public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
         this.adapter = adapter;
         this.handlerCallback = handlerCallback;
         return init();
-        /*_rv.setLoadingListener(new XRecyclerView.LoadingListener() {
-            volatile int curPage = 1;
-            @Override
-            public void onRefresh() {
-                handlerCallback.onRefresh();
-                handlerCallback.getReqObservableApi(1)
-                        .doOnCompleted(() -> _rv.refreshComplete())
-                        .subscribe(res -> {
-                            if(res != null){
-                                curPage = 1;
-                                adapter.setData(res.list);
-                            }
-                        });
-            }
-            @Override
-            public void onLoadMore() {
-                handlerCallback.getReqObservableApi(curPage + 1)
-                        .doOnCompleted(() -> {
-                            _rv.loadMoreComplete();
-                            handlerCallback2.onReqFinished();
-                        })
-                        .subscribe(res -> {
-                            if(res != null && !res.list.isEmpty()) {
-                                ++curPage;
-                                adapter.addData(res.list);
-                            }
-                        });
-            }
-        });
-        return this;*/
     }
     public XRecyclerViewHelper init(Activity act, XRecyclerView _rv, Ap adapter, IReqObservableApi<T> reqCallback){
         this.act = act;
@@ -112,7 +106,7 @@ public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
         this.adapter = adapter;
         this.handlerCallback2 = reqCallback;
         init();
-        _rv.setLoadingListener(new XRecyclerView.LoadingListener() {
+        this.listener = new XRecyclerView.LoadingListener() {
             volatile int curPage = 1;
             @Override
             public void onRefresh() {
@@ -142,11 +136,16 @@ public class XRecyclerViewHelper<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
                             }
                         });
             }
-        });
+        };
+        _rv.setLoadingListener(listener);
         return this;
     }
     public void doRefresh(){
-        _rv.postDelayed(() -> _rv.setRefreshing(true), REFRESH_TIME_THRESHOLD);
+        refreshHeader.setState(ArrowRefreshHeader.STATE_REFRESHING);
+        refreshHeader.setVisiableHeight(refreshHeader.mMeasuredHeight);
+        _rv.postDelayed(() -> {
+            listener.onRefresh();
+        }, REFRESH_TIME_THRESHOLD);
     }
 
     public interface IReqObservableApi<T>{

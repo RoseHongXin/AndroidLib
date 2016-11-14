@@ -1,8 +1,6 @@
 package hx.utils.widgets.mdialogs;
 
 import android.app.Activity;
-import android.view.View;
-
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
@@ -13,7 +11,6 @@ import hx.global.R;
  */
 
 public class DImgPicker {
-
 
     public static void show(Activity act, ItemClickCallback callback){
         DialogPlus dialog = DialogPlus.newDialog(act)

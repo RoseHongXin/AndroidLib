@@ -1,4 +1,4 @@
-package hx.ui.widgets;
+package hx.util.widgets;
 
 import android.text.TextUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;

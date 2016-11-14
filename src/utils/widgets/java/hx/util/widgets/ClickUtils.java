@@ -1,4 +1,4 @@
-package hx.ui.widgets;
+package hx.util.widgets;
 
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;

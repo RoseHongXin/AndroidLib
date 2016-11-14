@@ -3,23 +3,17 @@ package hx.warehouse;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.text.TextUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.ResolvedType;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jakewharton.disklrucache.DiskLruCache;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import hx.ui.widgets.Jackson;
+import hx.util.widgets.Jackson;
 
 /**
  * Created by rose on 16-8-9.
@@ -63,7 +57,7 @@ public class CacheUtil {
      *
      * Call this method at the app entry.
      * get(...) return generic java bean class
-     * get2(...) return List data.
+     * getList(...) return List data.
      *
      *
      * */
@@ -98,8 +92,9 @@ public class CacheUtil {
             if(snap == null) return null;
             String str = snap.getString(IDX);
             if(TextUtils.isEmpty(str)) return null;
-            ObjectMapper mapper = new ObjectMapper();
-            data = mapper.readValue(str, clz);
+//            ObjectMapper mapper = new ObjectMapper();
+//            data = mapper.readValue(str, clz);
+            data = Jackson.fromStr(str, clz);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,7 +107,7 @@ public class CacheUtil {
             if(snap == null) return data;       //empty array
             String str = snap.getString(IDX);
             if(TextUtils.isEmpty(str)) return data; //empty array
-            ObjectMapper mapper = new ObjectMapper();
+//            ObjectMapper mapper = new ObjectMapper();
 //            data = mapper.readValue(str, new TypeReference<List<T>>(){});
             data = Jackson.fromStr2List(str, clz);
         } catch (IOException e) {

@@ -2,9 +2,8 @@ package hx.warehouse;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import javax.inject.Inject;
-import hx.dagger.helper.RequestScope;
-import hx.ui.widgets.Jackson;
+
+import hx.util.widgets.Jackson;
 
 public class SpUtil {
 

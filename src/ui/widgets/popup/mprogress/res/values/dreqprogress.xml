@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dreqprogress_bg_overlay">#aaffffff</color>
+    <color name="dreqprogress_bg_content">#eeeeeeee</color>
+
+</resources>

@@ -14,13 +14,12 @@ import hx.warehouse.StoreScope;
 
 
 @Module
-@Singleton
-public class ModuleApp {
+public abstract class ModuleApp<T extends Application> {
 
     private Context mCtx;
-    private Application mApp;
+    private T mApp;
 
-    public ModuleApp(Application app) {
+    public ModuleApp(T app) {
         this.mApp = app;
         this.mCtx = app.getApplicationContext();
     }
@@ -31,7 +30,7 @@ public class ModuleApp {
     }
 
     @Provides
-    public Application getApplication(){
+    public T getApplication(){
         return mApp;
     }
 }

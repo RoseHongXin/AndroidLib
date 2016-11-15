@@ -14,7 +14,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class ModuleImgUpload {
 
     @Provides
-    @Singleton
     @Named("upload")
     public Retrofit getRetrofit(@Named("upload") okhttp3.OkHttpClient okHttpClient) {
         return new Retrofit.Builder()

@@ -25,7 +25,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import timber.log.Timber;
 
 @Module
-@Singleton
 public class ModuleReq {
 
     final String TAG = "--ModuleReq--:";

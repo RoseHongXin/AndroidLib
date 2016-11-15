@@ -17,7 +17,7 @@
         </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/ui/components/base/res;file://$MODULE_DIR$/src/ui/widgets/edit/res;file://$MODULE_DIR$/src/ui/widgets/lineitem/res;file://$MODULE_DIR$/src/ui/widgets/popup/mdialogs/res;file://$MODULE_DIR$/src/ui/widgets/popup/mprogress/res;file://$MODULE_DIR$/src/ui/widgets/popup/mtoast/res;file://$MODULE_DIR$/src/ui/widgets/uitls/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/req/res;file://$MODULE_DIR$/src/ui/components/base/res;file://$MODULE_DIR$/src/ui/widgets/edit/res;file://$MODULE_DIR$/src/ui/widgets/lineitem/res;file://$MODULE_DIR$/src/ui/widgets/popup/mdialogs/res;file://$MODULE_DIR$/src/ui/widgets/popup/mprogress/res;file://$MODULE_DIR$/src/ui/widgets/popup/mtoast/res;file://$MODULE_DIR$/src/ui/widgets/uitls/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
         <option name="LIBRARY_PROJECT" value="true" />
       </configuration>
@@ -58,6 +58,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/testDebug/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/req/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/ui/components/base/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/ui/widgets/edit/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/ui/widgets/lineitem/res" type="java-resource" />

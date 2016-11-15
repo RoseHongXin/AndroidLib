@@ -1,6 +1,7 @@
-package hx.ui.widgets.popup.progress;
+package hx.req;
 
 import android.app.Activity;
+import android.support.annotation.LayoutRes;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -17,13 +18,14 @@ import hx.global.R;
  * Created by rose on 16-8-2.
  */
 
-public class DReqProgress {
+public class DReq2 {
 
     static DialogPlus dialog;
-    static DReqProgress progress;
+    static DReq2 progress;
 
-    private DReqProgress(Activity act){
-        View l = act.getLayoutInflater().inflate(R.layout.l_dprogress, null);
+    private DReq2(Activity act, View layout){
+
+        /*View l = act.getLayoutInflater().inflate(layoutRes, null);
         DisplayMetrics metrics = new DisplayMetrics();
         act.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -35,16 +37,14 @@ public class DReqProgress {
             params.height = height;
             params.width = width;
         }
-        l.setLayoutParams(params);
-
-        //ProgressBar progress = (ProgressBar) l.findViewById(R.id._pb);
+        l.setLayoutParams(params);*/
 
         DialogPlusBuilder builder = DialogPlus.newDialog(act);
         dialog = builder
-                .setContentHolder(new ViewHolder(l))
+                .setContentHolder(new ViewHolder(layout))
                 .setCancelable(true)
-                .setOverlayBackgroundResource(R.color.dreqprogress_bg_overlay)
-                .setContentBackgroundResource(R.color.dreqprogress_bg_content)
+//                .setOverlayBackgroundResource(R.color.dreq_bg_overlay)
+//                .setContentBackgroundResource(R.color.dreq_bg_content)
                 //if set the exact size of window size, content wouldn't center.
                 /*.setContentWidth(width)
                 .setContentHeight(height)*/
@@ -54,9 +54,14 @@ public class DReqProgress {
                 .create();
     }
 
-    public static DReqProgress show(Activity act){
-//        progress = null;
-        progress = new DReqProgress(act);
+    public static DReq2 show(Activity act){
+        View layout = act.getLayoutInflater().inflate(R.layout.d_req, null);
+        progress = new DReq2(act, layout);
+        dialog.show();
+        return progress;
+    }
+    public static DReq2 show(Activity act, View layout){
+        progress = new DReq2(act, layout);
         dialog.show();
         return progress;
     }
@@ -64,6 +69,9 @@ public class DReqProgress {
 
     public void dismiss(){
         if(dialog != null && dialog.isShowing()) dialog.dismiss();
+    }
+    public boolean isShowing(){
+        return dialog.isShowing();
     }
 
     public static void reset(){

@@ -10,8 +10,7 @@ import java.lang.reflect.Field;
  * Created by rose on 16-8-12.
  */
 
-@Deprecated
-public class RvLoaderV2<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
+public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
 
     final int REFRESH_TIME_THRESHOLD = 256;
 
@@ -21,7 +20,7 @@ public class RvLoaderV2<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
     XRecyclerView.LoadingListener listener;
     ArrowRefreshHeader refreshHeader;
 
-    public RvLoaderV2 init(){
+    public XRecyclerViewLoader init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
@@ -49,7 +48,7 @@ public class RvLoaderV2<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
         }
     }
 
-    public RvLoaderV2 init(Activity act, XRecyclerView _rv, Ap adapter, IReqApi2<T> reqApi){
+    public XRecyclerViewLoader init(Activity act, XRecyclerView _rv, Ap adapter, IReqApi2<T> reqApi){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -84,7 +83,7 @@ public class RvLoaderV2<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
         registerListener(listener);
         return init();
     }
-    public RvLoaderV2 init(Activity act, XRecyclerView _rv, Ap adapter, IReqHandler<T> reqHandler){
+    public XRecyclerViewLoader init(Activity act, XRecyclerView _rv, Ap adapter, IReqHandler<T> reqHandler){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -121,7 +120,7 @@ public class RvLoaderV2<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
         return init();
     }
 
-    public RvLoaderV2 init(Activity act, XRecyclerView _rv, Ap adapter, IReqHandler2<T> reqHandler2){
+    public XRecyclerViewLoader init(Activity act, XRecyclerView _rv, Ap adapter, IReqHandler2<T> reqHandler2){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import java.util.List;
 
 /**
@@ -11,13 +12,13 @@ import java.util.List;
  */
 
 
-public class RvLoaderV<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
+public class RvLoaderWithAp2<Ap extends Ap2Base> {
 
     RecyclerView _rv;
     Ap adapter;
     Activity act;
 
-    private RvLoaderV init(){
+    private RvLoaderWithAp2 init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
@@ -25,7 +26,14 @@ public class RvLoaderV<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
         return this;
 
     }
-    public RvLoaderV init(Activity act, RecyclerView _rv, Ap adapter, List<T> data){
+
+    public RvLoaderWithAp2 init(Activity act, RecyclerView _rv, Ap adapter){
+        this.act = act;
+        this._rv = _rv;
+        this.adapter = adapter;
+        return init();
+    }
+    public RvLoaderWithAp2 init(Activity act, RecyclerView _rv, Ap adapter, List data){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -33,12 +41,12 @@ public class RvLoaderV<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
         return init();
     }
 
-    public RvLoaderV init(Activity act, RecyclerView _rv, Ap adapter, IReqApi<T> reqApi){
+    public RvLoaderWithAp2 init(Activity act, RecyclerView _rv, Ap adapter, IReqApi<ISFAp2Base> reqCallback){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
         init();
-        reqApi.get()
+        reqCallback.get()
                 .subscribe(res -> {
                     if(res == null || res.list.isEmpty()){
                         _rv.setVisibility(View.GONE);
@@ -49,4 +57,5 @@ public class RvLoaderV<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
                 });
         return this;
     }
+    
 }

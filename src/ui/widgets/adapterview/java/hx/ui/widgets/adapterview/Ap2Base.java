@@ -14,25 +14,25 @@ import java.util.List;
  *
  */
 
-public abstract class ApBase2 extends RecyclerView.Adapter<VhBase> {
+public abstract class Ap2Base extends RecyclerView.Adapter<VhBase> {
 
-    final String TAG = "--ApBase2--";
+    final String TAG = "--Ap2Base--";
 
     protected Activity act;
-    protected RecyclerView rv;
-    private List<Object> data = new ArrayList<Object>();
+    protected RecyclerView _rv;
+    private List<ISFAp2Base> data = new ArrayList<>();
 
-    protected abstract VhBase getVh(Activity act, int position);
-    protected abstract void bind(VhBase holder, Object data, int position);
+    protected abstract VhBase getVh(Activity act, ISFAp2Base data, int position);
+    protected abstract void bind(VhBase holder, ISFAp2Base data, int position);
 
-     protected ApBase2(Activity act, RecyclerView rv){
+     protected Ap2Base(Activity act, RecyclerView rv){
          this.act = act;
-         this.rv = rv;
+         this._rv = rv;
     }
 
     @Override
     public VhBase onCreateViewHolder(ViewGroup parent, int viewType) {
-        return getVh(act, viewType);
+        return getVh(act, data.get(viewType), viewType);
     }
 
     @Override
@@ -50,24 +50,22 @@ public abstract class ApBase2 extends RecyclerView.Adapter<VhBase> {
         return data.size();
     }
 
-    public void setData(List<Object> d){
-        /*if(data == null) data = new ArrayList<T>();
-        else data.clear();*/
+    public <T extends ISFAp2Base> void  setData(List<T> d){
         data = new ArrayList<>();
         data.addAll(d);
         notifyDataSetChanged();
     }
-    public void addData(List<Object> d){
-        if(data == null) data = new ArrayList<Object>();
+    public <T extends ISFAp2Base> void  addData(List<T> d){
+        if(data == null) data = new ArrayList<>();
         data.addAll(d);
         notifyDataSetChanged();
     }
-    public void addData(Object obj){
-        if(data == null) data = new ArrayList<Object>();
+    public void addData(ISFAp2Base obj){
+        if(data == null) data = new ArrayList<>();
         data.add(obj);
         notifyDataSetChanged();
     }
-    public List<Object> getData(){
+    public List getData(){
         return data;
     }
     

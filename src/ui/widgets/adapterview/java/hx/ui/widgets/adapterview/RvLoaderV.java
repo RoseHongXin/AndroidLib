@@ -6,23 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import java.util.List;
 
-import hx.req.bean.Pager;
-import rx.Observable;
-
 /**
  * Created by rose on 16-8-12.
  */
 
 
-public class RecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
-
+public class RvLoaderV<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
 
     RecyclerView _rv;
     Ap adapter;
     Activity act;
 
-
-    private RecyclerViewLoader init(){
+    private RvLoaderV init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
@@ -30,7 +25,7 @@ public class RecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, 
         return this;
 
     }
-    public RecyclerViewLoader init(Activity act, RecyclerView _rv, Ap adapter, List<T> data){
+    public RvLoaderV init(Activity act, RecyclerView _rv, Ap adapter, List<T> data){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -38,7 +33,7 @@ public class RecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, 
         return init();
     }
 
-    public RecyclerViewLoader init(Activity act, RecyclerView _rv, Ap adapter, IReqObservableApi<T> reqCallback){
+    public RvLoaderV init(Activity act, RecyclerView _rv, Ap adapter, IReqApi<T> reqCallback){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -53,9 +48,5 @@ public class RecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, 
                     }
                 });
         return this;
-    }
-
-    public interface IReqObservableApi<T>{
-        Observable<Pager<T>> get();
     }
 }

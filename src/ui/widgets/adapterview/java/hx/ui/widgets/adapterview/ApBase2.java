@@ -9,71 +9,35 @@ import java.util.List;
 
 /**
  * Created by rose on 16-8-12.
+ *
+ * Based on item position as the viewType
+ *
  */
 
-public abstract class ApBase2<VH extends VhBase<T>, T> extends RecyclerView.Adapter<VH> {
+public abstract class ApBase2 extends RecyclerView.Adapter<VhBase2> {
 
-    final String TAG = "--ApBase--";
+    final String TAG = "--ApBase2--";
 
-    final int SCROLL_FLING_THRESHOLD = 4000;
-
-    private List<T> data = new ArrayList<T>();
     protected Activity act;
     protected RecyclerView rv;
+    private List<Object> data = new ArrayList<Object>();
 
-    private boolean isScrolling = false;
-
-    public abstract VH getVH(Activity act, int viewType);
-    public abstract void bind(VH holder, T data);
-    public void bind(VH holder, T data, int position){
-        bind(holder, data);
-    }
+    protected abstract VhBase2 getVh(Activity act, int position);
+    protected abstract  void bind(VhBase2 holder, Object data, int position);
 
      protected ApBase2(Activity act, RecyclerView rv){
-        this.act = act;
-        this.rv = rv;
-         /*rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-             @Override
-             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                 super.onScrollStateChanged(recyclerView, newState);
-                 switch (newState){
-                     case RecyclerView.SCROLL_STATE_IDLE:
-                         isScrolling = false;
-                         Log.d(TAG, "SCROLL_STATE_IDLE : loadData");
-                         break;
-//                     case RecyclerView.SCROLL_STATE_DRAGGING:
-//                     case RecyclerView.SCROLL_STATE_SETTLING:
-//                     default:
-//                             isScrolling = true;
-//                         break;
-                 }
-             }
-//             @Override
-//             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                 super.onScrolled(recyclerView, dx, dy);
-//             }
-         });*/
-         /*rv.setOnFlingListener(new RecyclerView.OnFlingListener() {
-             @Override
-             public boolean onFling(int velocityX, int velocityY) {
-                 isScrolling = Math.abs(velocityY) > SCROLL_FLING_THRESHOLD;
-                 Log.d(TAG, "SCROLL_FLING_THRESHOLD : " + isScrolling);
-                 return isScrolling;
-             }
-         });*/
+         this.act = act;
+         this.rv = rv;
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return getVH(act, viewType);
+    public VhBase2 onCreateViewHolder(ViewGroup parent, int viewType) {
+        return getVh(act, viewType);
     }
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
-        holder.itemView.post(() -> bind(holder, data.get(position), position));
-        /*if(!isScrolling){
-            holder.itemView.post(() -> bind(holder, data.get(position), position));
-        }*/
+    public void onBindViewHolder(VhBase2 holder, int position) {
+        bind(holder, data.get(position), position);
     }
 
     @Override
@@ -86,19 +50,20 @@ public abstract class ApBase2<VH extends VhBase<T>, T> extends RecyclerView.Adap
         return data.size();
     }
 
-    public void setData(List<T> d){
+    public void setData(List<Object> d){
+        /*if(data == null) data = new ArrayList<T>();
+        else data.clear();*/
         data = new ArrayList<>();
         data.addAll(d);
         notifyDataSetChanged();
     }
-
-    public void addData(List<T> d){
-        if(data == null) data = new ArrayList<T>();
+    public void addData(List<Object> d){
+        if(data == null) data = new ArrayList<Object>();
         data.addAll(d);
         notifyDataSetChanged();
     }
-    public List<T> getData(){
+    public List<Object> getData(){
         return data;
     }
-
+    
 }

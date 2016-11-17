@@ -35,7 +35,7 @@ public class SvWithRv extends ScrollView {
         int action = e.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                downX = (int) e.getRawX();
+//                downX = (int) e.getRawX();
                 downY = (int) e.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:

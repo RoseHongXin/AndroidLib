@@ -1,4 +1,4 @@
-package hx.ui.widgets;
+package hx.ui.vp;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

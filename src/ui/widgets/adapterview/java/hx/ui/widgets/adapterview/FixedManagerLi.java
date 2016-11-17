@@ -9,15 +9,19 @@ import android.view.ViewGroup;
 
 /**
  * Created by Rose on 11/15/2016.
+ *
+ * if the recyclerview is nested in a scrollview, maybe it can't be stretched by the items.
+ * compute the exact size of every item, it'll help a lot.
+ *
  */
-public class FullyLinearLayoutManager extends LinearLayoutManager {
+public class FixedManagerLi extends LinearLayoutManager {
 
-    private final String TAG = FullyLinearLayoutManager.class.getSimpleName();
+    private final String TAG = FixedManagerLi.class.getSimpleName();
 
-    public FullyLinearLayoutManager(Context context) {
+    public FixedManagerLi(Context context) {
         super(context);
     }
-    public FullyLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
+    public FixedManagerLi(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
     }
 
@@ -46,14 +50,10 @@ public class FullyLinearLayoutManager extends LinearLayoutManager {
                     mMeasuredDimension);
             if (getOrientation() == HORIZONTAL) {
                 width = width + mMeasuredDimension[0];
-                if (i == 0) {
-                    height = mMeasuredDimension[1];
-                }
+                if (i == 0) height = mMeasuredDimension[1];
             } else {
                 height = height + mMeasuredDimension[1];
-                if (i == 0) {
-                    width = mMeasuredDimension[0];
-                }
+                if (i == 0) width = mMeasuredDimension[0];
             }
         }
         switch (widthMode) {

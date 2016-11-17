@@ -1,6 +1,7 @@
 package hx.ui.widgets.adapterview;
 
 import android.app.Activity;
+import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,22 +15,20 @@ import java.util.List;
  * Created by rose on 16-8-12.
  */
 
-public abstract class ApBase<VH extends VhBase<T>, T> extends RecyclerView.Adapter<VH> {
+public abstract class ApBase<Vh extends VhBase<T>, T> extends RecyclerView.Adapter<Vh> {
 
     final String TAG = "--ApBase--";
 
     final int SCROLL_FLING_THRESHOLD = 4000;
+    private boolean isScrolling = false;
 
     private List<T> data = new ArrayList<T>();
     protected Activity act;
     protected RecyclerView rv;
 
-    private boolean isScrolling = false;
-
-    public abstract VH getVH(Activity act);
-    public abstract void bind(VH holder, T data);
-    public void bind(VH holder, T data, int position){
-        bind(holder, data);
+    public abstract Vh getVh(Activity act);
+    @CallSuper protected void bind(Vh holder, T data, int position){
+        holder.bind(data, position);
     }
 
      protected ApBase(Activity act, RecyclerView rv){
@@ -67,17 +66,18 @@ public abstract class ApBase<VH extends VhBase<T>, T> extends RecyclerView.Adapt
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return getVH(act);
+    public Vh onCreateViewHolder(ViewGroup parent, int viewType) {
+        return getVh(act);
     }
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(Vh holder, int position) {
 //        holder.itemView.post(() -> bind(holder, data.get(position), position));
+//        if(!isScrolling){
+//            holder.itemView.post(() -> bind(holder, data.get(position), position));
+//        }
         bind(holder, data.get(position), position);
-        /*if(!isScrolling){
-            holder.itemView.post(() -> bind(holder, data.get(position), position));
-        }*/
+//        holder.bind(data.get(position), position);
     }
 
     @Override

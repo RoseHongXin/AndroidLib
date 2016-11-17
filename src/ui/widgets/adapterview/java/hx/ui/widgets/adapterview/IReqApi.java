@@ -7,7 +7,7 @@ import rx.Observable;
  * Created by Rose on 10/13/2016.
  */
 
-public interface IReqObservableApi<T> {
+public interface IReqApi<T> {
 
-    Observable<Pager<T>> get(int page);
+    Observable<Pager<T>> get();
 }

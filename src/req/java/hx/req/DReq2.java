@@ -67,6 +67,7 @@ public class DReq2 {
     }
 
 
+
     public void dismiss(){
         if(dialog != null && dialog.isShowing()) dialog.dismiss();
     }

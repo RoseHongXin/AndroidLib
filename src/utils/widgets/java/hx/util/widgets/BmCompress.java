@@ -2,13 +2,17 @@ package hx.util.widgets;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by Rose on 11/3/2016.
  */
+
 public class BmCompress {
 
     private Bitmap doByQuality(Bitmap image) {
@@ -24,21 +28,44 @@ public class BmCompress {
         Bitmap bitmap = BitmapFactory.decodeStream(isBm,null,null);
         return bitmap;
     }
-    private Bitmap doByQuality(String path, final int MAX_SIZE) {
+    public static String doByQuality(String srcPath, final int MAX_SIZE) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = false;
-        Bitmap image = BitmapFactory.decodeFile(path, newOpts);
+        Bitmap bm = BitmapFactory.decodeFile(srcPath, newOpts);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        int options = 100;
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        int quality = 100;
         while( baos.toByteArray().length / 1024 > MAX_SIZE) {
             baos.reset();
-            options -= 10;
-            image.compress(Bitmap.CompressFormat.JPEG, options, baos);
+            quality -= 10;
+            bm.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         }
-        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
-        Bitmap bitmap = BitmapFactory.decodeStream(isBm,null,null);
-        return bitmap;
+        File in = new File(srcPath);
+        String parent = in.getParent();
+        String srcName = in.getName();
+        String outName = srcName.substring(0, srcName.indexOf(".")) + "_compressed";
+        File out = new File(parent + "/" + outName + srcName.substring(srcName.indexOf(".")));
+        if(!out.exists()){
+            try {
+                if(!out.createNewFile()) return null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(out);
+            fos.write(baos.toByteArray());
+            fos.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+//        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+//        Bitmap bitmap = BitmapFactory.decodeStream(isBm,null,null);
+        return out.getPath();
     }
 
     private Bitmap doBySize(String srcPath) {

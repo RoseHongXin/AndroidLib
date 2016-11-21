@@ -8,6 +8,4 @@ package hx.ui.widgets.adapterview;
  */
 public interface ISFAp2Base {
 
-    public int flag = 0;
-
 }

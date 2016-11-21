@@ -17,9 +17,6 @@ public abstract class RetrofitBase {
     protected <T> Observable<T> request(Observable<RespBase<T>> observable, Activity act, String note){
         return request(observable, act, note, null);
     }
-    protected abstract <T> Observable<T> request(Observable<RespBase<T>> observable, Activity act, String note, Callback cb);
+    protected abstract <T> Observable<T> request(Observable<RespBase<T>> observable, Activity act, String note, IRespCallback cb);
 
-    protected interface Callback {
-        void onResp(int code);
-    }
 }

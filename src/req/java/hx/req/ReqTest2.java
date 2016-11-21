@@ -32,7 +32,7 @@ public class ReqTest2 extends RetrofitBase2 {
 
 
     @Override
-    protected <T> Observable<T> request(Observable<RespBase<T>> observable, DialogPlus dialog, Callback cb) {
+    protected <T> Observable<T> request(Observable<RespBase<T>> observable, DialogPlus dialog, IRespCallback cb) {
         if(dialog != null) dialog.show();
         return observable
                 .subscribeOn(Schedulers.newThread())

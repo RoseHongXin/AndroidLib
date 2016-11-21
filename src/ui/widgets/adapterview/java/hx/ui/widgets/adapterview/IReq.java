@@ -5,9 +5,11 @@ import rx.Observable;
 
 /**
  * Created by Rose on 10/13/2016.
+ *
+ * get one page data, without paging.
+ *
  */
 
-public interface IReqApi<T> {
-
+public interface IReq<T> {
     Observable<Pager<T>> get();
 }

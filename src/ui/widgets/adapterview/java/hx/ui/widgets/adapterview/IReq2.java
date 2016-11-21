@@ -5,9 +5,12 @@ import rx.Observable;
 
 /**
  * Created by Rose on 10/13/2016.
+ *
+ * paging.
+ *
  */
 
-public interface IReqApi2<T> {
+public interface IReq2<T> {
 
     Observable<Pager<T>> get(int page);
 }

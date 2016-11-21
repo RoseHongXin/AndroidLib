@@ -11,13 +11,13 @@ import java.util.List;
  */
 
 
-public class RvLoaderV<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
+public class RvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
 
     RecyclerView _rv;
     Ap adapter;
     Activity act;
 
-    private RvLoaderV init(){
+    private RvLoader init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
@@ -25,7 +25,7 @@ public class RvLoaderV<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
         return this;
 
     }
-    public RvLoaderV init(Activity act, RecyclerView _rv, Ap adapter, List<T> data){
+    public RvLoader init(Activity act, RecyclerView _rv, Ap adapter, List<T> data){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -33,7 +33,7 @@ public class RvLoaderV<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
         return init();
     }
 
-    public RvLoaderV init(Activity act, RecyclerView _rv, Ap adapter, IReqApi<T> reqApi){
+    public RvLoader init(Activity act, RecyclerView _rv, Ap adapter, IReq<T> reqApi){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;

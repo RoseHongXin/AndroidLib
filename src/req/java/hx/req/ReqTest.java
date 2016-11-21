@@ -31,7 +31,7 @@ public class ReqTest extends RetrofitBase {
 
 
     @Override
-    protected <T> Observable<T> request(Observable<RespBase<T>> observable, Activity act, String note, Callback cb) {
+    protected <T> Observable<T> request(Observable<RespBase<T>> observable, Activity act, String note, IRespCallback cb) {
         if(act == null){
             if(dReq != null && dReq.isShowing()) dReq.dismiss();
             dReq = null;

@@ -12,13 +12,13 @@ import java.util.List;
  */
 
 
-public class RvLoaderWithAp2<Ap extends Ap2Base> {
+public class RvLoaderAp2<Ap extends Ap2Base> {
 
     RecyclerView _rv;
     Ap adapter;
     Activity act;
 
-    private RvLoaderWithAp2 init(){
+    private RvLoaderAp2 init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
@@ -27,13 +27,13 @@ public class RvLoaderWithAp2<Ap extends Ap2Base> {
 
     }
 
-    public RvLoaderWithAp2 init(Activity act, RecyclerView _rv, Ap adapter){
+    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
         return init();
     }
-    public RvLoaderWithAp2 init(Activity act, RecyclerView _rv, Ap adapter, List data){
+    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter, List data){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -41,7 +41,7 @@ public class RvLoaderWithAp2<Ap extends Ap2Base> {
         return init();
     }
 
-    public RvLoaderWithAp2 init(Activity act, RecyclerView _rv, Ap adapter, IReqApi<ISFAp2Base> reqCallback){
+    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter, IReq<ISFAp2Base> reqCallback){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;

@@ -6,13 +6,13 @@ import com.jcodecraeer.xrecyclerview.ArrowRefreshHeader;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.lang.reflect.Field;
 
+import hx.req.IReqConstant;
+
 /**
  * Created by rose on 16-8-12.
  */
 
-public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
-
-    final int REFRESH_TIME_THRESHOLD = 256;
+public class XRVLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
 
     XRecyclerView _rv;
     Ap adapter;
@@ -20,7 +20,7 @@ public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
     XRecyclerView.LoadingListener listener;
     ArrowRefreshHeader refreshHeader;
 
-    public XRecyclerViewLoader init(){
+    public XRVLoader init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
@@ -48,7 +48,7 @@ public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
         }
     }
 
-    public XRecyclerViewLoader init(Activity act, XRecyclerView _rv, Ap adapter, IReqApi2<T> reqApi){
+    public XRVLoader init(Activity act, XRecyclerView _rv, Ap adapter, IReq2<T> reqApi){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -58,7 +58,7 @@ public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
             @Override
             public void onRefresh() {
                 reqApi.get(1)
-                        .doOnCompleted(() -> _rv.postDelayed(_rv::refreshComplete, REFRESH_TIME_THRESHOLD))
+                        .doOnCompleted(() -> _rv.postDelayed(_rv::refreshComplete, IReqConstant.REFRESH_TIME_THRESHOLD))
                         .subscribe(res -> {
                             //api has handled this occasion. this's could be removed.
                             if(res != null){
@@ -70,7 +70,7 @@ public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
             @Override
             public void onLoadMore() {
                 reqApi.get(curPage + 1)
-                        .doOnCompleted(() -> _rv.postDelayed(_rv::loadMoreComplete, REFRESH_TIME_THRESHOLD))
+                        .doOnCompleted(() -> _rv.postDelayed(_rv::loadMoreComplete, IReqConstant.REFRESH_TIME_THRESHOLD))
                         .subscribe(res -> {
                             //api has handled this occasion. this's could be removed.
                             if(res != null && !res.list.isEmpty()) {
@@ -83,7 +83,7 @@ public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
         registerListener(listener);
         return init();
     }
-    public XRecyclerViewLoader init(Activity act, XRecyclerView _rv, Ap adapter, IReqHandler<T> reqHandler){
+    public XRVLoader init(Activity act, XRecyclerView _rv, Ap adapter, IReq4<T> reqHandler){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -94,7 +94,10 @@ public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
             public void onRefresh() {
                 reqHandler.onRefresh();
                 reqHandler.getReqApi(1)
-                        .doOnCompleted(() -> _rv.postDelayed(_rv::refreshComplete, REFRESH_TIME_THRESHOLD))
+                        .doOnCompleted(() -> {
+                            _rv.postDelayed(_rv::refreshComplete, IReqConstant.REFRESH_TIME_THRESHOLD);
+                            reqHandler.onComplete();
+                        })
                         .subscribe(res -> {
                             //api has handled this occasion. this's could be removed.
                             if(res != null){
@@ -106,7 +109,10 @@ public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
             @Override
             public void onLoadMore() {
                 reqHandler.getReqApi(curPage + 1)
-                        .doOnCompleted(() -> _rv.postDelayed(_rv::loadMoreComplete, REFRESH_TIME_THRESHOLD))
+                        .doOnCompleted(() -> {
+                            _rv.postDelayed(_rv::loadMoreComplete, IReqConstant.REFRESH_TIME_THRESHOLD);
+                            reqHandler.onComplete();
+                        })
                         .subscribe(res -> {
                             //api has handled this occasion. this's could be removed.
                             if(res != null && !res.list.isEmpty()) {
@@ -120,61 +126,11 @@ public class XRecyclerViewLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> 
         return init();
     }
 
-    public XRecyclerViewLoader init(Activity act, XRecyclerView _rv, Ap adapter, IReqHandler2<T> reqHandler2){
-        this.act = act;
-        this._rv = _rv;
-        this.adapter = adapter;
-//        this.reqHandler2 = reqHandler2;
-        XRecyclerView.LoadingListener listener = new XRecyclerView.LoadingListener() {
-            volatile int curPage = 1;
-            @Override
-            public void onRefresh() {
-                reqHandler2.getReqApi(1)
-                        .doOnCompleted(() -> {
-                            _rv.postDelayed(_rv::refreshComplete, REFRESH_TIME_THRESHOLD);
-                            reqHandler2.onComplete();
-                        })
-                        .subscribe(res -> {
-                            if(res != null){
-                                curPage = 1;
-                                adapter.setData(res.list);
-                            }
-                        });
-            }
-            @Override
-            public void onLoadMore() {
-                reqHandler2.getReqApi(curPage + 1)
-                        .doOnCompleted(() -> {
-                            _rv.postDelayed(_rv::loadMoreComplete, REFRESH_TIME_THRESHOLD);
-                            reqHandler2.onComplete();
-                        })
-                        .subscribe(res -> {
-                            if(res != null && !res.list.isEmpty()) {
-                                ++curPage;
-                                adapter.addData(res.list);
-                            }
-                        });
-            }
-        };
-        registerListener(listener);
-        return init();
-    }
-
-   /* private <T> void refreshFinish(Pager<T> pager){
-
-    }
-    private <T> void loadMoreFinish(Pager<T> pager){
-        if(pager != null && !pager.list.isEmpty()) {
-            ++curPage;
-            adapter.addData(pager.list);
-        }
-    }*/
-
     public void doRefresh(){
         refreshHeader.setState(ArrowRefreshHeader.STATE_REFRESHING);
         refreshHeader.setVisiableHeight(refreshHeader.mMeasuredHeight);
         _rv.postDelayed(() -> {
             listener.onRefresh();
-        }, REFRESH_TIME_THRESHOLD);
+        }, IReqConstant.REFRESH_TIME_THRESHOLD);
     }
 }

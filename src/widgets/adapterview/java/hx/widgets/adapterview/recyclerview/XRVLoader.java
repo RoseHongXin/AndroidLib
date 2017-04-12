@@ -1,4 +1,4 @@
-package hx.widgets.adapterview;
+package hx.widgets.adapterview.recyclerview;
 
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,18 +7,21 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.lang.reflect.Field;
 
 import hx.req.IReqConstant;
+import hx.widgets.adapterview.IReq2;
+import hx.widgets.adapterview.IReq4;
+import hx.widgets.adapterview.VhBase;
 
 /**
  * Created by rose on 16-8-12.
  */
 
-public class XRVLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
+public class XRVLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
 
-    XRecyclerView _rv;
-    Ap adapter;
-    Activity act;
-    XRecyclerView.LoadingListener listener;
-    ArrowRefreshHeader refreshHeader;
+    private XRecyclerView _rv;
+    private Ap adapter;
+    private Activity act;
+    private XRecyclerView.LoadingListener listener;
+    private ArrowRefreshHeader refreshHeader;
 
     public XRVLoader init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);

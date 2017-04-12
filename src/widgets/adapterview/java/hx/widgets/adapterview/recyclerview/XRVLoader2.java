@@ -1,10 +1,11 @@
-package hx.widgets.adapterview;
+package hx.widgets.adapterview.recyclerview;
 
 import android.app.Activity;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import hx.req.IReqConstant;
+import hx.widgets.adapterview.IReq3;
 
 /**
  * Created by rose on 16-8-12.

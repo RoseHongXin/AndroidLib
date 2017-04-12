@@ -1,23 +1,26 @@
-package hx.widgets.adapterview;
+package hx.widgets.adapterview.recyclerview;
 
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import java.util.List;
+
+import hx.widgets.adapterview.IReq;
 
 /**
  * Created by rose on 16-8-12.
  */
 
 
-public class RvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
+public class RvLoaderAp2<Ap extends Ap2Base> {
 
-    RecyclerView _rv;
-    Ap adapter;
-    Activity act;
+    private RecyclerView _rv;
+    private Ap adapter;
+    private Activity act;
 
-    private RvLoader init(){
+    private RvLoaderAp2 init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
@@ -25,7 +28,14 @@ public class RvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
         return this;
 
     }
-    public RvLoader init(Activity act, RecyclerView _rv, Ap adapter, List<T> data){
+
+    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter){
+        this.act = act;
+        this._rv = _rv;
+        this.adapter = adapter;
+        return init();
+    }
+    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter, List data){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -33,12 +43,12 @@ public class RvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
         return init();
     }
 
-    public RvLoader init(Activity act, RecyclerView _rv, Ap adapter, IReq<T> reqApi){
+    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter, IReq<ISFAp2Base> reqCallback){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
         init();
-        reqApi.get()
+        reqCallback.get()
                 .subscribe(res -> {
                     if(res == null || res.list.isEmpty()){
                         _rv.setVisibility(View.GONE);
@@ -49,4 +59,5 @@ public class RvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
                 });
         return this;
     }
+    
 }

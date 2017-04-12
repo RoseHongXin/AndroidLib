@@ -1,34 +1,35 @@
-package hx.widgets.adapterview;
+package hx.widgets.adapterview.recyclerview;
 
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import hx.widgets.adapterview.IReq3;
 
 /**
  * Created by rose on 16-8-12.
  */
 
 @Deprecated
-public class RvLoaderBase<Rv extends RecyclerView, Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
+public abstract class RvLoaderBaseAp2<Rv extends RecyclerView, Ap extends Ap2Base> {
 
-    Rv _rv;
+//    Rv _rv;
     Ap adapter;
     Activity act;
 
-    public RvLoaderBase(Activity act, Rv _rv, Ap adapter){
+    public RvLoaderBaseAp2(Activity act, Rv _rv, Ap adapter){
         this.act = act;
-        this._rv = _rv;
         this.adapter = adapter;
+        init(_rv);
+
+    }
+    private void init(Rv _rv){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
         _rv.setAdapter(adapter);
     }
 
-    /*protected RvLoaderBase init(IReq2<T> reqApi){
-        return this;
-    }
-    protected RvLoaderBase init(IReq4<T> reqHandler){
-        return this;
-    }*/
+//    protected abstract <T> RvLoaderBaseAp2 init(IReq2<Pager<T>> reqApi);
+    protected abstract RvLoaderBaseAp2 init(IReq3 reqHandler);
 }

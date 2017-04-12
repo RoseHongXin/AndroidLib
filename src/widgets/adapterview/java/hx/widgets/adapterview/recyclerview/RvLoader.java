@@ -1,24 +1,26 @@
-package hx.widgets.adapterview;
+package hx.widgets.adapterview.recyclerview;
 
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import java.util.List;
+
+import hx.widgets.adapterview.IReq;
+import hx.widgets.adapterview.VhBase;
 
 /**
  * Created by rose on 16-8-12.
  */
 
 
-public class RvLoaderAp2<Ap extends Ap2Base> {
+public class RvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T> {
 
     RecyclerView _rv;
     Ap adapter;
     Activity act;
 
-    private RvLoaderAp2 init(){
+    private RvLoader init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(act);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
@@ -26,14 +28,7 @@ public class RvLoaderAp2<Ap extends Ap2Base> {
         return this;
 
     }
-
-    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter){
-        this.act = act;
-        this._rv = _rv;
-        this.adapter = adapter;
-        return init();
-    }
-    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter, List data){
+    public RvLoader init(Activity act, RecyclerView _rv, Ap adapter, List<T> data){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
@@ -41,12 +36,12 @@ public class RvLoaderAp2<Ap extends Ap2Base> {
         return init();
     }
 
-    public RvLoaderAp2 init(Activity act, RecyclerView _rv, Ap adapter, IReq<ISFAp2Base> reqCallback){
+    public RvLoader init(Activity act, RecyclerView _rv, Ap adapter, IReq<T> reqApi){
         this.act = act;
         this._rv = _rv;
         this.adapter = adapter;
         init();
-        reqCallback.get()
+        reqApi.get()
                 .subscribe(res -> {
                     if(res == null || res.list.isEmpty()){
                         _rv.setVisibility(View.GONE);
@@ -57,5 +52,4 @@ public class RvLoaderAp2<Ap extends Ap2Base> {
                 });
         return this;
     }
-    
 }

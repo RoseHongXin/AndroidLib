@@ -13,4 +13,5 @@ import rx.Observable;
 public interface IReq2<T> {
 
     Observable<Pager<T>> get(int page);
+
 }

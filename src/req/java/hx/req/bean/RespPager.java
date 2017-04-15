@@ -6,7 +6,7 @@ package hx.req.bean;
 
 public class RespPager<T> {
 
-    public Pager<T> pager;
+    private Pager<T> pager;
 
     public Pager<T> getPager() {
         return pager;

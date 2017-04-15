@@ -3,22 +3,22 @@ package hx.components;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import hx.global.R;
+import hx.lib.R;
 
 /**
  * Created by rose on 16-8-12.
  */
 
 public abstract class ABase extends AppCompatActivity {
+
+    private ViewGroup mLayout;
 
     @LayoutRes
     public abstract int _getLayoutRes();
@@ -46,9 +46,15 @@ public abstract class ABase extends AppCompatActivity {
             content.addView(_tb);
             content.addView(layout);
             setContentView(content);
+            mLayout = content;
         }else{
             setContentView(layout);
+            mLayout = (ViewGroup) layout;
         }
+    }
+
+    public ViewGroup _getLayout(){
+        return mLayout;
     }
 
 }

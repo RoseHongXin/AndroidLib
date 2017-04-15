@@ -13,7 +13,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.DialogPlusBuilder;
 import com.orhanobut.dialogplus.ViewHolder;
 
-import hx.global.R;
+import hx.lib.R;
 
 /**
  * Created by rose on 16-8-2.
@@ -21,8 +21,8 @@ import hx.global.R;
 
 public class DReq {
 
-    static DialogPlus dialog;
-    static DReq progress;
+    private static DialogPlus dialog;
+    private static DReq progress;
 
     private DReq(Activity act, String note){
         View l = act.getLayoutInflater().inflate(R.layout.d_req, null);

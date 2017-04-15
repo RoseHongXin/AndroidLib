@@ -20,7 +20,7 @@
 
 #-dontwarn
 #-dontoptimize
-#-dontpreverify
+#-dontpreopt
 #-dontshrink
 #-dontskipnonpubliclibraryclasses
 #-dontskipnonpubliclibraryclassmembers

@@ -35,7 +35,7 @@ public class SpUtil {
         if(mSp != null) mSp.edit().putString(key, data).apply();
     }
 
-    public void clear(String key) {
+    public static void clear(String key) {
         if (mSp != null && mSp.contains(key)) {
             mSp.edit().putString(key, "").apply();
         }

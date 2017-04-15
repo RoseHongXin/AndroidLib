@@ -31,4 +31,8 @@ public class VhBase<T> extends RecyclerView.ViewHolder {
         this.data = data;
         this.position = position;
     }
+
+    public T getData(){
+        return data;
+    }
 }

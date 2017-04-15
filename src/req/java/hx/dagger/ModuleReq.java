@@ -9,12 +9,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import hx.dagger.helper.RequestScope;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -27,11 +31,10 @@ import timber.log.Timber;
 @Module
 public class ModuleReq {
 
-    final String TAG = "--ModuleReq--:";
+    /*private final String TAG = "--ModuleReq--:";
 
-    private static String mEndPoint;
-    public static String getEndPoint(){ return mEndPoint; }
-
+    private String mEndPoint;
+    private CookieJar mCookieJar;
 
     public ModuleReq(String mEndPoint){
         this.mEndPoint = mEndPoint;
@@ -68,13 +71,24 @@ public class ModuleReq {
                 .connectTimeout(1, TimeUnit.MINUTES)
                 //.cache(new Cache(new File(""), 128))
                 .addInterceptor(logging)
+                .cookieJar(new CookieJar() {
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url) {
+                        return null;
+                    }
+                })
                 .addNetworkInterceptor(chain -> {
                     Request.Builder builder = chain.request().newBuilder();
                     builder.addHeader("X-Requested-With", "XMLHttpRequest");
                     //Response res = chain.proceed(builder.build());
                     return chain.proceed(builder.build());
                 })
-                /*.cookieJar(new CookieJar() {
+                *//*.cookieJar(new CookieJar() {
                     @Ovchainerride
                     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
                         for(Cookie c: cookies){
@@ -85,7 +99,7 @@ public class ModuleReq {
                     public List<Cookie> loadForRequest(HttpUrl url) {
                         return new ArrayList<Cookie>();
                     }
-                })*/
+                })*//*
                 .build();
-    }
+    }*/
 }

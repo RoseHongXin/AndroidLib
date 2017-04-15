@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import hx.global.R;
+import hx.lib.R;
 
 /**
  * 弹出提示经度框

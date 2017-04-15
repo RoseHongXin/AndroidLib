@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import rx.Observable;
+
 /**
  * Created by rose on 16-8-11.
  */
@@ -25,7 +27,7 @@ public abstract class FRefreshBase extends Fragment {
     boolean isVisibleToUser = false;
     int pageVisibleCount = 1;
     long pageLastValidTimeMillis = 0;
-    IFraRefreshListener fraRefreshListener;
+    IRefreshCallback fraRefreshListener;
 
     @IdRes final int ID_SRL = 1;
 
@@ -35,14 +37,14 @@ public abstract class FRefreshBase extends Fragment {
     @LayoutRes public abstract int _getLayoutRes();
     public abstract IRefreshCallback _registerRefreshCallback();
     //acting more like boolean, if null, then there would be no refresh widget.
-    public abstract View _getTitleBar();
+//    public abstract View _getTitleBar();
     //public abstract void onVisible();
     //should use abstract method.
-    public void _registerFraRefreshListener(IFraRefreshListener listener){
+    public void _registerFraRefreshListener(IRefreshCallback listener){
         this.fraRefreshListener = listener;
         this.expire = DEFAULT_EXPIRE;
     }
-    public void _registerFraRefreshListener(IFraRefreshListener listener, int expire){
+    public void _registerFraRefreshListener(IRefreshCallback listener, int expire){
         this.fraRefreshListener = listener;
         /*if(expire <= 0) this.expire = DEFAULT_EXPIRE;
         else this.expire = expire;*/
@@ -54,7 +56,7 @@ public abstract class FRefreshBase extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View layout = inflater.inflate(_getLayoutRes(), container, false);
-        View titleBar = _getTitleBar();
+//        View titleBar = _getTitleBar();
         refreshCallback = _registerRefreshCallback();
         if(refreshCallback != null){
             _srl = new SwipeRefreshLayout(getContext());
@@ -64,14 +66,14 @@ public abstract class FRefreshBase extends Fragment {
             _srl.setOnRefreshListener(() -> refreshCallback.onRefresh());
             layout = _srl;
         }
-        if(titleBar != null){
+        /*if(titleBar != null){
             LinearLayout content = new LinearLayout(getContext());
             content.setOrientation(LinearLayout.VERTICAL);
             content.setLayoutParams(new LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             content.addView(titleBar);
             content.addView(layout);
             layout = content;
-        }
+        }*/
         return layout;
     }
 
@@ -98,7 +100,7 @@ public abstract class FRefreshBase extends Fragment {
     public void onResume() {
         super.onResume();
         if(ifNeedRefreshPage()) {
-            fraRefreshListener.onPageRefresh();
+            fraRefreshListener.onRefresh();
             /*this.getView().postDelayed(() -> {
                 fraRefreshListener.onPageRefresh();
             }, 1000);*/
@@ -115,7 +117,7 @@ public abstract class FRefreshBase extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        if(ifNeedRefreshPage()) fraRefreshListener.onPageRefresh();
+        if(ifNeedRefreshPage()) fraRefreshListener.onRefresh();
     }
 
     protected void _stopRefresh(){

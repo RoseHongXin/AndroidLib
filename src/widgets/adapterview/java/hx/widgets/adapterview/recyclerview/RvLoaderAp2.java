@@ -8,6 +8,7 @@ import android.view.View;
 import java.util.List;
 
 import hx.widgets.adapterview.IReq;
+import hx.widgets.adapterview.ISFAp2Base;
 
 /**
  * Created by rose on 16-8-12.

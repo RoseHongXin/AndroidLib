@@ -2,6 +2,7 @@ package hx.widgets.adapterview.listview;
 
 import android.app.Activity;
 import android.support.annotation.CallSuper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,11 +20,11 @@ import hx.widgets.adapterview.VhBase;
 
 public abstract class ApBase<Vh extends VhBase<T>, T> extends BaseAdapter {
 
-    final String TAG = "--ApBase--";
+    final String TAG = "--ApBase:ListView--";
 
     private List<T> mDatas = new ArrayList<T>();
-    protected Activity act;
-    protected ListView lv;
+    protected Activity mAct;
+    protected ListView _lv;
     protected IItemClickListener<T> mClickListener;
 
     public abstract Vh getVh(Activity act);
@@ -36,8 +37,8 @@ public abstract class ApBase<Vh extends VhBase<T>, T> extends BaseAdapter {
     }
 
     protected ApBase(Activity act, ListView lv){
-        this.act = act;
-        this.lv = lv;
+        this.mAct = act;
+        this._lv = lv;
     }
 
     @Override
@@ -57,7 +58,14 @@ public abstract class ApBase<Vh extends VhBase<T>, T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        Vh holder;
+        if (convertView == null) {
+            holder = getVh(mAct);
+            convertView = holder.itemView;
+            convertView.setTag(holder);
+        } else holder = (Vh) convertView.getTag();
+        holder.bind(mDatas.get(position), position);
+        return holder.itemView;
     }
 
     public void setData(List<T> datas){

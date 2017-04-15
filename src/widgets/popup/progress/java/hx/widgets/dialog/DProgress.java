@@ -11,7 +11,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.DialogPlusBuilder;
 import com.orhanobut.dialogplus.ViewHolder;
 
-import hx.global.R;
+import hx.lib.R;
 
 /**
  * Created by rose on 16-8-2.

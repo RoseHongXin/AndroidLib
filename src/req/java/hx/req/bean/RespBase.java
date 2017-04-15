@@ -6,9 +6,9 @@ package hx.req.bean;
 
 public class RespBase<T> {
 
-    int code;
-    String msg;
-    T data;
+    private int code;
+    private String msg;
+    private T data;
 
     public boolean isSuccess(){
         if(code == 1) return true;

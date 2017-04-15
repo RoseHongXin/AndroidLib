@@ -10,10 +10,15 @@ import android.view.MotionEvent;
  */
 public class VpNoSwipe extends ViewPager {
 
-    boolean swipeScrollEnabled = false;
+    boolean mSwipeScrollEnabled = false;
+    boolean mSwitchAnimationEnabled = false;
 
     public void setSwipeScrollEnabled(boolean enabled){
-        this.swipeScrollEnabled = enabled;
+        this.mSwipeScrollEnabled = enabled;
+    }
+
+    public void setSwitchAnimationEnabled(boolean enabled) {
+        this.mSwitchAnimationEnabled = enabled;
     }
 
     public VpNoSwipe(Context context) {
@@ -26,21 +31,22 @@ public class VpNoSwipe extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return swipeScrollEnabled && super.onTouchEvent(ev);
+        return mSwipeScrollEnabled && super.onTouchEvent(ev);
     }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return swipeScrollEnabled && super.onInterceptTouchEvent(ev);
+        return mSwipeScrollEnabled && super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public void setCurrentItem(int item, boolean smoothScroll) {
+//        super.setCurrentItem(item, false);
+        super.setCurrentItem(item, smoothScroll);
     }
 
     //去除页面切换时的滑动翻页效果
     @Override
-    public void setCurrentItem(int item, boolean smoothScroll) {
-        super.setCurrentItem(item, false);
-    }
-
-    @Override
     public void setCurrentItem(int item) {
-        super.setCurrentItem(item, false);
+        super.setCurrentItem(item, mSwitchAnimationEnabled);
     }
 }

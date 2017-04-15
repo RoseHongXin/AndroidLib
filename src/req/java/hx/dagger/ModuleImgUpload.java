@@ -13,7 +13,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @Module
 public class ModuleImgUpload {
 
-    @Provides
+    /*@Provides
     @Named("upload")
     public Retrofit getRetrofit(@Named("upload") okhttp3.OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
@@ -30,11 +30,11 @@ public class ModuleImgUpload {
                 .readTimeout(2, TimeUnit.MINUTES)
                 .writeTimeout(2, TimeUnit.MINUTES)
                 .connectTimeout(2, TimeUnit.MINUTES)
-                /*.addInterceptor(chain -> {
+                *//*.addInterceptor(chain -> {
                     Request req = chain.request();
                     req.newBuilder().addHeader("", "");
                     return chain.proceed(req);
-                })*/
+                })*//*
                 .build();
-    }
+    }*/
 }

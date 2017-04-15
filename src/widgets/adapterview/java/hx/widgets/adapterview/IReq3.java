@@ -11,5 +11,6 @@ import rx.Observable;
  */
 
 public interface IReq3<T> {
+
     Observable getReqTrigger(boolean refresh);
 }

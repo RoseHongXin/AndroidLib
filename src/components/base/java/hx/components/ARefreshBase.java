@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import hx.global.R;
+import hx.lib.R;
 
 /**
  * Created by rose on 16-8-12.

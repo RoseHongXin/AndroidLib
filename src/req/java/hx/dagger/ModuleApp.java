@@ -16,7 +16,7 @@ import hx.warehouse.StoreScope;
 @Module
 public abstract class ModuleApp<T extends Application> {
 
-    private Context mCtx;
+    /*private Context mCtx;
     private T mApp;
 
     public ModuleApp(T app) {
@@ -32,5 +32,5 @@ public abstract class ModuleApp<T extends Application> {
     @Provides
     public T getApplication(){
         return mApp;
-    }
+    }*/
 }

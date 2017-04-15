@@ -16,7 +16,7 @@ import hx.lib.R;
  */
 public class UIutils {
 
-    public static Toolbar addToolBar(Activity act, @DrawableRes int icon, String title, IconClickCallback callback){
+   /* public static Toolbar addToolBar(Activity act, @DrawableRes int icon, String title, IconClickCallback callback){
         Toolbar _tb =  (Toolbar) ((LayoutInflater)act.getSystemService(Activity.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.tb_simple, null);
         ImageView iv_icon = (ImageView) _tb.findViewById(R.id._iv_icon);
         iv_icon.setImageResource(icon);
@@ -70,19 +70,6 @@ public class UIutils {
 
     public interface IconClickCallback{
         void onClicked();
-    }
-
-    public static DisplayImageOptions getImageLoaderHeaderConfig(){
-        return new DisplayImageOptions.Builder()
-                .showImageOnFail(R.mipmap.img_header_default)
-                .showImageForEmptyUri(R.mipmap.img_header_default)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build();
-    }
+    }*/
 
 }

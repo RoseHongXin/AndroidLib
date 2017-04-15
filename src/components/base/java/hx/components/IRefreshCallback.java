@@ -7,4 +7,5 @@ package hx.components;
 
 public interface IRefreshCallback {
     void onRefresh();
+
 }

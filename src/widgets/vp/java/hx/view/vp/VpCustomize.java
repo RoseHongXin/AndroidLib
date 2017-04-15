@@ -14,7 +14,10 @@ import java.util.List;
 
 public class VpCustomize {
 
-    public static void configWithTab(ViewPager _vp_, List<Fragment> fras, FragmentManager fm) {
+    public  static <T extends Fragment> void config(ViewPager _vp_, List<T> fras, FragmentManager fm) {
+        config(_vp_, fras, fm, fras.size());
+    }
+    public static <T extends Fragment> void config(ViewPager _vp_, List<T> fras, FragmentManager fm, int offScreenSize){
         _vp_.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override
             public Fragment getItem(int position) {
@@ -27,6 +30,7 @@ public class VpCustomize {
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
                 Fragment fragment = (Fragment)super.instantiateItem(container,position);
+//                Fragment fragment = fras.get(position);
                 fm.beginTransaction().show(fragment).commit();
                 return fragment;
             }
@@ -37,6 +41,6 @@ public class VpCustomize {
                 fm.beginTransaction().hide(fragment).commit();
             }
         });
-        _vp_.setOffscreenPageLimit(fras.size());
+        _vp_.setOffscreenPageLimit(offScreenSize);
     }
 }

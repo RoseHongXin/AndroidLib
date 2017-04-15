@@ -3,16 +3,15 @@ package hx.components.edit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
-import hx.global.R;
 import hx.components.ABase;
-import hx.components.IRefreshCallback;
+import hx.lib.R;
 import hx.utils.rxbus.RxBus;
 import rx.android.widget.WidgetObservable;
 
@@ -69,13 +68,9 @@ public abstract class ABaseEdit extends ABase {
         return R.layout.a_edit;
     }
 
-    @Override
-    public IRefreshCallback _registerRefreshCallback() {
-        return null;
-    }
 
     @Override
-    public Toolbar _askForToolbar() {
+    public View _askForToolbar() {
         Toolbar _tb = (Toolbar) getLayoutInflater().inflate(R.layout.tb_edit, null);
         _tb.setNavigationIcon(R.mipmap.i_edit_back);
         _tb.setNavigationOnClickListener(view -> finish());

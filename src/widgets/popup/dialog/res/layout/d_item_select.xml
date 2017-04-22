@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/dialog_container">
+
+    <hx.view.sv.WheelView
+        android:id="@+id/_whv_"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <View style="@style/line" android:layout_marginTop="@dimen/l_margin_vertical" />
+    <include layout="@layout/l_bts"/>
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--based on relativelayout-->
+
+    <style name="tb">
+        <item name="android:layout_width">match_parent</item>
+        <!--<item name="android:layout_height">@dimen/tb_height</item>-->
+        <item name="android:layout_height">@dimen/tb_height</item>
+        <!--<item name="android:paddingLeft">@dimen/l_padding_horizontal</item>-->
+        <!--<item name="android:paddingRight">@dimen/l_padding_horizontal</item>-->
+        <!--<item name="android:paddingTop">@dimen/tb_padding_vertical</item>-->
+        <!--<item name="android:paddingBottom">@dimen/tb_padding_vertical</item>-->
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+    <style name="tb_item">
+        <item name="android:layout_height">@dimen/tb_height</item>
+        <!--<item name="android:layout_height">match_parent</item>-->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">@dimen/tb_item_width</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/tb_icon_txt_gap</item>
+    </style>
+    <style name="tb_tv" parent="tb_item">
+        <!--<item name="android:textSize">@dimen/tb_txt</item>-->
+        <item name="android:textColor">@color/tb_txt</item>
+    </style>
+    <style name="tb_title" parent="tb_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/tb_txt_title</item>
+        <item name="android:textColor">@color/tb_txt</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+    <style name="tb_iv" parent="tb_item">
+        <item name="android:scaleType">centerInside</item>
+    </style>
+    <style name="tb_iv_right" parent="tb_iv">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+    </style>
+    <style name="tb_tv_right" parent="tb_tv">
+        <!--<item name="android:textSize">@dimen/tb_txt</item>-->
+        <item name="android:textColor">@color/tb_txt</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+    </style>
+</resources>

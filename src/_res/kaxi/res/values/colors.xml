@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#FE6000</color>
+    <color name="colorPrimaryDark">#FE6000</color>
+    <color name="colorAccent">#fe6000</color>
+    <color name="textColorPrimary">#3C3C3C</color>
+    <color name="textColorSecondary">#9F9F9F</color>
+    <color name="windowBackground">#f5f5f5</color>
+    <!--<color name="navigationBarColor">@color/colorPrimaryDark</color>-->
+
+    <color name="_bg">#ffffff</color>
+    <color name="_line">#eeeeee</color>
+
+    <color name="txt_title">#3C3C3C</color>
+    <color name="txt_content">#9F9F9F</color>
+    <color name="txt_emphasize">#FE6000</color>
+    <color name="txt_warning">@android:color/holo_red_light</color>
+
+    <color name="bt_border_default">#E1E1E1</color>
+    <color name="bt_border_active">#FE6000</color>
+    <color name="bt_border_disabled">#AAAAAA</color>
+    <color name="bt_bg">@android:color/transparent</color>
+    <color name="bt_txt_default">#AAAAAA</color>
+    <color name="bt_txt_pressed">#FE6000</color>
+    <color name="bt_txt_disabled">#C1C1C1</color>
+    <color name="bt_txt_opt">#ffffff</color>
+    <color name="bt_bg_opt">@color/colorPrimary</color>
+
+    <color name="tab_txt_default">@color/textColorSecondary</color>
+    <color name="tab_txt_active">@color/colorAccent</color>
+    <color name="tab_bg">#F8F8F8</color>
+
+    <color name="tb_txt">#ffffff</color>
+
+</resources>

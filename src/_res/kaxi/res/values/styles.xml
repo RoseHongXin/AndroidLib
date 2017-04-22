@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="tab_theme_base" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--<style name="pb" parent="@android:style/Widget.ProgressBar.Horizontal">-->
+    <style name="skb" parent="Base.Widget.AppCompat.SeekBar">
+        <item name="android:max">100</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxHeight">2dp</item>
+        <item name="android:isIndicator">false</item>
+        <item name="android:progressDrawable">@drawable/pb_horizontal</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+    </style>
+    
+    <style name="line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/_line</item>
+    </style>
+    <style name="vertical_line">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/_line</item>
+    </style>
+
+    <style name="frame">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">@dimen/l_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/l_padding_horizontal</item>
+        <!--<item name="android:paddingBottom">@dimen/l_padding_vertical</item>-->
+        <!--<item name="android:paddingTop">@dimen/l_padding_vertical</item>-->
+        <item name="android:background">@color/_bg</item>
+        <item name="android:gravity">center_vertical</item>
+        <!--for LinearLayout-->
+        <item name="android:orientation">vertical</item>
+        <!--for layout contains edittext-->
+        <!--<item name="android:focusable">true</item>-->
+        <!--<item name="android:focusableInTouchMode">true</item>-->
+    </style>
+
+</resources>

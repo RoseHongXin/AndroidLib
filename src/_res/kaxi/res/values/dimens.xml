@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="txt_title">18sp</dimen>
+    <dimen name="txt_content">16sp</dimen>
+    <dimen name="txt_agreement">12sp</dimen>
+    <!--<dimen name="txt_et">?android:textSize</dimen>-->
+    <dimen name="txt_et">13sp</dimen>
+
+    <dimen name="bt_height">36dp</dimen>
+    <dimen name="bt_padding_horizontal">12dp</dimen>
+    <dimen name="bt_padding_vertical">6dp</dimen>
+    <dimen name="bt_txt">20sp</dimen>
+    <dimen name="bt_corner">4dp</dimen>
+
+    <dimen name="l_padding_horizontal">16dp</dimen>
+    <dimen name="l_padding_vertical">12dp</dimen>
+    <dimen name="l_padding_vertical_larger">16dp</dimen>
+    <dimen name="l_padding_horizontal_larger">24dp</dimen>
+    <dimen name="l_margin_horizontal">12dp</dimen>
+    <dimen name="l_margin_vertical">12dp</dimen>
+    <dimen name="l_margin_vertical_middle">24dp</dimen>
+    <dimen name="l_margin_horizontal_middle">24dp</dimen>
+    <dimen name="l_margin_horizontal_larger">36dp</dimen>
+    <dimen name="l_margin_vertical_larger">36dp</dimen>
+
+
+
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="tab_padding_vertical">2dp</dimen>
+    <dimen name="tab_icon_txt_gap">2dp</dimen>
+    <dimen name="tab_txt">20sp</dimen>
+
+    <dimen name="tb_height">48dp</dimen>
+    <dimen name="tb_txt">12sp</dimen>
+    <dimen name="tb_txt_title">18sp</dimen>
+    <dimen name="tb_icon_txt_gap">1dp</dimen>
+    <dimen name="tb_padding_vertical">8dp</dimen>
+    <dimen name="tb_item_width">48dp</dimen>
+
+    <dimen name="iv_pic_size">128dp</dimen>
+    <dimen name="iv_pic_width">128dp</dimen>
+    <dimen name="iv_pic_height">96dp</dimen>
+    <dimen name="l_form_item_height">48dp</dimen>
+    <dimen name="lineitem_height">@dimen/l_form_item_height</dimen>
+
+    <dimen name="form_title_max_width">128dp</dimen>
+
+    <dimen name="pb_request">160dp</dimen>
+
+</resources>

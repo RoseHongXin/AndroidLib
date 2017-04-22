@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="half_blank">&#160;&#160;</string>
+    <string name="punctuation_english_comma">,</string>
+    <string name="punctuation_chinese_comma">，</string>
+
+    <string name="date_format">yyyy-MM-dd</string>
+    <string name="date_format_detail">yyyy-MM-dd HH:mm</string>
+
+    <string name="back_press_exit_note">再按一次，退出程序</string>
+    <string name="socket_timeout">请求超时</string>
+    <string name="data_problem">页面数据错误，请重新操作！</string>
+
+    <string name="please_select_province">请选择省份</string>
+    <string name="please_select_city">请选择城市</string>
+    <string name="please_select_county">请选择区县</string>
+
+    <string name="not_yet_login">您还未登录！</string>
+
+    <string name="captcha_obtaining">%1$d秒后可重发</string>
+    <string name="captcha_resend_until">重新发送(%1$d)</string>
+    <string name="captcha_sent">验证码已发送到您的手机</string>
+    <string name="captcha_null_note">验证码为空</string>
+    <string name="phone_null_note">手机号码为空</string>
+    <string name="pwd_null_note">密码为空</string>
+    <string name="pwd_confirm_null_note">确认密码为空</string>
+    <string name="pwd_not_match_note">两次输入密码不匹配，请重新输入</string>
+
+    <string name="yuan_int">%1$d元</string>
+    <string name="yuan_float">%1$.2f元</string>
+
+    <string name="band">已绑定</string>
+    <string name="unband">未绑定</string>
+
+
+
+</resources>

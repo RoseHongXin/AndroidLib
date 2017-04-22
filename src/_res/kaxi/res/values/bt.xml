@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="bt_default">
+        <item name="android:layout_height">@dimen/bt_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/bt_sh_default</item>
+        <item name="android:textColor">@color/bt_txt_default</item>
+        <item name="android:paddingLeft">@dimen/bt_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/bt_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/bt_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/bt_padding_vertical</item>
+        <!--<item name="android:textSize">@dimen/bt_txt</item>-->
+    </style>
+    <style name="bt_disabled" parent="bt_default">
+        <item name="android:background">@drawable/bt_sh_disabled</item>
+        <item name="android:textColor">@color/bt_txt_disabled</item>
+    </style>
+    <style name="bt_active" parent="bt_default">
+        <item name="android:background">@drawable/bt_sh_active</item>
+        <item name="android:textColor">@color/bt_txt_pressed</item>
+    </style>
+    <style name="bt_" parent="bt_default">
+        <item name="android:background">@drawable/bt_sl</item>
+        <item name="android:textColor">@color/bt_sl_txt</item>
+    </style>
+
+</resources>

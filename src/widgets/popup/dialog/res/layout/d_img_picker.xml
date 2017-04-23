@@ -6,20 +6,20 @@
 
     <TextView
         android:id="@+id/_v_camera"
-        style="@style/DImgPicker_tv"
-        android:text="相机"/>
+        style="@style/d_img_picker_tv"
+        android:text="@string/d_img_picker_camera"/>
    <!-- <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@android:color/primary_text_light"/>-->
     <TextView
         android:id="@+id/_v_gallery"
-        style="@style/DImgPicker_tv"
-        android:text="图库"/>
+        style="@style/d_img_picker_tv"
+        android:text="@string/d_img_picker_gallery"/>
     <TextView
         android:layout_marginTop="12dp"
         android:id="@+id/_v_cancel"
-        style="@style/DImgPicker_tv"
+        style="@style/d_img_picker_tv"
         android:textColor="@android:color/secondary_text_dark"
         android:text="@android:string/cancel"/>
 

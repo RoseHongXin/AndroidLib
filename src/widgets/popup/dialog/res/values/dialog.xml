@@ -60,8 +60,8 @@
         <item name="android:indeterminateTintMode">src_atop</item>
     </style>-->
 
-    <!--<style name="dialog_request" parent="@android:style/Theme.Translucent">-->
-    <style name="dialog_request" parent="Theme.AppCompat.Dialog">
+    <!--<style name="d_waiting" parent="@android:style/Theme.Translucent">-->
+    <style name="d_waiting" parent="Theme.AppCompat.Dialog">
         <!--<item name="android:windowFrame">@null</item>-->
         <item name="android:windowBackground">@android:color/transparent</item>
         <!--<item name="android:windowIsTranslucent">false</item>-->
@@ -72,6 +72,11 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:colorBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="d_with_bt" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 
     <style name="dialog_item_select" parent="Theme.AppCompat.Dialog">
@@ -98,7 +103,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:indeterminate">true</item>
-        <item name="android:indeterminateDrawable">@drawable/pb_request</item>
+        <item name="android:indeterminateDrawable">@drawable/pb_wait</item>
     </style>
 
     <style name="dialog_address_whv">

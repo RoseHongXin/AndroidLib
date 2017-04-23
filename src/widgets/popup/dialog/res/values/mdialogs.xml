@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="DImgPicker_tv">
+    <string name="d_img_picker_camera">相机</string>
+    <string name="d_img_picker_gallery">图库</string>
+
+    <style name="d_img_picker_tv">
         <!--<item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">12dp</item>-->
         <item name="android:layout_width">match_parent</item>

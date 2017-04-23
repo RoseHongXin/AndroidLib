@@ -8,11 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import hx.components.base.ABase;
+import hx.components.ABase;
 import hx.lib.R;
-import hx.utils.rxbus.RxBus;
+import hx.toolkit.RxBus;
 import rx.android.widget.WidgetObservable;
 
 
@@ -61,29 +60,25 @@ public abstract class ABaseEdit extends ABase {
     }
 
     @Override
-    public int _getLayoutRes() {
+    public int sGetLayoutRes() {
         return R.layout.a_edit;
     }
 
-
     @Override
-    public View _askForToolbar() {
-        Toolbar _tb = (Toolbar) getLayoutInflater().inflate(R.layout.tb_edit, null);
-        _tb.setNavigationIcon(R.mipmap.i_edit_back);
-        _tb.setNavigationOnClickListener(view -> finish());
+    public View sRequireTb() {
+        View _tb = getLayoutInflater().inflate(R.layout.tb_edit, null);
+        _tb.findViewById(R.id._iv_back).setOnClickListener(view -> finish());
         _tv_title = (TextView)_tb.findViewById(R.id._tv_title);
         _tv_save = (TextView)_tb.findViewById(R.id._tv_save);
         return _tb;
+//        return Tb.create(this, "", R.mipmap.i_edit_back, view -> finish(), "", v -> {});
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         loadViews();
         retreive(getIntent());
-        
-
         _tv_save.setVisibility(View.GONE);
         WidgetObservable.text(_et)
                 .subscribe(onTextChangeEvent -> {

@@ -14,10 +14,10 @@ import java.util.List;
 
 public class VpConfig {
 
-    public  static <T extends Fragment> void config(ViewPager _vp_, List<T> fras, FragmentManager fm) {
-        config(_vp_, fras, fm, fras.size());
+    public  static <T extends Fragment> void stateAdapter(ViewPager _vp_, List<T> fras, FragmentManager fm) {
+        stateAdapter(_vp_, fras, fm, fras.size());
     }
-    public static <T extends Fragment> void config(ViewPager _vp_, List<T> fras, FragmentManager fm, int offScreenSize){
+    public static <T extends Fragment> void stateAdapter(ViewPager _vp_, List<T> fras, FragmentManager fm, int offScreenSize){
         _vp_.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override
             public Fragment getItem(int position) {

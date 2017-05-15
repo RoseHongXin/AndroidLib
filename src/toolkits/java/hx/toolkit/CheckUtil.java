@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  */
 public class CheckUtil {
 
-    public static final String EMAIL_FORMAT = "^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})$";
+    public static final String EMAIL_FORMAT = "^([a-zA-Z0-9_\\.\\-])+(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})$";
     public static final String MOBILE_FORMAT = "^(13[0-9]|15[^4]|17[0,6,7,8]|18[0-9]|14[5,7])\\d{8}$";
     public static final String PHONE_FORMAT = "0\\d{2,3}-?\\d{5,9}|0\\d{2,3}-?\\d{5,9}|\\d{8}";
     public static final String QQ_FORMAT = "\\d{5,11}";

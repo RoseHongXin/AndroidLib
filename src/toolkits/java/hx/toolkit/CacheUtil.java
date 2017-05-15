@@ -5,10 +5,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
 import com.jakewharton.disklrucache.DiskLruCache;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +15,7 @@ import java.util.List;
  * Created by rose on 16-8-9.
  *
  *
- * use framework disklrucache and jackson
+ * use framework disklrucache and fastjson
  *
  * for sort of caching stuff.
  *
@@ -60,16 +58,12 @@ public class CacheUtil {
 
     public static <T> boolean write(String key, T data){
         if(cache == null) return false;
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            String str = mapper.writeValueAsString(data);
+            String str = JSON.toJSONString(data);
             //OutputStream os = cache.edit(key).newOutputStream(IDX);
             DiskLruCache.Editor editor = cache.edit(key);
             editor.set(IDX, str);
             editor.commit();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return false;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -84,9 +78,7 @@ public class CacheUtil {
             if(snap == null) return null;
             String str = snap.getString(IDX);
             if(TextUtils.isEmpty(str)) return null;
-//            ObjectMapper mapper = new ObjectMapper();
-//            data = mapper.readValue(str, clz);
-            data = Jackson.fromStr(str, clz);
+            data = JSON.parseObject(str, clz);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,9 +91,7 @@ public class CacheUtil {
             if(snap == null) return data;       //empty array
             String str = snap.getString(IDX);
             if(TextUtils.isEmpty(str)) return data; //empty array
-//            ObjectMapper mapper = new ObjectMapper();
-//            data = mapper.readValue(str, new TypeReference<List<T>>(){});
-            data = Jackson.fromStr2List(str, clz);
+            data = JSON.parseArray(str, clz);
         } catch (IOException e) {
             e.printStackTrace();
         }

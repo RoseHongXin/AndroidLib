@@ -22,6 +22,7 @@
     <string name="captcha_resend_until">重新发送(%1$d)</string>
     <string name="captcha_sent">验证码已发送到您的手机</string>
     <string name="captcha_null_note">验证码为空</string>
+    <string name="account_null_note">账号为空</string>
     <string name="phone_null_note">手机号码为空</string>
     <string name="pwd_null_note">密码为空</string>
     <string name="pwd_confirm_null_note">确认密码为空</string>

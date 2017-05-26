@@ -6,7 +6,6 @@
         android:id="@+id/_tp_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <View style="@style/line" android:layout_marginTop="@dimen/l_margin_vertical" />
     <include layout="@layout/l_bts"/>
 
 </LinearLayout>

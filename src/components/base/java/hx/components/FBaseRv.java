@@ -19,8 +19,7 @@ public abstract class FBaseRv<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T>
 
     protected XRecyclerView _rv_;
 
-    Ap mAdapter;
-    XRvLoader mRvLoader;
+    protected XRvLoader mRvLoader;
 
     public abstract Observable<List<T>> getApi(int page);
     public abstract Ap getAdapter();
@@ -34,13 +33,10 @@ public abstract class FBaseRv<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T>
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         _rv_ = (XRecyclerView)view.findViewById(R.id._rv_);
-        sRegisterRefreshCb(() -> {
-            if(mRvLoader == null){
-                mAdapter = getAdapter();
-                mRvLoader = new XRvLoader<Ap, Vh, T>().init(getActivity(), _rv_, mAdapter, this::getApi);
-                mRvLoader.doRefresh();
-            }
-            else mRvLoader.doRefresh();
-        });
+        if(mRvLoader == null){
+            Ap mAdapter = getAdapter();
+            mRvLoader = new XRvLoader<Ap, Vh, T>().init(getActivity(), _rv_, mAdapter, this::getApi);
+        }
+        sRegisterRefreshCb(() -> mRvLoader.doRefresh());
     }
 }

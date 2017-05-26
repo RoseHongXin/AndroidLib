@@ -23,6 +23,7 @@
     <dimen name="l_margin_horizontal_middle">24dp</dimen>
     <dimen name="l_margin_horizontal_larger">36dp</dimen>
     <dimen name="l_margin_vertical_larger">36dp</dimen>
+    <dimen name="l_margin_small">8dp</dimen>
 
 
 

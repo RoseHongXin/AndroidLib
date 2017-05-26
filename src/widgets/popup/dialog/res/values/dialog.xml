@@ -7,12 +7,13 @@
 
     <style name="dialog_container">
         <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:minHeight">128dp</item>-->
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/_bg</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
         <!--<item name="android:paddingBottom">@dimen/l_padding_vertical</item>-->
-        <item name="android:paddingTop">@dimen/l_padding_vertical</item>
+        <!--<item name="android:paddingTop">@dimen/l_padding_vertical</item>-->
         <!--<item name="android:paddingRight">@dimen/l_padding_horizontal</item>-->
         <!--<item name="android:paddingLeft">@dimen/l_padding_horizontal</item>-->
     </style>
@@ -21,6 +22,7 @@
         <item name="android:layout_height">wrap_content</item>
         <!--<item name="android:layout_marginLeft">@dimen/l_margin_horizontal</item>-->
         <!--<item name="android:layout_marginRight">@dimen/l_margin_horizontal</item>-->
+        <item name="android:layout_marginTop">@dimen/l_margin_vertical</item>
         <item name="android:textSize">@dimen/txt_title</item>
         <item name="android:textColor">@color/txt_title</item>
         <item name="android:gravity">center</item>

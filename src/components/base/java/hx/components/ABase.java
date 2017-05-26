@@ -53,6 +53,7 @@ public abstract class ABase extends AppCompatActivity {
             setContentView(layout);
             mLayout = (ViewGroup) layout;
         }
+        ButterKnife.bind(this);
     }
 
     public ViewGroup sGetLayout(){

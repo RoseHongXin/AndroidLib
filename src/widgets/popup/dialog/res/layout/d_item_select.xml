@@ -6,7 +6,6 @@
         android:id="@+id/_whv_"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
-    <View style="@style/line" android:layout_marginTop="@dimen/l_margin_vertical" />
     <include layout="@layout/l_bts"/>
 
 </LinearLayout>

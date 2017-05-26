@@ -10,7 +10,7 @@
     <!--<color name="navigationBarColor">@color/colorPrimaryDark</color>-->
 
     <color name="_bg">#ffffff</color>
-    <color name="_line">#eeeeee</color>
+    <color name="_line">#9F9F9F</color>
 
     <color name="txt_title">#3C3C3C</color>
     <color name="txt_content">#9F9F9F</color>

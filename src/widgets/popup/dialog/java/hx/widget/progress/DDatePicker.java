@@ -26,9 +26,6 @@ public class DDatePicker {
 
         DatePicker _dp = (DatePicker)layout.findViewById(R.id._dp_);
         Calendar calendar = Calendar.getInstance(Locale.CHINA);
-       /* _dp.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), (view, year, monthOfYear, dayOfMonth) -> {
-
-        });*/
         _dp.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         layout.findViewById(R.id._bt_0).setOnClickListener(view -> dialog.dismiss());
@@ -37,15 +34,7 @@ public class DDatePicker {
             dialog.dismiss();
         });
 
-        Window window = dialog.getWindow();
-        if(window != null) {
-            window.setGravity(Gravity.BOTTOM); //可设置dialog的位置
-            window.getDecorView().setPadding(0, 0, 0, 0); //消除边距
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;   //设置宽度充满屏幕
-//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            window.setAttributes(lp);
-        }
+        DialogHelper.erasePadding(dialog);
 
         dialog.show();
 

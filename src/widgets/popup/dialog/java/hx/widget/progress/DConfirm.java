@@ -25,7 +25,7 @@ public class DConfirm {
     public AlertDialog show(Activity act, String title, String content, String bt, View.OnClickListener cb){
         AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.d_with_bt);
         View layout  = act.getLayoutInflater().inflate(R.layout.d_confirm, null);
-        AlertDialog dialog = builder.setView(layout).create();
+        AlertDialog dialog = builder.setView(layout).setCancelable(false).create();
         TextView _tv_title = (TextView)layout.findViewById(R.id._tv_title);
         if(TextUtils.isEmpty(title)) _tv_title.setVisibility(View.GONE);
         else _tv_title.setText(title);

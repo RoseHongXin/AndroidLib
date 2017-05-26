@@ -14,22 +14,22 @@ import hx.lib.R;
 
 public class DConfirmAndCancel {
 
-    public AlertDialog show(Activity act, String content, View.OnClickListener cb){
+    public static AlertDialog show(Activity act, String content, View.OnClickListener cb){
         return show(act, "", content, cb);
     }
 
-    public AlertDialog show(Activity act, String title, String content, View.OnClickListener cb){
+    public static  AlertDialog show(Activity act, String title, String content, View.OnClickListener cb){
         return show(act, title, content, act.getString(R.string.cancel), null, act.getString(R.string.confirm), cb);
     }
 
-    public AlertDialog show(Activity act, String title, String content, View.OnClickListener cb0, View.OnClickListener cb1){
+    public static  AlertDialog show(Activity act, String title, String content, View.OnClickListener cb0, View.OnClickListener cb1){
         return show(act, title, content, act.getString(R.string.cancel), cb0, act.getString(R.string.confirm), cb1);
     }
 
-    public AlertDialog show(Activity act, String title, String content, String bt0, View.OnClickListener cb0, String bt1, View.OnClickListener cb1){
+    public static AlertDialog show(Activity act, String title, String content, String bt0, View.OnClickListener cb0, String bt1, View.OnClickListener cb1){
         AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.d_with_bt);
         View layout  = act.getLayoutInflater().inflate(R.layout.d_confirm_and_cancel, null);
-        AlertDialog dialog = builder.setView(layout).create();
+        AlertDialog dialog = builder.setView(layout).setCancelable(false).create();
 
         TextView _tv_title = (TextView)layout.findViewById(R.id._tv_title);
         if(TextUtils.isEmpty(title)) _tv_title.setVisibility(View.GONE);
@@ -49,6 +49,9 @@ public class DConfirmAndCancel {
             dialog.dismiss();
             if(cb1 != null) cb1.onClick(_bt_1);
         });
+
+        DialogHelper.padding(dialog, 24, 24);
+
         dialog.show();
         return dialog;
     }

@@ -5,7 +5,6 @@
 
     <TextView style="@style/dialog_title" tools:text="标题" android:id="@+id/_tv_title"/>
     <TextView style="@style/dialog_content" tools:text="内容" android:id="@+id/_tv_content"/>
-    <View style="@style/line" android:layout_marginTop="@dimen/l_margin_vertical"/>
     <include layout="@layout/l_bts"/>
 
 </LinearLayout>

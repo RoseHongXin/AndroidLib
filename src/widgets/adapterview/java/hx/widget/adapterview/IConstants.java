@@ -5,7 +5,7 @@ package hx.widget.adapterview;
  */
 public interface IConstants {
 
-    //request waiting header or footer show and dismiss time threshold.
+    //request waiting header or footer showForConText and dismiss time threshold.
     final int TOAST_GLANCE = 256;
 
     int REFRESH_THRESHOLD = 256;

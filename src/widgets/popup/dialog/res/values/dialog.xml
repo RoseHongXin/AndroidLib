@@ -79,6 +79,7 @@
     <style name="d_with_bt" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="dialog_item_select" parent="Theme.AppCompat.Dialog">
@@ -86,6 +87,7 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>

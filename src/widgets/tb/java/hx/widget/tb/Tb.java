@@ -20,6 +20,12 @@ import hx.lib.R;
 
 public class Tb {
 
+    public static <ACT extends ABase> View createOnlyTitle(ACT act, String title){
+        View view = create(act, R.mipmap.i_back, title, null);
+        view.findViewById(R.id._iv_left).setVisibility(View.GONE);
+        return view;
+    }
+
     public static <ACT extends ABase> View create(ACT act){
         return create(act, R.mipmap.i_back, "", null);
     }

@@ -59,13 +59,13 @@ public abstract class ApBase<Vh extends VhBase<T>, T> extends RecyclerView.Adapt
         if(mDatas == null) mDatas = new ArrayList<T>();
         else mDatas.clear();
         mDatas = new ArrayList<>();
-        mDatas.addAll(datas);
+        if(datas != null) mDatas.addAll(datas);
         notifyDataSetChanged();
     }
 
     public void addData(List<T> datas){
         if(mDatas == null) mDatas = new ArrayList<T>();
-        mDatas.addAll(datas);
+        if(datas != null) mDatas.addAll(datas);
         notifyDataSetChanged();
     }
     public List<T> getData(){

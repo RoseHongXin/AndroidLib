@@ -7,7 +7,7 @@
     <TextView
         android:id="@+id/_v_camera"
         style="@style/d_img_picker_tv"
-        android:text="@string/d_img_picker_camera"/>
+        android:text="@string/camera"/>
    <!-- <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -15,7 +15,7 @@
     <TextView
         android:id="@+id/_v_gallery"
         style="@style/d_img_picker_tv"
-        android:text="@string/d_img_picker_gallery"/>
+        android:text="@string/gallery"/>
     <TextView
         android:layout_marginTop="12dp"
         android:id="@+id/_v_cancel"

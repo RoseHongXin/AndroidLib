@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Global</string>
 
+    <string name="camera">相机</string>
+    <string name="gallery">图库</string>
+
     <string name="scan">扫一扫</string>
     <string name="message">消息</string>
 
@@ -25,6 +28,7 @@
     <string name="clear">清空</string>
 
     <string name="confirm">确定</string>
+
     <string name="login">登录</string>
     <string name="logout">退出登录</string>
     <string name="register">注册</string>
@@ -37,10 +41,6 @@
     <string name="confirm_pwd">确认密码</string>
     <string name="forget_pwd">忘记密码</string>
     <string name="reset_pwd">重置密码</string>
-    <string name="account_hint">请输入手机号</string>
-    <string name="captcha_hint">请输入验证码</string>
-    <string name="new_pwd_hint">密码由6–20位英文字母、数字或符号组成</string>
-    <string name="pwd_hint">请输入6–16位新密码</string>
 
 
     <string name="idcard_front">身份证正面</string>

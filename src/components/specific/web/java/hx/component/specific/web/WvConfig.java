@@ -1,4 +1,4 @@
-package hx.widget.util;
+package hx.component.specific.web;
 
 import android.util.Log;
 import android.webkit.WebChromeClient;
@@ -25,7 +25,7 @@ public class WvConfig {
         wv.setWebViewClient(new WebViewClient());
     }
 
-    public static void enablecrossdomain(WebView wv){
+    private static void enablecrossdomain(WebView wv){
         try{
             Field field = WebView.class.getDeclaredField("mWebViewCore");
             field.setAccessible(true);

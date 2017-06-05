@@ -12,6 +12,7 @@
     <dimen name="bt_padding_vertical">6dp</dimen>
     <dimen name="bt_txt">20sp</dimen>
     <dimen name="bt_corner">4dp</dimen>
+    <dimen name="bt_border">1px</dimen>
 
     <dimen name="l_padding_horizontal">16dp</dimen>
     <dimen name="l_padding_vertical">12dp</dimen>
@@ -26,8 +27,6 @@
     <dimen name="l_margin_small">8dp</dimen>
     <dimen name="l_padding_small">8dp</dimen>
 
-
-
     <dimen name="tab_height">48dp</dimen>
     <dimen name="tab_padding_vertical">2dp</dimen>
     <dimen name="tab_icon_txt_gap">2dp</dimen>
@@ -36,11 +35,10 @@
     <dimen name="iv_pic_size">128dp</dimen>
     <dimen name="iv_pic_width">128dp</dimen>
     <dimen name="iv_pic_height">96dp</dimen>
+
     <dimen name="l_form_item_height">48dp</dimen>
     <dimen name="lineitem_height">@dimen/l_form_item_height</dimen>
 
     <dimen name="form_title_max_width">128dp</dimen>
-
-    <dimen name="pb_request">160dp</dimen>
 
 </resources>

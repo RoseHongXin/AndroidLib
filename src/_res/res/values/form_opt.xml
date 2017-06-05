@@ -8,9 +8,8 @@
         <item name="android:layout_marginBottom">@dimen/l_margin_horizontal_larger</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
+
     <style name="opt_container" parent="frame">
-        <item name="android:paddingRight">0dp</item>
-        <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingTop">@dimen/l_padding_vertical_larger</item>
         <item name="android:paddingBottom">@dimen/l_padding_vertical_larger</item>
         <item name="android:orientation">horizontal</item>
@@ -43,8 +42,8 @@
     <style name="opt_bt">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/bt_height</item>
-        <item name="android:textColor">@color/bt_txt_opt</item>
-        <item name="android:background">@drawable/bt_sh_opt</item>
+        <item name="android:textColor">@color/bt_opt_txt</item>
+        <item name="android:background">@drawable/bt_opt_sl</item>
     </style>
 
 </resources>

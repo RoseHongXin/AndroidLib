@@ -11,21 +11,26 @@
 
     <color name="_bg">#ffffff</color>
     <color name="_line">#9F9F9F</color>
+    <color name="_disabled">#C1C1C1</color>
 
-    <color name="txt_title">#3C3C3C</color>
-    <color name="txt_content">#9F9F9F</color>
-    <color name="txt_emphasize">#FE6000</color>
+    <color name="txt_title">@color/textColorPrimary</color>
+    <color name="txt_content">@color/textColorSecondary</color>
+    <color name="txt_emphasize">@color/colorAccent</color>
     <color name="txt_warning">@android:color/holo_red_light</color>
 
     <color name="bt_border_default">#E1E1E1</color>
-    <color name="bt_border_active">#FE6000</color>
-    <color name="bt_border_disabled">#AAAAAA</color>
+    <color name="bt_border_pressed">@color/colorAccent</color>
+    <color name="bt_border_disabled">@color/_disabled</color>
     <color name="bt_bg">@android:color/transparent</color>
     <color name="bt_txt_default">#AAAAAA</color>
-    <color name="bt_txt_pressed">#FE6000</color>
-    <color name="bt_txt_disabled">#C1C1C1</color>
-    <color name="bt_txt_opt">#ffffff</color>
-    <color name="bt_bg_opt">@color/colorPrimary</color>
+    <color name="bt_txt_pressed">@color/colorAccent</color>
+    <color name="bt_txt_disabled">@color/_disabled</color>
+
+    <color name="bt_opt_txt">@android:color/white</color>
+    <color name="bt_opt_border">@color/colorAccent</color>
+    <color name="bt_opt_bg_default">@color/colorAccent</color>
+    <color name="bt_opt_bg_pressed">@android:color/transparent</color>
+    <color name="bt_opt_bg_disabled">@color/_disabled</color>
 
     <color name="tab_txt_default">@color/textColorSecondary</color>
     <color name="tab_txt_active">@color/colorAccent</color>

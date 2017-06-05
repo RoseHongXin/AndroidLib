@@ -26,7 +26,7 @@ public abstract class FBaseRv<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, T>
 
     @Override
     public int sGetLayoutRes() {
-        return R.layout.f_base_rv;
+        return R.layout.f_base_rv_refresh;
     }
 
     @Override

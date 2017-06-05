@@ -11,14 +11,11 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <!--外层container将left、right的padding处理了-->
     <style name="form_container" parent="frame">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/l_form_item_height</item>
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-        <!--<item name="android:paddingBottom">@dimen/l_padding_vertical</item>-->
-        <!--<item name="android:paddingTop">@dimen/l_padding_vertical</item>-->
+        <item name="android:paddingLeft">@dimen/l_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/l_padding_horizontal</item>
         <item name="android:background">@color/_bg</item>
         <item name="android:orientation">horizontal</item>
     </style>
@@ -41,14 +38,12 @@
         <item name="android:gravity">end|center_vertical</item>
         <!--<item name="android:paddingRight">@dimen/l_padding_horizontal</item>-->
     </style>
-    <style name="form_line" parent="line">
-        <!--<item name="android:layout_marginBottom">24dp</item>-->
-        <!--<item name="android:layout_marginTop">8dp</item>-->
-    </style>
+    <style name="form_line" parent="line"/>
     <style name="form_iv_required">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginRight">2dp</item>
+        <item name="android:src">@mipmap/i_hint_horn</item>
     </style>
     <style name="form_iv_dropdown">
         <item name="android:layout_width">wrap_content</item>

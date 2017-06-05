@@ -13,7 +13,10 @@
     <string name="pwd_confirm_null_note">确认密码为空</string>
     <string name="pwd_not_match_note">两次输入密码不匹配，请重新输入</string>
 
-
+    <string name="sign_phone">手&#160;&#160;机&#160;&#160;号</string>
+    <string name="sign_captcha">验&#160;&#160;证&#160;&#160;码</string>
+    <string name="sign_pwd">新&#160;&#160;密&#160;&#160;码</string>
+    <string name="sign_has_account_login_now">已有账户？立即登录</string>
 
     <string name="not_yet_login">您还未登录！</string>
     <string name="login_failed">登陆失败</string>

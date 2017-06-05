@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="et">
-        <item name="android:textSize">@dimen/txt_et</item>
-        <item name="android:textColorHint">@color/txt_content</item>
-        <item name="android:gravity">center_vertical|start|left</item>
-        <item name="android:textColor">@color/txt_title</item>
-        <item name="android:background">@color/_bg</item>
-        <item name="android:lines">1</item>
-        <item name="android:ellipsize">end</item>
-    </style>
+    <style name="Form"/>
 
-    <style name="form_container" parent="frame">
+    <style name="Form.Container" >
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/l_form_item_height</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/_bg</item>
         <item name="android:paddingLeft">@dimen/l_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/l_padding_horizontal</item>
-        <item name="android:background">@color/_bg</item>
-        <item name="android:orientation">horizontal</item>
     </style>
-    <style name="form_tv_title">
+    <style name="Form.tv_title">
         <!--<item name="android:textSize">@dimen/txt_content</item>-->
         <item name="android:textColorHint">@color/textColorSecondary</item>
         <item name="android:gravity">center_vertical|start|left</item>
@@ -29,32 +21,11 @@
         <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/txt_content</item>
     </style>
-    <style name="form_et_content" parent="et">
+    <style name="Form.tv_content" >
+        <item name="android:gravity">end|center_vertical</item>
+        <!--<item name="android:paddingRight">@dimen/l_padding_horizontal</item>-->
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">4</item>
-    </style>
-    <style name="form_tv_content" parent="form_et_content">
-        <item name="android:gravity">end|center_vertical</item>
-        <!--<item name="android:paddingRight">@dimen/l_padding_horizontal</item>-->
-    </style>
-    <style name="form_line" parent="line"/>
-    <style name="form_iv_required">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginRight">2dp</item>
-        <item name="android:src">@mipmap/i_hint_horn</item>
-    </style>
-    <style name="form_iv_dropdown">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@mipmap/i_drop_down</item>
-        <item name="android:contentDescription">dropdown</item>
-    </style>
-    <style name="form_iv_go">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@mipmap/i_go</item>
-        <item name="android:contentDescription">go</item>
     </style>
 </resources>

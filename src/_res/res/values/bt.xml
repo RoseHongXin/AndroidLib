@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="bt_">
+    <style name="bt">
         <item name="android:layout_height">@dimen/bt_height</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/bt_sh_default</item>
@@ -12,17 +12,17 @@
         <item name="android:paddingBottom">@dimen/bt_padding_vertical</item>
         <!--<item name="android:textSize">@dimen/bt_txt</item>-->
     </style>
-    <style name="bt_disabled" parent="bt_">
+    <style name="bt.disabled" parent="bt">
         <item name="android:background">@drawable/bt_sh_disabled</item>
         <item name="android:textColor">@color/bt_txt_disabled</item>
     </style>
-    <style name="bt_active" parent="bt_">
+    <style name="bt.active" parent="bt">
         <item name="android:background">@drawable/bt_sh_active</item>
         <item name="android:textColor">@color/bt_txt_pressed</item>
     </style>
-    <style name="bt_sl" parent="bt_">
+    <style name="bt.sl" parent="bt">
         <item name="android:background">@drawable/bt_sl</item>
-        <item name="android:textColor">@color/bt_sl_txt</item>
+        <item name="android:textColor">@color/bt_txt_sl</item>
     </style>
 
 </resources>

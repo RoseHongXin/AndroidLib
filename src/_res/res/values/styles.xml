@@ -29,20 +29,27 @@
         <item name="android:background">@color/_line</item>
     </style>
 
-    <style name="frame">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <!--<item name="android:paddingLeft">@dimen/l_padding_horizontal</item>-->
-        <!--<item name="android:paddingRight">@dimen/l_padding_horizontal</item>-->
-        <!--<item name="android:paddingBottom">@dimen/l_padding_vertical</item>-->
-        <!--<item name="android:paddingTop">@dimen/l_padding_vertical</item>-->
+    <style name="et">
+        <item name="android:textSize">@dimen/txt_et</item>
+        <item name="android:textColorHint">@color/txt_content</item>
+        <item name="android:gravity">center_vertical|start|left</item>
+        <item name="android:textColor">@color/txt_title</item>
         <item name="android:background">@color/_bg</item>
-        <item name="android:gravity">center_vertical</item>
-        <!--for LinearLayout-->
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="PageContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">start|center_horizontal</item>
+        <item name="android:background">@color/_bg</item>
         <item name="android:orientation">vertical</item>
-        <!--for layout contains edittext-->
-        <!--<item name="android:focusable">true</item>-->
-        <!--<item name="android:focusableInTouchMode">true</item>-->
+    </style>
+    <style name="PageContainer.Match" >
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="PageContainer.Wrap" parent="PageContainer">
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

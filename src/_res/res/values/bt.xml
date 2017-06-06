@@ -4,25 +4,48 @@
     <style name="bt">
         <item name="android:layout_height">@dimen/bt_height</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@drawable/bt_sh_default</item>
-        <item name="android:textColor">@color/bt_txt_default</item>
         <item name="android:paddingLeft">@dimen/bt_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/bt_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/bt_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/bt_padding_vertical</item>
         <!--<item name="android:textSize">@dimen/bt_txt</item>-->
     </style>
+    <style name="bt.default" parent="bt">
+        <item name="android:background">@drawable/bt_sh_default</item>
+        <item name="android:textColor">@color/bt_txt_default</item>
+    </style>
     <style name="bt.disabled" parent="bt">
         <item name="android:background">@drawable/bt_sh_disabled</item>
         <item name="android:textColor">@color/bt_txt_disabled</item>
     </style>
-    <style name="bt.active" parent="bt">
-        <item name="android:background">@drawable/bt_sh_active</item>
+    <style name="bt.pressed" parent="bt">
+        <item name="android:background">@drawable/bt_sh_pressed</item>
         <item name="android:textColor">@color/bt_txt_pressed</item>
     </style>
     <style name="bt.sl" parent="bt">
         <item name="android:background">@drawable/bt_sl</item>
         <item name="android:textColor">@color/bt_txt_sl</item>
     </style>
+
+    <style name="bt.opt" parent="bt">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="bt.opt.default" parent="bt.opt">
+        <item name="android:background">@drawable/bt_opt_sh_default</item>
+        <item name="android:textColor">@color/bt_opt_txt_default</item>
+    </style>
+    <style name="bt.opt.disabled" parent="bt.opt">
+        <item name="android:background">@drawable/bt_opt_sh_disabled</item>
+        <item name="android:textColor">@color/bt_opt_txt_disabled</item>
+    </style>
+    <style name="bt.opt.pressed" parent="bt.opt">
+        <item name="android:background">@drawable/bt_opt_sh_pressed</item>
+        <item name="android:textColor">@color/bt_opt_txt_pressed</item>
+    </style>
+    <style name="bt.opt.sl" parent="bt.opt">
+        <item name="android:background">@drawable/bt_opt_sl</item>
+        <item name="android:textColor">@color/bt_opt_txt_sl</item>
+    </style>
+
 
 </resources>

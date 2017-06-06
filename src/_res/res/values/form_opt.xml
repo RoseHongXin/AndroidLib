@@ -24,13 +24,11 @@
         <item name="android:layout_marginRight">@dimen/l_margin_horizontal</item>
     </style>
     <style name="Opt.tv_title">
-        <!--<item name="android:textSize">@dimen/txt_content</item>-->
-        <item name="android:textColorHint">@color/textColorSecondary</item>
         <item name="android:gravity">center_vertical|start|left</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:maxWidth">@dimen/form_title_max_width</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">@dimen/opt_title_min_width</item>
+        <!--<item name="android:maxWidth">@dimen/form_title_max_width</item>-->
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/txt_content</item>
     </style>
     <style name="Opt.et" parent="et">

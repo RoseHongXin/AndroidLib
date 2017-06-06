@@ -54,6 +54,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
     </style>
 
     <style name="dialog_item_select" parent="Theme.AppCompat.Dialog">

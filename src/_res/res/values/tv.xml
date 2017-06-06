@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="tv_title">
+    <style name="tv">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="tv.title" parent="tv">
         <item name="android:gravity">center_vertical|left|start</item>
         <item name="android:textSize">@dimen/txt_title</item>
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>
-    <style name="tv_content">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="tv.content" parent="tv">
         <item name="android:gravity">left|start</item>
         <item name="android:textSize">@dimen/txt_content</item>
         <item name="android:textColor">@color/textColorSecondary</item>
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="tv_agreement">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="tv.agreement" parent="tv">
         <item name="android:textColor">@color/txt_content</item>
         <item name="android:textSize">@dimen/txt_agreement</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="tv_obtain_captcha">
+    <style name="tv.obtain_captcha" parent="tv">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/tv_sl_obtain_captcha</item>
         <item name="android:background">@drawable/tv_sh_obtain_captcha</item>
     </style>
 
-    <style name="tv_warning">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="tv.warning" parent="tv">
         <item name="android:textColor">@color/txt_warning</item>
         <item name="android:textSize">@dimen/txt_agreement</item>
         <item name="android:gravity">start|left</item>
         <item name="android:paddingLeft">@dimen/l_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/l_padding_horizontal</item>
+    </style>
+
+    <style name="tv.emphasize" parent="tv.title">
+        <item name="android:textColor">@color/txt_emphasize</item>
     </style>
 
 </resources>

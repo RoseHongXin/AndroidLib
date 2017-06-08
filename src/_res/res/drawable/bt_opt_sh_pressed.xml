@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <corners android:radius="@dimen/bt_corner"/>
-    <stroke android:color="@color/bt_opt_border" android:width="@dimen/bt_border"/>
+    <stroke android:color="@color/bt_opt_border_default" android:width="@dimen/bt_border"/>
     <solid android:color="@color/bt_opt_bg_pressed"/>
 
 </shape>

@@ -31,7 +31,7 @@ public class ClickUtils {
     }
 
     public static void returnWithConfirm(Activity act, Callback callback) {
-        /*AlertUiDialog dialog = AlertUiDialog.showDialog(act, true, "", "确定离开当前页面...？\n离开当前页面会丢失当前填写的数据！", act.getString(android.R.string.cancel), act.getString(android.R.string.ok));
+        /*AlertUiDialog dialog = AlertUiDialog.showDialog(mAct, true, "", "确定离开当前页面...？\n离开当前页面会丢失当前填写的数据！", mAct.getString(android.R.string.cancel), mAct.getString(android.R.string.ok));
         //dialog.getWindow().setIcon();
         dialog.setListener(position -> {
             if (position == 1) {

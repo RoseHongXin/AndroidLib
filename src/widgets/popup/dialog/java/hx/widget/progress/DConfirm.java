@@ -48,10 +48,11 @@ public class DConfirm {
         cb.onViewsSetup((TextView) layout.findViewById(R.id._tv_title), (TextView) layout.findViewById(R.id._tv_content), _bt_);
 
         _bt_.setOnClickListener(view -> {
-            if(clickListener != null) clickListener.onClick(_bt_);
             dialog.dismiss();
+            if(clickListener != null) clickListener.onClick(_bt_);
         });
-        DialogHelper.erasePadding(dialog, Gravity.CENTER);
+//        DialogHelper.erasePadding(dialog, Gravity.CENTER);
+        DialogHelper.padding(dialog, 24, 24);
         dialog.show();
         return dialog;
     }

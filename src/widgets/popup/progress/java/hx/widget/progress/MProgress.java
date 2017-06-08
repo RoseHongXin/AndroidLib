@@ -21,8 +21,8 @@ public class MProgress extends Dialog {
     public MProgress(Context ctx){
         super(ctx);
     }
-    /*public MProgress(Activity act) {
-        super(act);
+    /*public MProgress(Activity mAct) {
+        super(mAct);
     }*/
 
     public MProgress(Context ctx, int theme) {

@@ -29,7 +29,8 @@
     <color name="bt_opt_txt_default">@android:color/white</color>
     <color name="bt_opt_txt_pressed">@color/colorAccent</color>
     <color name="bt_opt_txt_disabled">@color/_disabled</color>
-    <color name="bt_opt_border">@color/colorAccent</color>
+    <color name="bt_opt_border_default">@color/colorAccent</color>
+    <color name="bt_opt_border_disabled">@color/_disabled</color>
     <color name="bt_opt_bg_default">@color/colorAccent</color>
     <color name="bt_opt_bg_pressed">@android:color/transparent</color>
     <color name="bt_opt_bg_disabled">@color/_disabled</color>

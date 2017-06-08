@@ -25,9 +25,9 @@ public class DReq2 {
 
     private DReq2(Activity act, View layout){
 
-        /*View l = act.getLayoutInflater().inflate(layoutRes, null);
+        /*View l = mAct.getLayoutInflater().inflate(layoutRes, null);
         DisplayMetrics metrics = new DisplayMetrics();
-        act.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        mAct.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
         int width = (int)(metrics.widthPixels * 0.618 * (metrics.widthPixels * 1.0 / metrics.heightPixels));
         int height = (int)(width * 0.618);

@@ -36,15 +36,15 @@ public abstract class ABaseEdit extends ABase {
     int reqCode;
 
     public abstract RxBus getRxBus();
-    //public static abstract void start(Activity act, String title, String txt, String hint, int inputType, int reqCode);
+    //public static abstract void start(Activity mAct, String title, String txt, String hint, int inputType, int reqCode);
     /*{
-        Intent intent = new Intent(act, AEdit.class);
+        Intent intent = new Intent(mAct, AEdit.class);
         intent.putExtra(TITLE, title);
         intent.putExtra(TXT, txt);
         intent.putExtra(HINT, hint);
         intent.putExtra(INPUTTYPE, inputType);
         intent.putExtra(REQ_CODE, reqCode);
-        act.startActivity(intent);
+        mAct.startActivity(intent);
     }*/
 
     private void retreive(Intent intent){

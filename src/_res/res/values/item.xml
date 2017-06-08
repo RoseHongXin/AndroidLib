@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Item"/>
+    <style name="Item.Card" parent="Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="Item.Card.Container" parent="Item.Card">
+        <item name="android:padding">@dimen/l_padding_small</item>
+        <!--<item name="android:paddingBottom">@dimen/l_padding_vertical</item>-->
+        <!--<item name="android:paddingTop">@dimen/l_padding_vertical</item>-->
+        <!--<item name="android:paddingRight">@dimen/l_padding_horizontal</item>-->
+        <!--<item name="android:paddingLeft">@dimen/l_padding_horizontal</item>-->
+    </style>
+
+</resources>

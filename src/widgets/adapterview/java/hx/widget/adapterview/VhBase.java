@@ -13,13 +13,13 @@ import butterknife.ButterKnife;
  */
 public class VhBase<T> extends RecyclerView.ViewHolder {
 
-    protected Activity act;
+    protected Activity mAct;
     protected T data;
     protected int position;
 
     public VhBase(Activity act, @LayoutRes int layoutRes){
         this(act.getLayoutInflater().inflate(layoutRes, null));
-        this.act = act;
+        this.mAct = act;
     }
     private VhBase(View itemView){
         super(itemView);

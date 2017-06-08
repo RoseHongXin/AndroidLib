@@ -1,5 +1,8 @@
 package hx.toolkit;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -8,6 +11,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.RandomAccessFile;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -122,5 +127,16 @@ public class OSUtil {
         }
     }
 
+    public static boolean isActForeground(Activity act) {
+        if (act == null) return false;
+        ActivityManager am = (ActivityManager) act.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(1);
+        String actName = act.getClass().getName();
+        if (list != null && list.size() > 0) {
+            ComponentName cpn = list.get(0).topActivity;
+            if (actName.equals(cpn.getClassName())) return true;
+        }
+        return false;
+    }
 
 }

@@ -20,7 +20,7 @@ import hx.lib.R;
 public class DTimePicker {
 
     public static void show(Activity act, TimePicker.OnTimeChangedListener listener){
-        AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.dialog_item_select);
+        AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.Dialog_BottomUp);
         View layout = act.getLayoutInflater().inflate(R.layout.d_time_picker, null);
         AlertDialog dialog = builder.setView(layout).create();
 

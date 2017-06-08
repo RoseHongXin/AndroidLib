@@ -17,7 +17,7 @@ import hx.lib.R;
 public class DWaiting {
 
     public static Dialog show(Activity act){
-        Dialog dialog = new Dialog(act, R.style.d_waiting);
+        Dialog dialog = new Dialog(act, R.style.Dialog_Waiting);
         dialog.setContentView(R.layout.d_waiting);
         dialog.setOnKeyListener((dialog1, keyCode, event) -> {
             if(keyCode == KeyEvent.KEYCODE_BACK){

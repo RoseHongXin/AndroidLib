@@ -22,7 +22,7 @@ public class Tb {
 
     public static <ACT extends ABase> View createOnlyTitle(ACT act, String title){
         View view = create(act, R.mipmap.i_back, title, null);
-        view.findViewById(R.id._iv_left).setVisibility(View.GONE);
+        view.findViewById(R.id._tb_iv_left).setVisibility(View.GONE);
         return view;
     }
 
@@ -37,31 +37,31 @@ public class Tb {
     }
     public static <ACT extends ABase> View create(ACT act, @DrawableRes int iconRes, String title, View.OnClickListener listener){
         View _tb = getLayout(act, R.layout.tb_left_iv);
-        ImageView _iv_left = (ImageView) _tb.findViewById(R.id._iv_left);
-        _iv_left.setImageResource(iconRes);
-        _iv_left.setOnClickListener(view -> {
+        ImageView _tb_iv_left = (ImageView) _tb.findViewById(R.id._tb_iv_left);
+        _tb_iv_left.setImageResource(iconRes);
+        _tb_iv_left.setOnClickListener(view -> {
             if(listener == null){
                 act.finish();
                 return;
             }
-            listener.onClick(_iv_left);
+            listener.onClick(_tb_iv_left);
         });
-        ((TextView)_tb.findViewById(R.id._tv_title)).setText(TextUtils.isEmpty(title) ? "" : title);
+        ((TextView)_tb.findViewById(R.id._tb_tv_title)).setText(TextUtils.isEmpty(title) ? "" : title);
         return _tb;
     }
 
     public static <ACT extends ABase> View create(ACT act, String title, String rightText, View.OnClickListener listener){
         View _tb = getLayout(act, R.layout.tb_right_tv);
-        TextView _tv_right = (TextView)_tb.findViewById(R.id._tv_right);
-        _tv_right.setOnClickListener(view -> {
+        TextView _tb_tv_right = (TextView)_tb.findViewById(R.id._tb_tv_right);
+        _tb_tv_right.setOnClickListener(view -> {
             if(listener == null){
                 act.finish();
                 return;
             }
-            listener.onClick(_tv_right);
+            listener.onClick(_tb_tv_right);
         });
-        _tv_right.setText(rightText);
-        ((TextView)_tb.findViewById(R.id._tv_title)).setText(TextUtils.isEmpty(title) ? "" : title);
+        _tb_tv_right.setText(rightText);
+        ((TextView)_tb.findViewById(R.id._tb_tv_title)).setText(TextUtils.isEmpty(title) ? "" : title);
         return _tb;
     }
     
@@ -69,11 +69,11 @@ public class Tb {
                                                   @DrawableRes int leftIconRes, View.OnClickListener leftListener,
                                                   String rightText, View.OnClickListener rightListener){
         View _tb = getLayout(act, R.layout.tb_left_iv_right_tv);
-        ((TextView)_tb.findViewById(R.id._tv_title)).setText(title);
-        ImageView _iv_left = (ImageView) _tb.findViewById(R.id._iv_left);
-        _iv_left.setImageResource(leftIconRes);
-        _iv_left.setOnClickListener(leftListener);
-        TextView tv_right = (TextView)_tb.findViewById(R.id._tv_right);
+        ((TextView)_tb.findViewById(R.id._tb_tv_title)).setText(title);
+        ImageView _tb_iv_left = (ImageView) _tb.findViewById(R.id._tb_iv_left);
+        _tb_iv_left.setImageResource(leftIconRes);
+        _tb_iv_left.setOnClickListener(leftListener);
+        TextView tv_right = (TextView)_tb.findViewById(R.id._tb_tv_right);
         tv_right.setText(rightText);
         tv_right.setOnClickListener(rightListener);
         return _tb;
@@ -82,13 +82,13 @@ public class Tb {
                                                   @DrawableRes int leftIconRes, View.OnClickListener leftListener,
                                                   @DrawableRes int rightIconRes, View.OnClickListener rightListener){
         View _tb = getLayout(act, R.layout.tb_left_iv_right_iv);
-        ((TextView)_tb.findViewById(R.id._tv_title)).setText(title);
-        ImageView _iv_left = (ImageView) _tb.findViewById(R.id._iv_left);
-        _iv_left.setImageResource(leftIconRes);
-        _iv_left.setOnClickListener(leftListener);
-        ImageView _iv_right = (ImageView)_tb.findViewById(R.id._iv_right);
-        _iv_right.setImageResource(rightIconRes);
-        _iv_right.setOnClickListener(rightListener);
+        ((TextView)_tb.findViewById(R.id._tb_tv_title)).setText(title);
+        ImageView _tb_iv_left = (ImageView) _tb.findViewById(R.id._tb_iv_left);
+        _tb_iv_left.setImageResource(leftIconRes);
+        _tb_iv_left.setOnClickListener(leftListener);
+        ImageView _tb_iv_right = (ImageView)_tb.findViewById(R.id._tb_iv_right);
+        _tb_iv_right.setImageResource(rightIconRes);
+        _tb_iv_right.setOnClickListener(rightListener);
         return _tb;
     }
 
@@ -96,26 +96,26 @@ public class Tb {
                                                   String leftText, View.OnClickListener leftListener,
                                                   @DrawableRes int rightIconRes, View.OnClickListener rightListener){
         View _tb = getLayout(act, R.layout.tb_left_tv_right_iv);
-        ((TextView)_tb.findViewById(R.id._tv_title)).setText(title);
-        TextView _tv_left = (TextView) _tb.findViewById(R.id._tv_left);
-        _tv_left.setText(leftText);
-        _tv_left.setOnClickListener(leftListener);
-        ImageView _iv_right = (ImageView)_tb.findViewById(R.id._iv_right);
-        _iv_right.setImageResource(rightIconRes);
-        _iv_right.setOnClickListener(rightListener);
+        ((TextView)_tb.findViewById(R.id._tb_tv_title)).setText(title);
+        TextView _tb_tv_left = (TextView) _tb.findViewById(R.id._tb_tv_left);
+        _tb_tv_left.setText(leftText);
+        _tb_tv_left.setOnClickListener(leftListener);
+        ImageView _tb_iv_right = (ImageView)_tb.findViewById(R.id._tb_iv_right);
+        _tb_iv_right.setImageResource(rightIconRes);
+        _tb_iv_right.setOnClickListener(rightListener);
         return _tb;
     }
     public static <ACT extends ABase> View create(ACT act, String title,
                                                   String leftText, View.OnClickListener leftListener,
                                                   String rightText, View.OnClickListener rightListener){
         View _tb = getLayout(act, R.layout.tb_left_tv_right_iv);
-        ((TextView)_tb.findViewById(R.id._tv_title)).setText(title);
-        TextView _tv_left = (TextView) _tb.findViewById(R.id._tv_left);
-        _tv_left.setText(leftText);
-        _tv_left.setOnClickListener(leftListener);
-        TextView _tv_right = (TextView)_tb.findViewById(R.id._tv_right);
-        _tv_right.setOnClickListener(rightListener);
-        _tv_right.setText(rightText);
+        ((TextView)_tb.findViewById(R.id._tb_tv_title)).setText(title);
+        TextView _tb_tv_left = (TextView) _tb.findViewById(R.id._tb_tv_left);
+        _tb_tv_left.setText(leftText);
+        _tb_tv_left.setOnClickListener(leftListener);
+        TextView _tb_tv_right = (TextView)_tb.findViewById(R.id._tb_tv_right);
+        _tb_tv_right.setOnClickListener(rightListener);
+        _tb_tv_right.setText(rightText);
         return _tb;
     }
 

@@ -23,7 +23,7 @@ public abstract class ABaseEdit extends ABase {
     protected static final String INPUTTYPE = "inputType";
     protected static final String REQ_CODE = "reqCode";
 
-    TextView _tv_title;
+    TextView _tb_tv_title;
     TextView _tv_save;
     EditText _et;
     ImageView _iv_delete;
@@ -56,7 +56,7 @@ public abstract class ABaseEdit extends ABase {
         if(TextUtils.isEmpty(txt)) _et.setHint(hint);
         else _et.setText(txt);
         _et.setInputType(inputType);
-        _tv_title.setText(title);
+        _tb_tv_title.setText(title);
     }
 
     @Override
@@ -68,7 +68,7 @@ public abstract class ABaseEdit extends ABase {
     public View sRequireTb() {
         View _tb = getLayoutInflater().inflate(R.layout.tb_edit, null);
         _tb.findViewById(R.id._iv_back).setOnClickListener(view -> finish());
-        _tv_title = (TextView)_tb.findViewById(R.id._tv_title);
+        _tb_tv_title = (TextView)_tb.findViewById(R.id._tb_tv_title);
         _tv_save = (TextView)_tb.findViewById(R.id._tv_save);
         return _tb;
 //        return Tb.create(this, "", R.mipmap.i_edit_back, view -> finish(), "", v -> {});
@@ -88,7 +88,7 @@ public abstract class ABaseEdit extends ABase {
     }
 
     private void loadViews(){
-        //_tv_title = (TextView)findViewById(R.id._tv_title);
+        //_tb_tv_title = (TextView)findViewById(R.id._tb_tv_title);
         //_tv_save = (TextView)findViewById(R.id._tv_save);
         _et = (EditText)findViewById(R.id._et);
          _iv_delete = (ImageView)findViewById(R.id._iv_delete);

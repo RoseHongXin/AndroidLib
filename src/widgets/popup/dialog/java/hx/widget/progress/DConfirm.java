@@ -30,9 +30,9 @@ public class DConfirm {
 
     public static AlertDialog show(Activity act, String title, String content, String bt, View.OnClickListener clickListener){
         return show(act,
-                (_tv_title, _tv_content, _bt_) -> {
-                    if(TextUtils.isEmpty(title)) _tv_title.setVisibility(View.GONE);
-                    else _tv_title.setText(title);
+                (_tb_tv_title, _tv_content, _bt_) -> {
+                    if(TextUtils.isEmpty(title)) _tb_tv_title.setVisibility(View.GONE);
+                    else _tb_tv_title.setText(title);
                     _tv_content.setText(content);
                  _bt_.setText(bt);
                 }
@@ -40,12 +40,12 @@ public class DConfirm {
     }
 
     public static AlertDialog show(Activity act, Callback cb, View.OnClickListener clickListener){
-        AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.d_with_bt);
+        AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.Dialog_WithBt);
         View layout  = act.getLayoutInflater().inflate(R.layout.d_confirm, null);
         AlertDialog dialog = builder.setView(layout).setCancelable(false).create();
         TextView _bt_ = (TextView) layout.findViewById(R.id._bt);
 
-        cb.onViewsSetup((TextView) layout.findViewById(R.id._tv_title), (TextView) layout.findViewById(R.id._tv_content), _bt_);
+        cb.onViewsSetup((TextView) layout.findViewById(R.id._tb_tv_title), (TextView) layout.findViewById(R.id._tv_content), _bt_);
 
         _bt_.setOnClickListener(view -> {
             dialog.dismiss();
@@ -59,7 +59,7 @@ public class DConfirm {
 
 
     public interface Callback{
-        void onViewsSetup(TextView _tv_title, TextView _tv_content, TextView _bt_);
+        void onViewsSetup(TextView _tb_tv_title, TextView _tv_content, TextView _bt_);
     }
 
 }

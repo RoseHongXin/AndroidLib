@@ -43,11 +43,11 @@
     <style name="tb_iv" parent="tb_item">
         <item name="android:scaleType">centerInside</item>
     </style>
-    <style name="tb_iv_right" parent="tb_iv">
+    <style name="tb_tb_iv_right" parent="tb_iv">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_alignParentEnd">true</item>
     </style>
-    <style name="tb_tv_right" parent="tb_tv">
+    <style name="tb_tb_tv_right" parent="tb_tv">
         <!--<item name="android:textSize">@dimen/tb_txt</item>-->
         <item name="android:textColor">@color/tb_txt</item>
         <item name="android:layout_alignParentRight">true</item>

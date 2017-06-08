@@ -24,10 +24,10 @@ public class LineItem extends FrameLayout {
 
     final private int NOTHING_SET = -1;
 
-    ImageView _iv_left;
-    TextView _tv_left;
-    ImageView _iv_right;
-    TextView _tv_right;
+    ImageView _tb_iv_left;
+    TextView _tb_tv_left;
+    ImageView _tb_iv_right;
+    TextView _tb_tv_right;
 
     @DrawableRes int iconLeft, iconRight;
     int iconSizeLeft, iconSizeRight;
@@ -38,17 +38,17 @@ public class LineItem extends FrameLayout {
     View layout;
 
 
-    public ImageView _iv_left() {
-        return _iv_left;
+    public ImageView _tb_iv_left() {
+        return _tb_iv_left;
     }
-    public ImageView _iv_right() {
-        return _iv_right;
+    public ImageView _tb_iv_right() {
+        return _tb_iv_right;
     }
-    public TextView _tv_left() {
-        return _tv_left;
+    public TextView _tb_tv_left() {
+        return _tb_tv_left;
     }
-    public TextView _tv_right() {
-        return _tv_right;
+    public TextView _tb_tv_right() {
+        return _tb_tv_right;
     }
 
     public int getPaddingHorizontal() {
@@ -74,54 +74,54 @@ public class LineItem extends FrameLayout {
     }
     public void setGapLeft(int gapLeft) {
         this.gapLeft = gapLeft;
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) _iv_left.getLayoutParams();
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) _tb_iv_left.getLayoutParams();
         params.rightMargin = gapLeft;
-        _iv_left.setLayoutParams(params);
+        _tb_iv_left.setLayoutParams(params);
     }
     public int getGapRight() {
         return gapRight;
     }
     public void setGapRight(int gapRight) {
         this.gapRight = gapRight;
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) _tv_right.getLayoutParams();
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) _tb_tv_right.getLayoutParams();
         params.rightMargin = gapRight;
-        _tv_right.setLayoutParams(params);
+        _tb_tv_right.setLayoutParams(params);
     }
     @DrawableRes public int getIconLeft() {
         return iconLeft;
     }
     public void setIconLeft(@DrawableRes int iconLeft) {
         this.iconLeft = iconLeft;
-        _iv_left.setVisibility(VISIBLE);
-        _iv_left.setImageResource(iconLeft);
+        _tb_iv_left.setVisibility(VISIBLE);
+        _tb_iv_left.setImageResource(iconLeft);
     }
     @DrawableRes public int getIconRight() {
         return iconRight;
     }
     public void setIconRight(@DrawableRes int iconRight) {
         this.iconRight = iconRight;
-        _iv_right.setVisibility(VISIBLE);
-        _iv_right.setImageResource(iconRight);
+        _tb_iv_right.setVisibility(VISIBLE);
+        _tb_iv_right.setImageResource(iconRight);
     }
     public int getIconSizeLeft() {
         return iconSizeLeft;
     }
     public void setIconSizeLeft(int iconSizeLeft) {
         this.iconSizeLeft = iconSizeLeft;
-        ViewGroup.LayoutParams params = _iv_left.getLayoutParams();
+        ViewGroup.LayoutParams params = _tb_iv_left.getLayoutParams();
         params.width = iconSizeLeft;
         params.height = iconSizeLeft;
-        _iv_left.setLayoutParams(params);
+        _tb_iv_left.setLayoutParams(params);
     }
     public int getIconSizeRight() {
         return iconSizeRight;
     }
     public void setIconSizeRight(int iconSizeRight) {
         this.iconSizeRight = iconSizeRight;
-        ViewGroup.LayoutParams params = _iv_right.getLayoutParams();
+        ViewGroup.LayoutParams params = _tb_iv_right.getLayoutParams();
         params.width = iconSizeRight;
         params.height = iconSizeRight;
-        _iv_right.setLayoutParams(params);
+        _tb_iv_right.setLayoutParams(params);
     }
 
     public int getTextColorLeft() {
@@ -129,44 +129,44 @@ public class LineItem extends FrameLayout {
     }
     public void setTextColorLeft(int textColorLeft) {
         this.textColorLeft = textColorLeft;
-        _tv_left.setTextColor(textColorLeft);
+        _tb_tv_left.setTextColor(textColorLeft);
     }
     public int getTextColorRight() {
         return textColorRight;
     }
     public void setTextColorRight(int textColorRight) {
         this.textColorRight = textColorRight;
-        _tv_right.setTextColor(textColorRight);
+        _tb_tv_right.setTextColor(textColorRight);
     }
     public String getTextLeft() {
         return textLeft;
     }
     public void setTextLeft(String textLeft) {
         this.textLeft = textLeft;
-        _tv_left.setVisibility(VISIBLE);
-        _tv_left.setText(textLeft);
+        _tb_tv_left.setVisibility(VISIBLE);
+        _tb_tv_left.setText(textLeft);
     }
     public String getTextRight() {
         return textRight;
     }
     public void setTextRight(String textRight) {
         this.textRight = textRight;
-        _tv_right.setVisibility(VISIBLE);
-        _tv_right.setText(textRight);
+        _tb_tv_right.setVisibility(VISIBLE);
+        _tb_tv_right.setText(textRight);
     }
     public int getTextSizeLeft() {
         return textSizeLeft;
     }
     public void setTextSizeLeft(int textSizeLeft) {
         this.textSizeLeft = textSizeLeft;
-        _tv_left.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeLeft);
+        _tb_tv_left.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeLeft);
     }
     public int getTextSizeRight() {
         return textSizeRight;
     }
     public void setTextSizeRight(int textSizeRight) {
         this.textSizeRight = textSizeRight;
-        _tv_right.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeRight);
+        _tb_tv_right.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeRight);
     }
 
     public void setText(String text){
@@ -195,10 +195,10 @@ public class LineItem extends FrameLayout {
         View layout = inflate(ctx, R.layout.l_lineitem, null);
         addView(layout);
         this.layout = layout;
-        _iv_left = (ImageView)findViewById(R.id._iv_left);
-        _tv_left = (TextView)findViewById(R.id._tv_left);
-        _iv_right = (ImageView)findViewById(R.id._iv_right);
-        _tv_right = (TextView)findViewById(R.id._tv_right);
+        _tb_iv_left = (ImageView)findViewById(R.id._tb_iv_left);
+        _tb_tv_left = (TextView)findViewById(R.id._tb_tv_left);
+        _tb_iv_right = (ImageView)findViewById(R.id._tb_iv_right);
+        _tb_tv_right = (TextView)findViewById(R.id._tb_tv_right);
 
         TypedArray ta = ctx.obtainStyledAttributes(attrs, R.styleable.LineItem);
 

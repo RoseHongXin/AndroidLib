@@ -15,16 +15,16 @@ import hx.lib.R;
 public class DConfirmAndCancel {
 
     public static AlertDialog show(Activity act, Callback cb, View.OnClickListener listener0, View.OnClickListener listener1){
-        AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.d_with_bt);
+        AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.Dialog_WithBt);
         View layout  = act.getLayoutInflater().inflate(R.layout.d_confirm_and_cancel, null);
         AlertDialog dialog = builder.setView(layout).setCancelable(false).create();
 
-        TextView _tv_title = (TextView)layout.findViewById(R.id._tv_title);
+        TextView _tb_tv_title = (TextView)layout.findViewById(R.id._tb_tv_title);
         TextView _tv_content = (TextView)layout.findViewById(R.id._tv_content);
         TextView _bt_0 = (TextView)layout.findViewById(R.id._bt_0);
         TextView _bt_1 = (TextView)layout.findViewById(R.id._bt_1);
 
-        cb.onViewsSetup(_tv_title, _tv_content, _bt_0, _bt_1);
+        cb.onViewsSetup(_tb_tv_title, _tv_content, _bt_0, _bt_1);
         _bt_0.setOnClickListener(view -> {
             dialog.dismiss();
             if(listener0 != null) listener0.onClick(_bt_0);
@@ -53,9 +53,9 @@ public class DConfirmAndCancel {
     }
 
     public static AlertDialog show(Activity act, String title, String content, String bt0, View.OnClickListener cb0, String bt1, View.OnClickListener cb1){
-        AlertDialog dialog = show(act, (_tv_title, _tv_content, _bt_0, _bt_1) -> {
-            if(TextUtils.isEmpty(title)) _tv_title.setVisibility(View.GONE);
-            else _tv_title.setText(title);
+        AlertDialog dialog = show(act, (_tb_tv_title, _tv_content, _bt_0, _bt_1) -> {
+            if(TextUtils.isEmpty(title)) _tb_tv_title.setVisibility(View.GONE);
+            else _tb_tv_title.setText(title);
             _tv_content.setText(content);
             _bt_0.setText(bt0);
             _bt_1.setText(bt1);
@@ -65,7 +65,7 @@ public class DConfirmAndCancel {
     }
 
     public interface Callback{
-        void onViewsSetup(TextView _tv_title, TextView _tv_content, TextView _bt_0, TextView _bt_1);
+        void onViewsSetup(TextView _tb_tv_title, TextView _tv_content, TextView _bt_0, TextView _bt_1);
     }
 
 }

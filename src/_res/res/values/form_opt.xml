@@ -13,8 +13,8 @@
     <style name="Opt.Container">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">@dimen/l_padding_vertical_larger</item>
-        <item name="android:paddingBottom">@dimen/l_padding_vertical_larger</item>
+        <item name="android:paddingTop">@dimen/l_padding_small</item>
+        <item name="android:paddingBottom">@dimen/l_padding_small</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">start|center_vertical</item>
     </style>

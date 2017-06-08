@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/tb">
 
-    <TextView android:id="@+id/_tv_left" style="@style/tb_iv" />
+    <TextView android:id="@+id/_tb_tv_left" style="@style/tb_iv" />
 
-    <TextView android:id="@+id/_tv_title" style="@style/tb_title"/>
+    <TextView android:id="@+id/_tb_tv_title" style="@style/tb_title"/>
 
-    <TextView android:id="@+id/_tv_right" style="@style/tb_tv_right"/>
+    <TextView android:id="@+id/_tb_tv_right" style="@style/tb_tb_tv_right"/>
 
 </RelativeLayout>

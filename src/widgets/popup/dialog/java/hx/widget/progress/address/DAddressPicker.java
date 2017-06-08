@@ -31,7 +31,7 @@ public class DAddressPicker implements View.OnClickListener{
     private List<City> mCounties;
 
     public DAddressPicker(Activity act){
-        AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.dialog_item_select);
+        AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.Dialog_BottomUp);
         View layout = act.getLayoutInflater().inflate(R.layout.d_address_picker, null);
         mDialog = builder.setView(layout).create();
         Window window = mDialog.getWindow();

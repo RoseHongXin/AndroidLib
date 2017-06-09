@@ -1,4 +1,4 @@
-package hx.widget.progress.address;
+package hx.widget.dialog.address;
 
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;

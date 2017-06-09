@@ -20,8 +20,8 @@ public abstract class ApBase<Vh extends VhBase<T>, T> extends RecyclerView.Adapt
     final String TAG = "--ApBase--";
 
     private List<T> mDatas = new ArrayList<T>();
-    protected Activity act;
-    protected RecyclerView rv;
+    protected Activity mAct;
+    protected RecyclerView _rv;
     protected IItemClickListener<T> mClickListener;
 
     public abstract Vh getVh(Activity act);
@@ -33,13 +33,13 @@ public abstract class ApBase<Vh extends VhBase<T>, T> extends RecyclerView.Adapt
     }
 
      protected ApBase(Activity act, RecyclerView rv){
-        this.act = act;
-        this.rv = rv;
+        this.mAct = act;
+        this._rv = rv;
     }
 
     @Override
     public Vh onCreateViewHolder(ViewGroup parent, int viewType) {
-        Vh holder = getVh(act);
+        Vh holder = getVh(mAct);
 //        viewType 未做额外处理，此处只作为position用。
 //        if(mClickListener != null) holder.itemView.setOnClickListener(view -> mClickListener.onClick(mDatas.get(viewType), viewType));
         return holder;

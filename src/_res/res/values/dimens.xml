@@ -41,6 +41,6 @@
     <dimen name="lineitem_height">@dimen/l_form_item_height</dimen>
 
     <dimen name="opt_title_max_width">128dp</dimen>
-    <dimen name="opt_title_min_width">100dp</dimen>
+    <dimen name="opt_title_min_width">72dp</dimen>
 
 </resources>

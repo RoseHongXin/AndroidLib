@@ -1,11 +1,9 @@
-package hx.widget.progress;
+package hx.widget.dialog;
 
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -20,6 +18,13 @@ import hx.lib.R;
 public class DTimePicker {
 
     public static void show(Activity act, TimePicker.OnTimeChangedListener listener){
+        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            TimePickerDialog timePickerDialog = new TimePickerDialog(act);
+        }else showSelfDefine(act, listener);*/
+        showSelfDefine(act, listener);
+    }
+
+    private static void showSelfDefine(Activity act, TimePicker.OnTimeChangedListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.Dialog_BottomUp);
         View layout = act.getLayoutInflater().inflate(R.layout.d_time_picker, null);
         AlertDialog dialog = builder.setView(layout).create();
@@ -41,17 +46,7 @@ public class DTimePicker {
             dialog.dismiss();
         });
 
-        Window window = dialog.getWindow();
-        if(window != null) {
-            window.setGravity(Gravity.BOTTOM); //可设置dialog的位置
-            window.getDecorView().setPadding(0, 0, 0, 0); //消除边距
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;   //设置宽度充满屏幕
-//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            window.setAttributes(lp);
-        }
-
+        DialogHelper.erasePadding(dialog, Gravity.BOTTOM);
         dialog.show();
-
     }
 }

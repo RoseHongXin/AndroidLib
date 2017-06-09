@@ -1,4 +1,4 @@
-package hx.widget.progress.address;
+package hx.widget.dialog.address;
 
 import java.util.List;
 

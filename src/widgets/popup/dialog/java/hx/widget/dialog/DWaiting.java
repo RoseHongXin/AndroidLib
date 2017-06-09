@@ -1,4 +1,4 @@
-package hx.widget.progress;
+package hx.widget.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;

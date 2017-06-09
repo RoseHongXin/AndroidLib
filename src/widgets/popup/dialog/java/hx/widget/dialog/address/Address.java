@@ -1,4 +1,4 @@
-package hx.widget.progress.address;
+package hx.widget.dialog.address;
 
 /**
  * Created by Rose on 3/23/2017.

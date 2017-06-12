@@ -1,6 +1,7 @@
 package hx.widget.dialog;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,22 @@ import hx.lib.R;
  */
 
 public class DConfirmAndCancel {
+
+    public static AlertDialog showOriginal(Activity act, String title, String msg, DialogInterface.OnClickListener onConfirmClick){
+        AlertDialog d =  new AlertDialog.Builder(act).setTitle(title)
+                .setCancelable(false)
+                .setMessage(msg)
+                .setPositiveButton(R.string.confirm, (dialog, which) -> {
+                    dialog.dismiss();
+                    if(onConfirmClick != null) onConfirmClick.onClick(dialog, which);
+                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                  dialog.dismiss();
+                })
+                .create();
+        d.show();
+        return d;
+    }
 
     public static AlertDialog show(Activity act, Callback cb, View.OnClickListener listener0, View.OnClickListener listener1){
         AlertDialog.Builder builder = new AlertDialog.Builder(act, R.style.Dialog_WithBt);

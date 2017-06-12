@@ -8,8 +8,7 @@
         android:layout_height="wrap_content"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
-        android:spinnersShown="true"
-        android:dialogMode="true" />
+        android:spinnersShown="true" />
     <View style="@style/line" android:layout_marginTop="@dimen/l_margin_vertical" />
     <include layout="@layout/l_bts"/>
 

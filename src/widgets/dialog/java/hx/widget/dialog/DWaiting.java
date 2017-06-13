@@ -24,9 +24,17 @@ public class DWaiting {
         return show(act, null);
     }
     public static Dialog show(Activity act, String hint){
+        return show(act, hint, true);
+    }
+
+    public static Dialog force(Activity act){
+        return show(act, null, false);
+    }
+    public static Dialog show(Activity act, String hint, boolean cancelable){
         Dialog dialog = new Dialog(act, R.style.Dialog_Waiting);
         View layout = dialog.getLayoutInflater().inflate(R.layout.d_waiting, null);
         dialog.setContentView(layout);
+        dialog.setCancelable(cancelable);
         dialog.setOnKeyListener((dialog1, keyCode, event) -> {
             if(keyCode == KeyEvent.KEYCODE_BACK){
                 dialog.dismiss();
@@ -41,4 +49,5 @@ public class DWaiting {
         dialog.show();
         return dialog;
     }
+
 }

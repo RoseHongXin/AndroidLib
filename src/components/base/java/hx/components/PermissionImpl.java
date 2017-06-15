@@ -34,6 +34,17 @@ public class PermissionImpl {
     public static boolean checkIfGranted(Activity act, String permission){
         return ActivityCompat.checkSelfPermission(act, permission) == PackageManager.PERMISSION_GRANTED;
     }
+    public static boolean checkIfGranted(Activity act, String ... permissions){
+//        boolean[] granted = new boolean[permissions.length];
+//        for(int i = 0; i < permissions.length; i++) granted[i] = ActivityCompat.checkSelfPermission(act, permissions[i]) == PackageManager.PERMISSION_GRANTED;
+//        for(boolean g : granted) if(!g) return false;
+//        return true;
+        for(String permission : permissions){
+            boolean granted = ActivityCompat.checkSelfPermission(act, permission) == PackageManager.PERMISSION_GRANTED;
+            if(!granted) return false;
+        }
+        return true;
+    }
 
     public void requirePermissions(Fragment fra, String ... permissions){
         fra.requestPermissions(permissions, PERMISSION_REQ_CODE);

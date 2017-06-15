@@ -21,6 +21,7 @@
     <string name="not_yet_login">您还未登录！</string>
     <string name="login_failed">登陆失败</string>
     <string name="login_timeout">登陆超时,请重试!</string>
+    <string name="login_expire">登陆失效,请重新登陆!</string>
 
     <string name="captcha_obtaining">%1$d秒后可重发</string>
     <string name="captcha_resend_until">重新发送(%1$d)</string>

@@ -68,6 +68,7 @@ dependencies {
     compile 'cn.finalteam:galleryfinal:1.4.8.7'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile files('lib/jxl.jar')
+
 }
 
 void getDirs(List<String> list, dirs, String key){

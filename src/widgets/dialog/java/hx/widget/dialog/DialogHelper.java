@@ -19,6 +19,10 @@ public class DialogHelper {
         config(dialog, gravity, 0, 0, 0, 0);
     }
 
+    public static void padding(Dialog dialog){
+        config(dialog, Gravity.CENTER, 24, 24, 24, 24);
+    }
+
     public static void padding(Dialog dialog, int paddingHorizontal, int paddingVertical){
         config(dialog, Gravity.CENTER, paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
     }

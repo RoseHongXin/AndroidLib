@@ -5,11 +5,11 @@ import android.content.SharedPreferences;
 
 import com.alibaba.fastjson.JSON;
 
-public class SpUtil {
+public class SpHelper {
 
     static private SharedPreferences mSp;
 
-    public SpUtil(Context ctx){
+    public SpHelper(Context ctx){
         init(ctx);
     }
 

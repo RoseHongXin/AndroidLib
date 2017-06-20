@@ -7,14 +7,16 @@
         app:swipe_style="classic"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <include android:id="@id/_sr_header" layout="@layout/l_swipe_refresh_header" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@id/_sr_rv"
+            android:id="@id/_sr_target"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <include android:id="@id/_sr_footer" layout="@layout/l_swipe_refresh_footer" />
+
     </hx.view.swiperefresh.SwipeRefreshContainer>
 
 </merge>

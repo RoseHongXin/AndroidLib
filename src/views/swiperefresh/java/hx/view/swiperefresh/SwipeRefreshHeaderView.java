@@ -43,7 +43,7 @@ public class SwipeRefreshHeaderView extends SwipeRefreshHeaderLayout {
 
     public SwipeRefreshHeaderView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mHeaderHeight = getResources().getDimensionPixelOffset(R.dimen.refresh_header_height);
+        mHeaderHeight = getResources().getDimensionPixelOffset(R.dimen.swipe_refresh_header_height);
         rotateUp = AnimationUtils.loadAnimation(context, R.anim.am_rotate_up);
         rotateDown = AnimationUtils.loadAnimation(context, R.anim.am_rotate_down);
     }
@@ -64,7 +64,7 @@ public class SwipeRefreshHeaderView extends SwipeRefreshHeaderLayout {
         _sr_iv_arrow.clearAnimation();
         _sr_iv_arrow.setVisibility(GONE);
         _sr_pb.setVisibility(VISIBLE);
-        _sr_tv_refresh.setText(getContext().getString(R.string.cube_ptr_refreshing));
+        _sr_tv_refresh.setText(getContext().getString(R.string.swipe_refresh_refreshing));
     }
 
     @Override
@@ -79,7 +79,7 @@ public class SwipeRefreshHeaderView extends SwipeRefreshHeaderLayout {
             _sr_pb.setVisibility(GONE);
             _sr_iv_success.setVisibility(GONE);
             if (y > mHeaderHeight) {
-                _sr_tv_refresh.setText(getContext().getString(R.string.cube_ptr_release_to_refresh));
+                _sr_tv_refresh.setText(getContext().getString(R.string.swipe_refresh_release_to_refresh));
                 if (!rotated) {
                     _sr_iv_arrow.clearAnimation();
                     _sr_iv_arrow.startAnimation(rotateUp);
@@ -92,7 +92,7 @@ public class SwipeRefreshHeaderView extends SwipeRefreshHeaderLayout {
                     rotated = false;
                 }
 
-                _sr_tv_refresh.setText(getContext().getString(R.string.cube_ptr_pull_down_to_refresh));
+                _sr_tv_refresh.setText(getContext().getString(R.string.swipe_refresh_pull_down_to_refresh));
             }
         }
     }
@@ -109,7 +109,7 @@ public class SwipeRefreshHeaderView extends SwipeRefreshHeaderLayout {
         _sr_iv_arrow.clearAnimation();
         _sr_iv_arrow.setVisibility(GONE);
         _sr_pb.setVisibility(GONE);
-        _sr_tv_refresh.setText(getContext().getString(R.string.cube_ptr_refresh_complete));
+        _sr_tv_refresh.setText(getContext().getString(R.string.swipe_refresh_refresh_complete));
     }
 
     @Override

@@ -29,7 +29,7 @@ public class SwipeLoadMoreFooterView extends SwipeLoadMoreFooterLayout {
 
     public SwipeLoadMoreFooterView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mFooterHeight = getResources().getDimensionPixelOffset(R.dimen.load_more_footer_height_classic);
+        mFooterHeight = getResources().getDimensionPixelOffset(R.dimen.swipe_refresh_footer_height);
     }
 
     @Override
@@ -51,16 +51,16 @@ public class SwipeLoadMoreFooterView extends SwipeLoadMoreFooterLayout {
             _sr_iv_success.setVisibility(GONE);
             _sr_pb.setVisibility(GONE);
             if (-y >= mFooterHeight) {
-                _sr_tv_loadmore.setText(getContext().getString(R.string.cube_views_release_to_load_more));
+                _sr_tv_loadmore.setText(getContext().getString(R.string.swipe_refresh_release_to_load_more));
             } else {
-                _sr_tv_loadmore.setText(getContext().getString(R.string.cube_views_pull_up_to_load_more));
+                _sr_tv_loadmore.setText(getContext().getString(R.string.swipe_refresh_pull_up_to_load_more));
             }
         }
     }
 
     @Override
     public void onLoadMore() {
-        _sr_tv_loadmore.setText(getContext().getString(R.string.cube_views_load_more_loading));
+        _sr_tv_loadmore.setText(getContext().getString(R.string.swipe_refresh_load_more_loading));
         _sr_pb.setVisibility(VISIBLE);
     }
 

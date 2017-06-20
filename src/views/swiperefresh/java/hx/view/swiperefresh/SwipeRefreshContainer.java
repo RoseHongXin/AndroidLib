@@ -56,7 +56,7 @@ public class SwipeRefreshContainer extends ViewGroup {
 
     private View _sr_header;
 
-    private View _sr_container;
+    private View _sr_target;
 
     private View _sr_footer;
 
@@ -323,6 +323,10 @@ public class SwipeRefreshContainer extends ViewGroup {
         mAutoScroller = new AutoScroller();
     }
 
+    public View getTargetView(){
+        return _sr_target;
+    }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -332,13 +336,13 @@ public class SwipeRefreshContainer extends ViewGroup {
             return;
         } else if (0 < childNum && childNum < 4) {
             _sr_header = findViewById(R.id._sr_header);
-            _sr_container = findViewById(R.id._sr_container);
+            _sr_target = findViewById(R.id._sr_target);
             _sr_footer = findViewById(R.id._sr_footer);
         } else {
             // more than three children: unsupported!
             throw new IllegalStateException("Children num must equal or less than 3");
         }
-        if (_sr_container == null) {
+        if (_sr_target == null) {
             return;
         }
         if (_sr_header != null && _sr_header instanceof SwipeTrigger) {
@@ -363,8 +367,8 @@ public class SwipeRefreshContainer extends ViewGroup {
             }
         }
         // target
-        if (_sr_container != null) {
-            final View targetView = _sr_container;
+        if (_sr_target != null) {
+            final View targetView = _sr_target;
             measureChildWithMargins(targetView, widthMeasureSpec, 0, heightMeasureSpec, 0);
         }
         // footer
@@ -964,16 +968,16 @@ public class SwipeRefreshContainer extends ViewGroup {
      */
     protected boolean canChildScrollUp() {
         if (android.os.Build.VERSION.SDK_INT < 14) {
-            if (_sr_container instanceof AbsListView) {
-                final AbsListView absListView = (AbsListView) _sr_container;
+            if (_sr_target instanceof AbsListView) {
+                final AbsListView absListView = (AbsListView) _sr_target;
                 return absListView.getChildCount() > 0
                         && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
                         .getTop() < absListView.getPaddingTop());
             } else {
-                return ViewCompat.canScrollVertically(_sr_container, -1) || _sr_container.getScrollY() > 0;
+                return ViewCompat.canScrollVertically(_sr_target, -1) || _sr_target.getScrollY() > 0;
             }
         } else {
-            return ViewCompat.canScrollVertically(_sr_container, -1);
+            return ViewCompat.canScrollVertically(_sr_target, -1);
         }
     }
 
@@ -985,16 +989,16 @@ public class SwipeRefreshContainer extends ViewGroup {
      */
     protected boolean canChildScrollDown() {
         if (android.os.Build.VERSION.SDK_INT < 14) {
-            if (_sr_container instanceof AbsListView) {
-                final AbsListView absListView = (AbsListView) _sr_container;
+            if (_sr_target instanceof AbsListView) {
+                final AbsListView absListView = (AbsListView) _sr_target;
                 return absListView.getChildCount() > 0
                         && (absListView.getLastVisiblePosition() < absListView.getChildCount() - 1
                         || absListView.getChildAt(absListView.getChildCount() - 1).getBottom() > absListView.getPaddingBottom());
             } else {
-                return ViewCompat.canScrollVertically(_sr_container, 1) || _sr_container.getScrollY() < 0;
+                return ViewCompat.canScrollVertically(_sr_target, 1) || _sr_target.getScrollY() < 0;
             }
         } else {
-            return ViewCompat.canScrollVertically(_sr_container, 1);
+            return ViewCompat.canScrollVertically(_sr_target, 1);
         }
     }
 
@@ -1010,7 +1014,7 @@ public class SwipeRefreshContainer extends ViewGroup {
         final int paddingRight = getPaddingRight();
         final int paddingBottom = getPaddingBottom();
 
-        if (_sr_container == null) {
+        if (_sr_target == null) {
             return;
         }
 
@@ -1049,8 +1053,8 @@ public class SwipeRefreshContainer extends ViewGroup {
 
 
         // layout target
-        if (_sr_container != null) {
-            final View targetView = _sr_container;
+        if (_sr_target != null) {
+            final View targetView = _sr_target;
             MarginLayoutParams lp = (MarginLayoutParams) targetView.getLayoutParams();
             final int targetLeft = paddingLeft + lp.leftMargin;
             final int targetTop;
@@ -1125,8 +1129,8 @@ public class SwipeRefreshContainer extends ViewGroup {
                 _sr_footer.bringToFront();
             }
         } else if (mStyle == STYLE.BLEW || mStyle == STYLE.SCALE) {
-            if (_sr_container != null) {
-                _sr_container.bringToFront();
+            if (_sr_target != null) {
+                _sr_target.bringToFront();
             }
         }
     }

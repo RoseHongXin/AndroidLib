@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hx.view.swiperefresh.SwipeRefreshHeaderView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/refresh_header_height"
+    android:layout_gravity="center">
+
+        <ImageView
+            android:id="@id/_sr_iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="48dp"
+            android:layout_toLeftOf="@+id/_tv_refresh"
+            android:background="@mipmap/i_swipe_refresh_arrow_down" />
+
+        <ImageView
+            android:id="@id/_sr_iv_success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="48dp"
+            android:layout_toLeftOf="@+id/_tv_refresh"
+            android:background="@mipmap/i_swipe_refresh_success" />
+
+        <ProgressBar
+            android:id="@id/_sr_pb"
+            style="?android:attr/progressBarStyleSmallInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="48dp"
+            android:layout_toLeftOf="@+id/_tv_refresh" />
+
+        <TextView
+            android:id="@id/_sr_tv_refresh"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="?attr/colorPrimary" />
+
+</hx.view.swiperefresh.SwipeRefreshHeaderView>

@@ -7,19 +7,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import butterknife.ButterKnife;
+import hx.widget.adapterview.recyclerview.ApBase;
 
 /**
  * Created by rose on 16-9-9.
  */
-public class VhBase<T> extends RecyclerView.ViewHolder {
+public class VhBase<T>  extends RecyclerView.ViewHolder  {
 
     protected Activity mAct;
     protected T data;
     protected int position;
+    protected ApBase mAdapter;
+    protected RecyclerView _rv;
 
+
+    @Deprecated
     public VhBase(Activity act, @LayoutRes int layoutRes){
         this(act.getLayoutInflater().inflate(layoutRes, null));
         this.mAct = act;
+    }
+    public <Ap extends ApBase> VhBase(Ap adapter, @LayoutRes int layoutRes){
+        this(adapter.mAct.getLayoutInflater().inflate(layoutRes, adapter._rv, false));
+        this.mAdapter = adapter;
+        this.mAct = adapter.mAct;
+        this._rv = adapter._rv;
     }
     private VhBase(View itemView){
         super(itemView);

@@ -2,6 +2,7 @@ package hx.widget.adapterview.recyclerview;
 
 import android.app.Activity;
 import android.support.annotation.CallSuper;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -20,9 +21,10 @@ public abstract class ApBase<Vh extends VhBase<T>, T> extends RecyclerView.Adapt
     final String TAG = "--ApBase--";
 
     private List<T> mDatas = new ArrayList<T>();
-    protected Activity mAct;
-    protected RecyclerView _rv;
-    protected IItemClickListener<T> mClickListener;
+    public Activity mAct;
+    public RecyclerView _rv;
+    private IItemClickListener<T> mClickListener;
+
 
     public abstract Vh getVh(Activity act);
     @CallSuper protected void bind(Vh holder, T data, int position){
@@ -32,9 +34,12 @@ public abstract class ApBase<Vh extends VhBase<T>, T> extends RecyclerView.Adapt
         this.mClickListener = clickListener;
     }
 
-     protected ApBase(Activity act, RecyclerView rv){
+     public ApBase(Activity act, RecyclerView rv){
         this.mAct = act;
         this._rv = rv;
+         LinearLayoutManager layoutManager = new LinearLayoutManager(mAct);
+         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+         _rv.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -70,6 +75,11 @@ public abstract class ApBase<Vh extends VhBase<T>, T> extends RecyclerView.Adapt
     }
     public List<T> getData(){
         return mDatas;
+    }
+
+    public void clear(){
+        if(mDatas != null) mDatas.clear();
+        notifyDataSetChanged();
     }
 
 }

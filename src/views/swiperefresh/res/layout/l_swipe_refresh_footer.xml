@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<hx.view.swiperefresh.SwipeLoadMoreFooterView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/load_more_footer_height_classic">
+
+        <ProgressBar
+            android:id="@id/_sr_pb"
+            style="?android:attr/progressBarStyleSmallInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/_sr_tv_loadmore" />
+
+        <ImageView
+            android:id="@+id/_sr_iv_success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/_sr_tv_loadmore"
+            android:background="@mipmap/i_swipe_refresh_success" />
+
+        <TextView
+            android:id="@id/_sr_tv_loadmore"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="LoadMore"
+            android:textColor="?attr/colorPrimary" />
+</hx.view.swiperefresh.SwipeLoadMoreFooterView>

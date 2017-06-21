@@ -29,6 +29,9 @@
 
     <string name="confirm">确定</string>
 
+    <string name="full_paragraph">全文</string>
+    <string name="paragraph_roll_up">收起</string>
+
     <string name="login">登录</string>
     <string name="logout_hint">退出登陆提示</string>
     <string name="logout_confirm">确认退出当前登录账号?</string>

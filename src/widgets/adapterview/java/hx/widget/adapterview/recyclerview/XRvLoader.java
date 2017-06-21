@@ -22,6 +22,7 @@ public class XRvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
     private Activity mAct;
     private XRecyclerView.LoadingListener mListener;
     private ArrowRefreshHeader mRefreshHeader;
+    private boolean mLoadMoreEnabled = true;
 
     public XRvLoader init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(mAct);
@@ -83,6 +84,11 @@ public class XRvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
         };
         registerListener(mListener);
         return init();
+    }
+
+    public void loadMoreEnable(boolean enable){
+        this.mLoadMoreEnabled = enable;
+        _rv.setLoadingMoreEnabled(enable);
     }
 
     public void doRefresh(){

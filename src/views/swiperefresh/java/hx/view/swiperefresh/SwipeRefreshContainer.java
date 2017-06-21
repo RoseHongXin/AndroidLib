@@ -312,7 +312,6 @@ public class SwipeRefreshContainer extends ViewGroup {
 
                 } else if (attr == R.styleable.SwipeRefreshContainer_default_to_loading_more_scrolling_duration) {
                     setDefaultToLoadingMoreScrollingDuration(a.getInt(attr, DEFAULT_DEFAULT_TO_LOADING_MORE_SCROLLING_DURATION));
-
                 }
             }
         } finally {
@@ -467,8 +466,7 @@ public class SwipeRefreshContainer extends ViewGroup {
                 mInitDownX = mLastX = getMotionEventX(event, mActivePointerId);
 
                 // if it isn't an ing status or default status
-                if (STATUS.isSwipingToRefresh(mStatus) || STATUS.isSwipingToLoadMore(mStatus) ||
-                        STATUS.isReleaseToRefresh(mStatus) || STATUS.isReleaseToLoadMore(mStatus)) {
+                if (STATUS.isSwipingToRefresh(mStatus) || STATUS.isSwipingToLoadMore(mStatus) || STATUS.isReleaseToRefresh(mStatus) || STATUS.isReleaseToLoadMore(mStatus)) {
                     // abort autoScrolling, not trigger the method #autoScrollFinished()
                     mAutoScroller.abortIfRunning();
                     if (mDebug) {
@@ -476,8 +474,7 @@ public class SwipeRefreshContainer extends ViewGroup {
                     }
                 }
 
-                if (STATUS.isSwipingToRefresh(mStatus) || STATUS.isReleaseToRefresh(mStatus)
-                        || STATUS.isSwipingToLoadMore(mStatus) || STATUS.isReleaseToLoadMore(mStatus)) {
+                if (STATUS.isSwipingToRefresh(mStatus) || STATUS.isReleaseToRefresh(mStatus) || STATUS.isSwipingToLoadMore(mStatus) || STATUS.isReleaseToLoadMore(mStatus)) {
                     return true;
                 }
 
@@ -496,22 +493,17 @@ public class SwipeRefreshContainer extends ViewGroup {
                 // anyway: handle action down in onInterceptTouchEvent() to init is an good option
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (mActivePointerId == INVALID_POINTER) {
-                    return false;
-                }
+                if (mActivePointerId == INVALID_POINTER) { return false; }
                 float y = getMotionEventY(event, mActivePointerId);
                 float x = getMotionEventX(event, mActivePointerId);
                 final float yInitDiff = y - mInitDownY;
                 final float xInitDiff = x - mInitDownX;
                 mLastY = y;
                 mLastX = x;
-                boolean moved = Math.abs(yInitDiff) > Math.abs(xInitDiff)
-                        && Math.abs(yInitDiff) > mTouchSlop;
-                boolean triggerCondition =
-                        // refresh trigger condition
-                        (yInitDiff > 0 && moved && onCheckCanRefresh()) ||
-                                //load more trigger condition
-                                (yInitDiff < 0 && moved && onCheckCanLoadMore());
+                boolean moved = Math.abs(yInitDiff) > Math.abs(xInitDiff) && Math.abs(yInitDiff) > mTouchSlop;
+                boolean triggerCondition = (yInitDiff > 0 && moved && onCheckCanRefresh()) || (yInitDiff < 0 && moved && onCheckCanLoadMore());
+                // refresh trigger condition        load more trigger condition
+
                 if (triggerCondition) {
                     // if the refresh's or load more's trigger condition  is true,
                     // intercept the move action event and pass it to SwipeToLoadLayout#onTouchEvent()
@@ -535,12 +527,10 @@ public class SwipeRefreshContainer extends ViewGroup {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final int action = MotionEventCompat.getActionMasked(event);
-
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                mActivePointerId = MotionEventCompat.getPointerId(event, 0);
+                mActivePointerId = event.getPointerId(0);
                 return true;
-
             case MotionEvent.ACTION_MOVE:
                 // take over the ACTION_MOVE event from SwipeToLoadLayout#onInterceptTouchEvent()
                 // if condition is true
@@ -601,7 +591,7 @@ public class SwipeRefreshContainer extends ViewGroup {
 
             case MotionEvent.ACTION_POINTER_DOWN: {
                 final int pointerIndex = MotionEventCompat.getActionIndex(event);
-                final int pointerId = MotionEventCompat.getPointerId(event, pointerIndex);
+                final int pointerId = event.getPointerId(pointerIndex);
                 if (pointerId != INVALID_POINTER) {
                     mActivePointerId = pointerId;
                 }
@@ -704,7 +694,7 @@ public class SwipeRefreshContainer extends ViewGroup {
             }
             if (_sr_header != view) {
                 this._sr_header = view;
-                addView(view);
+                addView(_sr_header);
             }
         } else {
             Log.e(TAG, "Refresh header view must be an implement of SwipeRefreshTrigger");
@@ -922,12 +912,7 @@ public class SwipeRefreshContainer extends ViewGroup {
         } else {
             if (STATUS.isRefreshing(mStatus)) {
                 mRefreshCallback.onComplete();
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        scrollRefreshingToDefault();
-                    }
-                }, mRefreshCompleteDelayDuration);
+                postDelayed(this::scrollRefreshingToDefault, mRefreshCompleteDelayDuration);
             }
         }
     }
@@ -950,12 +935,7 @@ public class SwipeRefreshContainer extends ViewGroup {
         } else {
             if (STATUS.isLoadingMore(mStatus)) {
                 mLoadMoreCallback.onComplete();
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        scrollLoadingMoreToDefault();
-                    }
-                }, mLoadMoreCompleteDelayDuration);
+                postDelayed(this::scrollLoadingMoreToDefault, mLoadMoreCompleteDelayDuration);
             }
         }
     }
@@ -970,9 +950,7 @@ public class SwipeRefreshContainer extends ViewGroup {
         if (android.os.Build.VERSION.SDK_INT < 14) {
             if (_sr_target instanceof AbsListView) {
                 final AbsListView absListView = (AbsListView) _sr_target;
-                return absListView.getChildCount() > 0
-                        && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
-                        .getTop() < absListView.getPaddingTop());
+                return absListView.getChildCount() > 0 && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0).getTop() < absListView.getPaddingTop());
             } else {
                 return ViewCompat.canScrollVertically(_sr_target, -1) || _sr_target.getScrollY() > 0;
             }
@@ -991,9 +969,7 @@ public class SwipeRefreshContainer extends ViewGroup {
         if (android.os.Build.VERSION.SDK_INT < 14) {
             if (_sr_target instanceof AbsListView) {
                 final AbsListView absListView = (AbsListView) _sr_target;
-                return absListView.getChildCount() > 0
-                        && (absListView.getLastVisiblePosition() < absListView.getChildCount() - 1
-                        || absListView.getChildAt(absListView.getChildCount() - 1).getBottom() > absListView.getPaddingBottom());
+                return absListView.getChildCount() > 0 && (absListView.getLastVisiblePosition() < absListView.getChildCount() - 1 || absListView.getChildAt(absListView.getChildCount() - 1).getBottom() > absListView.getPaddingBottom());
             } else {
                 return ViewCompat.canScrollVertically(_sr_target, 1) || _sr_target.getScrollY() < 0;
             }
@@ -1120,8 +1096,7 @@ public class SwipeRefreshContainer extends ViewGroup {
             footerView.layout(footerLeft, footerTop, footerRight, footerBottom);
         }
 
-        if (mStyle == STYLE.CLASSIC
-                || mStyle == STYLE.ABOVE) {
+        if (mStyle == STYLE.CLASSIC || mStyle == STYLE.ABOVE) {
             if (_sr_header != null) {
                 _sr_header.bringToFront();
             }
@@ -1173,11 +1148,9 @@ public class SwipeRefreshContainer extends ViewGroup {
         // I am so smart :)
 
         float tmpTargetOffset = yScrolled + mTargetOffset;
-        if ((tmpTargetOffset > 0 && mTargetOffset < 0)
-                || (tmpTargetOffset < 0 && mTargetOffset > 0)) {
+        if ((tmpTargetOffset > 0 && mTargetOffset < 0) || (tmpTargetOffset < 0 && mTargetOffset > 0)) {
             yScrolled = -mTargetOffset;
         }
-
 
         if (mRefreshFinalDragOffset >= mRefreshTriggerOffset && tmpTargetOffset > mRefreshFinalDragOffset) {
             yScrolled = mRefreshFinalDragOffset - mTargetOffset;
@@ -1270,12 +1243,13 @@ public class SwipeRefreshContainer extends ViewGroup {
      */
     private void onSecondaryPointerUp(MotionEvent ev) {
         final int pointerIndex = MotionEventCompat.getActionIndex(ev);
-        final int pointerId = MotionEventCompat.getPointerId(ev, pointerIndex);
+        final int pointerId = ev.getPointerId(pointerIndex);
         if (pointerId == mActivePointerId) {
             // This was our active pointer going up. Choose a new
             // active pointer and adjust accordingly.
             final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
-            mActivePointerId = MotionEventCompat.getPointerId(ev, newPointerIndex);
+//            mActivePointerId = MotionEventCompat.getPointerId(ev, newPointerIndex);
+            mActivePointerId = ev.getPointerId(newPointerIndex);
         }
     }
 
@@ -1374,7 +1348,6 @@ public class SwipeRefreshContainer extends ViewGroup {
      * @return
      */
     private boolean onCheckCanRefresh() {
-
         return mRefreshEnabled && !canChildScrollUp() && mHasHeaderView && mRefreshTriggerOffset > 0;
     }
 
@@ -1384,24 +1357,23 @@ public class SwipeRefreshContainer extends ViewGroup {
      * @return
      */
     private boolean onCheckCanLoadMore() {
-
         return mLoadMoreEnabled && !canChildScrollDown() && mHasFooterView && mLoadMoreTriggerOffset > 0;
     }
 
     private float getMotionEventY(MotionEvent event, int activePointerId) {
-        final int index = MotionEventCompat.findPointerIndex(event, activePointerId);
+        final int index = event.findPointerIndex(activePointerId);
         if (index < 0) {
             return INVALID_COORDINATE;
         }
-        return MotionEventCompat.getY(event, index);
+        return event.getY(index);
     }
 
     private float getMotionEventX(MotionEvent event, int activePointId) {
-        final int index = MotionEventCompat.findPointerIndex(event, activePointId);
+        final int index = event.findPointerIndex(activePointId);
         if (index < 0) {
             return INVALID_COORDINATE;
         }
-        return MotionEventCompat.getX(event, index);
+        return event.getX(index);
     }
 
     RefreshCallback mRefreshCallback = new RefreshCallback() {
@@ -1412,7 +1384,6 @@ public class SwipeRefreshContainer extends ViewGroup {
                 ((SwipeTrigger) _sr_header).onPrepare();
             }
         }
-
         @Override
         public void onMove(int y, boolean isComplete, boolean automatic) {
             if (_sr_header != null && _sr_header instanceof SwipeTrigger && STATUS.isRefreshStatus(mStatus)) {
@@ -1422,14 +1393,12 @@ public class SwipeRefreshContainer extends ViewGroup {
                 ((SwipeTrigger) _sr_header).onMove(y, isComplete, automatic);
             }
         }
-
         @Override
         public void onRelease() {
             if (_sr_header != null && _sr_header instanceof SwipeTrigger && STATUS.isReleaseToRefresh(mStatus)) {
                 ((SwipeTrigger) _sr_header).onRelease();
             }
         }
-
         @Override
         public void onRefresh() {
             if (_sr_header != null && STATUS.isRefreshing(mStatus)) {
@@ -1441,14 +1410,12 @@ public class SwipeRefreshContainer extends ViewGroup {
                 }
             }
         }
-
         @Override
         public void onComplete() {
             if (_sr_header != null && _sr_header instanceof SwipeTrigger) {
                 ((SwipeTrigger) _sr_header).onComplete();
             }
         }
-
         @Override
         public void onReset() {
             if (_sr_header != null && _sr_header instanceof SwipeTrigger && STATUS.isStatusDefault(mStatus)) {
@@ -1459,7 +1426,6 @@ public class SwipeRefreshContainer extends ViewGroup {
     };
 
     LoadMoreCallback mLoadMoreCallback = new LoadMoreCallback() {
-
         @Override
         public void onPrepare() {
             if (_sr_footer != null && _sr_footer instanceof SwipeTrigger && STATUS.isStatusDefault(mStatus)) {
@@ -1467,7 +1433,6 @@ public class SwipeRefreshContainer extends ViewGroup {
                 ((SwipeTrigger) _sr_footer).onPrepare();
             }
         }
-
         @Override
         public void onMove(int y, boolean isComplete, boolean automatic) {
             if (_sr_footer != null && _sr_footer instanceof SwipeTrigger && STATUS.isLoadMoreStatus(mStatus)) {
@@ -1477,14 +1442,12 @@ public class SwipeRefreshContainer extends ViewGroup {
                 ((SwipeTrigger) _sr_footer).onMove(y, isComplete, automatic);
             }
         }
-
         @Override
         public void onRelease() {
             if (_sr_footer != null && _sr_footer instanceof SwipeTrigger && STATUS.isReleaseToLoadMore(mStatus)) {
                 ((SwipeTrigger) _sr_footer).onRelease();
             }
         }
-
         @Override
         public void onLoadMore() {
             if (_sr_footer != null && STATUS.isLoadingMore(mStatus)) {
@@ -1496,14 +1459,12 @@ public class SwipeRefreshContainer extends ViewGroup {
                 }
             }
         }
-
         @Override
         public void onComplete() {
             if (_sr_footer != null && _sr_footer instanceof SwipeTrigger) {
                 ((SwipeTrigger) _sr_footer).onComplete();
             }
         }
-
         @Override
         public void onReset() {
             if (_sr_footer != null && _sr_footer instanceof SwipeTrigger && STATUS.isStatusDefault(mStatus)) {
@@ -1516,23 +1477,18 @@ public class SwipeRefreshContainer extends ViewGroup {
     /**
      * refresh event callback
      */
-    abstract class RefreshCallback implements SwipeTrigger, SwipeRefreshTrigger {
-    }
+    abstract class RefreshCallback implements SwipeTrigger, SwipeRefreshTrigger {}
 
     /**
      * load more event callback
      */
-    abstract class LoadMoreCallback implements SwipeTrigger, SwipeLoadMoreTrigger {
-    }
+    abstract class LoadMoreCallback implements SwipeTrigger, SwipeLoadMoreTrigger {}
 
     private class AutoScroller implements Runnable {
 
         private Scroller mScroller;
-
         private int mmLastY;
-
         private boolean mRunning = false;
-
         private boolean mAbort = false;
 
         public AutoScroller() {

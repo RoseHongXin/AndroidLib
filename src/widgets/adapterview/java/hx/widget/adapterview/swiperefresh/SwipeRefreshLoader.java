@@ -8,6 +8,7 @@ import hx.view.swiperefresh.SwipeRefreshContainer;
 import hx.widget.adapterview.IReq2;
 import hx.widget.adapterview.VhBase;
 import hx.widget.adapterview.recyclerview.ApBase;
+import rx.Observable;
 
 /**
  * Created by Administrator on 2017/6/20 0020.
@@ -23,48 +24,48 @@ public class SwipeRefreshLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, 
     private IReq2<T> mApi;
     private int mFistPageIdx = 1;
     private int mCurPage = mFistPageIdx;
+    private boolean mLoadMoreEnable = true;
 
-    private SwipeRefreshLoader(){}
-
-    public static SwipeRefreshLoader obtain(){
-        return new SwipeRefreshLoader();
+    public SwipeRefreshLoader(SwipeRefreshContainer _src){
+        this(_src, true);
     }
-
-    public SwipeRefreshLoader container(SwipeRefreshContainer _src){
+    public SwipeRefreshLoader(SwipeRefreshContainer _src, boolean loadMoreEnable){
         this._src = _src;
-        return this;
-    }
-    public SwipeRefreshLoader adapter(Ap adapter){
-        this.mAdapter = adapter;
-        return this;
+        this.mLoadMoreEnable = loadMoreEnable;
+        _src.setLoadMoreEnabled(mLoadMoreEnable);
+        _sr_target = (RecyclerView) _src.getTargetView();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(_src.getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        _sr_target.setLayoutManager(linearLayoutManager);
     }
     public SwipeRefreshLoader api(IReq2<T> api){
         this.mApi = api;
         return this;
     }
-    public SwipeRefreshLoader firstPageIdx(int idx){
-        mFistPageIdx = idx;
-        return this;
+    public SwipeRefreshLoader create(Ap adapter, IReq2<T> api){
+        this.mAdapter = adapter;
+        this.mApi = api;
+        return create();
     }
-    public SwipeRefreshLoader create(){
-        init();
-        return this;
+    public SwipeRefreshLoader create(IReq2<T> api){
+        this.mApi = api;
+        return create();
     }
-
-
-
-    private void init(){
-        _sr_target = (RecyclerView) _src.getTargetView();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(_src.getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        _sr_target.setLayoutManager(linearLayoutManager);
+    public SwipeRefreshLoader create(Ap adapter, int idx, IReq2<T> api){
+        this.mAdapter = adapter;
+        this.mFistPageIdx = idx;
+        this.mApi = api;
+        return create();
+    }
+    private SwipeRefreshLoader create(){
         _sr_target.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && !ViewCompat.canScrollVertically(recyclerView, 1)) _src.setLoadingMore(true);
             }
         });
-        _src.setOnLoadMoreListener(() -> {
+        _sr_target.setAdapter(mAdapter);
+        _src.setOnRefreshListener(() -> {
             mApi.get(1)
                     .doOnCompleted(() -> _src.setRefreshing(false))
                     .takeWhile(this::dataIsReady)
@@ -73,7 +74,8 @@ public class SwipeRefreshLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, 
                         mAdapter.setData(datas);
                     });
         });
-        _src.setOnRefreshListener(() -> {
+        _src.setOnLoadMoreListener(() -> {
+            if(!mLoadMoreEnable){ _src.setLoadingMore(false); return; }
             mApi.get(mCurPage + 1)
                     .doOnCompleted(() -> _src.setLoadingMore(false))
                     .takeWhile(this::dataIsReady)
@@ -81,21 +83,24 @@ public class SwipeRefreshLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, 
                         ++mCurPage;
                         mAdapter.addData(datas);
                     });
-
         });
+        return this;
     }
 
     private boolean dataIsReady(List<T> datas){
         if(datas == null || datas.isEmpty()) {
-            _src.setLoadMoreEnabled(false);
+            if(mLoadMoreEnable) _src.setLoadMoreEnabled(false);
             return false;
         }
-        else _src.setLoadingMore(true);
+        else {
+            if(mLoadMoreEnable) _src.setLoadingMore(true);
+        }
         return true;
     }
 
-    public void doRefresh(){
+    public SwipeRefreshLoader doRefresh(){
         _src.setRefreshing(true);
+        return this;
     }
 
 }

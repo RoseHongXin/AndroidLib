@@ -15,3 +15,17 @@
         <item name="android:indeterminateTintMode">src_atop</item>
     </style>-->
 
+
+
+
+@Deprecated
+    private void scrollTextViewIfNeeded(){
+        _tv_testResult.post(() -> {
+            int offset = _tv_testResult.getLineCount() * _tv_testResult.getLineHeight();
+//            if(offset > (_tv_testResult.getHeight() - _tv_testResult.getLineHeight() - 20)){
+//                _tv_testResult.scrollTo(0, offset - _tv_testResult.getHeight() + _tv_testResult.getLineHeight() + 20);
+//            }
+            int height = _tv_testResult.getHeight();
+            if(offset > height) _tv_testResult.scrollTo(0, offset - height);
+        });
+    }

@@ -19,7 +19,6 @@ import static hx.components.IConstants.*;
 
 public abstract class FBase extends Fragment {
 
-
     int mExpire;
     boolean mIsVisibleToUser = false;
     int mPageVisibleCount = 1;

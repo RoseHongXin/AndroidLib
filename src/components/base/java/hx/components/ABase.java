@@ -25,6 +25,10 @@ public abstract class ABase extends AppCompatActivity {
     public abstract int sGetLayoutRes();
     public abstract View sRequireTb();
 
+    public ViewGroup sGetLayout(){
+        return mLayout;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +60,6 @@ public abstract class ABase extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    public ViewGroup sGetLayout(){
-        return mLayout;
-    }
+
 
 }

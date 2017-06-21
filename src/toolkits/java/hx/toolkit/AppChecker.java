@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ import java.util.List;
 public class AppChecker {
 
      public static boolean isActForeground(Activity act) {
-         ActivityManager am = (ActivityManager) act.getSystemService(Context.ACTIVITY_SERVICE);
-         if(!isAppForeground(act, am)) return false;
+         ActivityManager am;
+         if(act == null || (am = (ActivityManager) act.getSystemService(Context.ACTIVITY_SERVICE)) == null || !isAppForeground(act, am)) return false;
          int taskId = act.getTaskId();
          String actName = act.getClass().getName();
          String packageName = act.getPackageName();
@@ -33,13 +34,11 @@ public class AppChecker {
          }
         return false;
     }
-    public static boolean isAppForeground(Context ctx){
-        if (ctx == null) return false;
-        ActivityManager am = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
-        return isAppForeground(ctx, am);
+    public static boolean isAppForeground(Context ctx) {
+        ActivityManager am;
+        return ctx != null && (am = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE)) != null && isAppForeground(ctx, am);
     }
-    private static boolean isAppForeground(Context ctx, ActivityManager activityManager){
-        if (ctx == null) return false;
+    private static boolean isAppForeground(@NonNull Context ctx, @NonNull ActivityManager activityManager){
         List<ActivityManager.RunningAppProcessInfo> processes = activityManager.getRunningAppProcesses();
         if(processes == null || processes.isEmpty()) return false;
         String packageName = ctx.getPackageName();

@@ -41,23 +41,23 @@
 
     <style name="PageContainer">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">start|center_horizontal</item>
         <item name="android:background">@color/_bg</item>
         <item name="android:orientation">vertical</item>
     </style>
-    <style name="PageContainer.Padding" parent="PageContainer">
+    <style name="PageContainer.Padding.Horizontal" parent="PageContainer">
         <item name="android:paddingLeft">@dimen/l_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/l_padding_horizontal</item>
     </style>
-    <style name="PageContainer.Match" >
+    <style name="PageContainer.Wrap" parent="PageContainer.Padding.Horizontal"/>
+    <style name="PageContainer.Wrap.Padding" parent="PageContainer.Padding.Horizontal"/>
+    <style name="PageContainer.Match" parent="PageContainer.Padding.Horizontal">
         <item name="android:layout_height">match_parent</item>
     </style>
-    <style name="PageContainer.Wrap" parent="PageContainer">
-        <item name="android:layout_height">wrap_content</item>
-    </style>
     <style name="PageContainer.Match.Padding" parent="PageContainer.Match">
-        <item name="android:paddingLeft">@dimen/l_padding_horizontal</item>
-        <item name="android:paddingRight">@dimen/l_padding_horizontal</item>
+        <item name="android:paddingBottom">@dimen/l_padding_vertical</item>
+        <item name="android:paddingTop">@dimen/l_padding_vertical</item>
     </style>
 
 </resources>

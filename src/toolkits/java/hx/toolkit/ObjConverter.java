@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Created by Rose on 3/22/2017.
  */
 
-public class ConvertUtil {
+public class ObjConverter {
 
     public static <T> HashMap<String, Object> bean2Map(T bean){
 //        BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());

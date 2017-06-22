@@ -20,7 +20,7 @@ import java.util.List;
  * for sort of caching stuff.
  *
  */
-public class CacheUtil {
+public class Cacher {
 
     private final int VALUE_COUNT = 1;
     private final int MAX_SIZE = VALUE_COUNT * 1024 * 1024;
@@ -29,7 +29,7 @@ public class CacheUtil {
 
     private static DiskLruCache cache;
 
-    private CacheUtil(Context ctx){
+    private Cacher(Context ctx){
         int appVersion = 0;
         try {
             PackageInfo pi = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0);
@@ -52,8 +52,8 @@ public class CacheUtil {
      *
      *
      * */
-    public static CacheUtil init(Context ctx){
-        return new CacheUtil(ctx);
+    public static Cacher init(Context ctx){
+        return new Cacher(ctx);
     }
 
     public static <T> boolean write(String key, T data){

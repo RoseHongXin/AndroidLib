@@ -103,12 +103,12 @@ public class SwipeRefreshContainer extends ViewGroup {
     private int mFooterOffset;
 
     /**
-     * init touch action down point.y
+     * create touch action down point.y
      */
     private float mInitDownY;
 
     /**
-     * init touch action down point.x
+     * create touch action down point.x
      */
     private float mInitDownX;
 
@@ -490,7 +490,7 @@ public class SwipeRefreshContainer extends ViewGroup {
                 // ACTION_DOWN event will return to SwipeToLoadLayout's onTouchEvent().
                 // SwipeToLoadLayout#onTouchEvent() ACTION_DOWN return true to consume the ACTION_DOWN event.
 
-                // anyway: handle action down in onInterceptTouchEvent() to init is an good option
+                // anyway: handle action down in onInterceptTouchEvent() to create is an good option
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (mActivePointerId == INVALID_POINTER) { return false; }

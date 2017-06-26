@@ -14,23 +14,27 @@ import static hx.widget.adapterview.IConstants.*;
  * Created by rose on 16-8-12.
  */
 
-public class XRvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
-
+public class XRvLoader {
 
     private XRecyclerView _rv;
-    private Ap mAdapter;
+    private ApBase mAdapter;
     private Activity mAct;
     private XRecyclerView.LoadingListener mListener;
     private ArrowRefreshHeader mRefreshHeader;
     private boolean mLoadMoreEnabled = true;
 
-    public XRvLoader init(){
+    private XRvLoader(Activity act, XRecyclerView _rv){
+        this._rv = _rv;
+        this.mAct = act;
         LinearLayoutManager layoutManager = new LinearLayoutManager(mAct);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         _rv.setLayoutManager(layoutManager);
         _rv.setAdapter(mAdapter);
         refreshSet();
-        return this;
+    }
+
+    public static XRvLoader get(Activity act, XRecyclerView _rv){
+        return new XRvLoader(act, _rv);
     }
 
     private void registerListener(XRecyclerView.LoadingListener listener){
@@ -52,11 +56,8 @@ public class XRvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
         }
     }
 
-    public XRvLoader init(Activity mAct, XRecyclerView _rv, Ap adapter, IReq2<T> reqApi){
-        this.mAct = mAct;
-        this._rv = _rv;
+    public <Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> XRvLoader create(Ap adapter, IReq2<T> reqApi){
         this.mAdapter = adapter;
-//        this.reqApi = reqApi;
         XRecyclerView.LoadingListener mListener = new XRecyclerView.LoadingListener() {
             volatile int curPage = 1;
             @Override
@@ -66,7 +67,7 @@ public class XRvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
                         .subscribe(res -> {
                             if(res != null){
                                 curPage = 1;
-                                mAdapter.setData(res);
+                                adapter.setData(res);
                             }
                         });
             }
@@ -77,13 +78,13 @@ public class XRvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
                         .subscribe(res -> {
                             if(res != null && !res.isEmpty()) {
                                 ++curPage;
-                                mAdapter.addData(res);
+                                adapter.addData(res);
                             }
                         });
             }
         };
         registerListener(mListener);
-        return init();
+        return this;
     }
 
     public void loadMoreEnable(boolean enable){

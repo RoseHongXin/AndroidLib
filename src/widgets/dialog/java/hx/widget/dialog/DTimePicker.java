@@ -31,7 +31,7 @@ public class DTimePicker {
 
         TimePicker _tp_ = (TimePicker)layout.findViewById(R.id._tp_);
         Calendar calendar = Calendar.getInstance(Locale.CHINA);
-       /* _dp.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), (view, year, monthOfYear, dayOfMonth) -> {
+       /* _dp.create(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), (view, year, monthOfYear, dayOfMonth) -> {
 
         });*/
 //        _tp_.setHour(calendar.get(Calendar.HOUR_OF_DAY));

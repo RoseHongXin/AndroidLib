@@ -10,13 +10,21 @@ import hx.widget.adapterview.VhBase;
  * Created by rose on 16-8-12.
  */
 
-public class RvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
-
+public class RvLoader {
 
     private RecyclerView _rv;
-    private Ap mAdapter;
+    private ApBase mAdapter;
     private Activity mAct;
 
+
+    private RvLoader(Activity act, RecyclerView _rv){
+        this.mAct = act;
+        this._rv = _rv;
+    }
+
+    public static RvLoader get(Activity act, RecyclerView _rv){
+        return new RvLoader(act, _rv);
+    }
 
     private RvLoader init(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(mAct);
@@ -26,9 +34,14 @@ public class RvLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> {
         return this;
     }
 
-    public RvLoader load(Activity mAct, RecyclerView _rv, Ap adapter){
+    public <Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> RvLoader create(Activity mAct, RecyclerView _rv, Ap adapter){
         this.mAct = mAct;
         this._rv = _rv;
+        this.mAdapter = adapter;
+        return init();
+    }
+
+    public <Ap extends ApBase<Vh, T>, Vh extends VhBase<T> , T> RvLoader create(Ap adapter){
         this.mAdapter = adapter;
         return init();
     }

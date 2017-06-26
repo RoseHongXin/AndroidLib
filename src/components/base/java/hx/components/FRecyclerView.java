@@ -52,7 +52,7 @@ public class FRecyclerView extends FBase {
         sRegisterRefreshCb(() -> mRvLoader.doRefresh());
     }
 
-    protected void setInitCallback(InitCallback cb){
+    protected void sSetInitCallback(InitCallback cb){
         if(cb == null){
             throw new NullPointerException("Must specify a XRvLoader");
         }

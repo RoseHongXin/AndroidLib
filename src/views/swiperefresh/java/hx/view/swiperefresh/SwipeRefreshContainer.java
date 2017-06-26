@@ -135,7 +135,7 @@ public class SwipeRefreshContainer extends ViewGroup {
 
     /**
      * <b>ATTRIBUTE:</b>
-     * a switcher indicate whiter load more function is enabled
+     * a switcher indicate whiter create more function is enabled
      */
     private boolean mLoadMoreEnabled = true;
 
@@ -153,7 +153,7 @@ public class SwipeRefreshContainer extends ViewGroup {
 
     /**
      * <b>ATTRIBUTE:</b>
-     * offset to trigger load more
+     * offset to trigger create more
      */
     private float mLoadMoreTriggerOffset;
 
@@ -216,20 +216,20 @@ public class SwipeRefreshContainer extends ViewGroup {
 
     /**
      * <b>ATTRIBUTE:</b>
-     * Scrolling duration status load more complete -> default
+     * Scrolling duration status create more complete -> default
      * {@link #setLoadingMore(boolean)} false
      */
     private int mLoadMoreCompleteToDefaultScrollingDuration = DEFAULT_LOAD_MORE_COMPLETE_TO_DEFAULT_SCROLLING_DURATION;
 
     /**
      * <b>ATTRIBUTE:</b>
-     * Scrolling duration swiping to load more -> default
+     * Scrolling duration swiping to create more -> default
      */
     private int mSwipingToLoadMoreToDefaultScrollingDuration = DEFAULT_SWIPING_TO_LOAD_MORE_TO_DEFAULT_SCROLLING_DURATION;
 
     /**
      * <b>ATTRIBUTE:</b>
-     * Scrolling duration status default -> loading more, mainly for auto load more
+     * Scrolling duration status default -> loading more, mainly for auto create more
      * {@link #setLoadingMore(boolean)} true
      */
     private int mDefaultToLoadingMoreScrollingDuration = DEFAULT_DEFAULT_TO_LOADING_MORE_SCROLLING_DURATION;
@@ -461,7 +461,7 @@ public class SwipeRefreshContainer extends ViewGroup {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
 
-                mActivePointerId = MotionEventCompat.getPointerId(event, 0);
+                mActivePointerId = event.getPointerId(0);
                 mInitDownY = mLastY = getMotionEventY(event, mActivePointerId);
                 mInitDownX = mLastX = getMotionEventX(event, mActivePointerId);
 
@@ -502,10 +502,10 @@ public class SwipeRefreshContainer extends ViewGroup {
                 mLastX = x;
                 boolean moved = Math.abs(yInitDiff) > Math.abs(xInitDiff) && Math.abs(yInitDiff) > mTouchSlop;
                 boolean triggerCondition = (yInitDiff > 0 && moved && onCheckCanRefresh()) || (yInitDiff < 0 && moved && onCheckCanLoadMore());
-                // refresh trigger condition        load more trigger condition
+                // refresh trigger condition        create more trigger condition
 
                 if (triggerCondition) {
-                    // if the refresh's or load more's trigger condition  is true,
+                    // if the refresh's or create more's trigger condition  is true,
                     // intercept the move action event and pass it to SwipeToLoadLayout#onTouchEvent()
                     return true;
                 }
@@ -646,7 +646,7 @@ public class SwipeRefreshContainer extends ViewGroup {
     }
 
     /**
-     * is load more function is enabled
+     * is create more function is enabled
      *
      * @return
      */
@@ -655,7 +655,7 @@ public class SwipeRefreshContainer extends ViewGroup {
     }
 
     /**
-     * switch load more function on or off
+     * switch create more function on or off
      *
      * @param enable
      */
@@ -702,7 +702,7 @@ public class SwipeRefreshContainer extends ViewGroup {
     }
 
     /**
-     * set load more footer view, the view must at least be an implement of SwipeLoadTrigger
+     * set create more footer view, the view must at least be an implement of SwipeLoadTrigger
      * the view can also implement {@code SwipeTrigger} for more extension functions
      *
      * @param view
@@ -754,7 +754,7 @@ public class SwipeRefreshContainer extends ViewGroup {
 
     /**
      * set the value of {@link #mLoadMoreTriggerOffset}.
-     * Default value is the load more footer view height {@link #mFooterHeight}<p/>
+     * Default value is the create more footer view height {@link #mFooterHeight}<p/>
      * If the offset you set is smaller than {@link #mFooterHeight} or not set,
      * using {@link #mFooterHeight} as default value
      *
@@ -776,7 +776,7 @@ public class SwipeRefreshContainer extends ViewGroup {
     }
 
     /**
-     * Set the final offset you can swipe to load more.<br/>
+     * Set the final offset you can swipe to create more.<br/>
      * If the offset you set is 0(default value) or smaller than {@link #mLoadMoreTriggerOffset},
      * there no final offset
      *
@@ -886,7 +886,7 @@ public class SwipeRefreshContainer extends ViewGroup {
     }
 
     /**
-     * set an {@link OnLoadMoreListener} to listening load more event
+     * set an {@link OnLoadMoreListener} to listening create more event
      *
      * @param listener
      */
@@ -990,9 +990,7 @@ public class SwipeRefreshContainer extends ViewGroup {
         final int paddingRight = getPaddingRight();
         final int paddingBottom = getPaddingBottom();
 
-        if (_sr_target == null) {
-            return;
-        }
+        if (_sr_target == null) { return; }
 
         // layout header
         if (_sr_header != null) {
@@ -1092,7 +1090,6 @@ public class SwipeRefreshContainer extends ViewGroup {
             }
             final int footerTop = footerBottom - footerView.getMeasuredHeight();
             final int footerRight = footerLeft + footerView.getMeasuredWidth();
-
             footerView.layout(footerLeft, footerTop, footerRight, footerBottom);
         }
 
@@ -1352,7 +1349,7 @@ public class SwipeRefreshContainer extends ViewGroup {
     }
 
     /**
-     * check if it can load more
+     * check if it can create more
      *
      * @return
      */
@@ -1480,7 +1477,7 @@ public class SwipeRefreshContainer extends ViewGroup {
     abstract class RefreshCallback implements SwipeTrigger, SwipeRefreshTrigger {}
 
     /**
-     * load more event callback
+     * create more event callback
      */
     abstract class LoadMoreCallback implements SwipeTrigger, SwipeLoadMoreTrigger {}
 

@@ -65,25 +65,30 @@ public class SwipeRefreshLoader<Ap extends ApBase<Vh, T>, Vh extends VhBase<T>, 
             }
         });
         _sr_target.setAdapter(mAdapter);
-        _src.setOnRefreshListener(() -> {
-            mApi.get(1)
-                    .doOnCompleted(() -> _src.setRefreshing(false))
-                    .takeWhile(this::dataIsReady)
-                    .subscribe(datas -> {
-                        mCurPage = 1;
-                        mAdapter.setData(datas);
-                    });
-        });
-        _src.setOnLoadMoreListener(() -> {
-            if(!mLoadMoreEnable){ _src.setLoadingMore(false); return; }
-            mApi.get(mCurPage + 1)
-                    .doOnCompleted(() -> _src.setLoadingMore(false))
-                    .takeWhile(this::dataIsReady)
-                    .subscribe(datas -> {
-                        ++mCurPage;
-                        mAdapter.addData(datas);
-                    });
-        });
+        if(mApi != null) {
+            _src.setOnRefreshListener(() -> {
+                mApi.get(1)
+                        .doOnCompleted(() -> _src.setRefreshing(false))
+                        .takeWhile(this::dataIsReady)
+                        .subscribe(datas -> {
+                            mCurPage = 1;
+                            mAdapter.setData(datas);
+                        });
+            });
+            _src.setOnLoadMoreListener(() -> {
+                if (!mLoadMoreEnable) {
+                    _src.setLoadingMore(false);
+                    return;
+                }
+                mApi.get(mCurPage + 1)
+                        .doOnCompleted(() -> _src.setLoadingMore(false))
+                        .takeWhile(this::dataIsReady)
+                        .subscribe(datas -> {
+                            ++mCurPage;
+                            mAdapter.addData(datas);
+                        });
+            });
+        }
         return this;
     }
 

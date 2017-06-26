@@ -15,14 +15,13 @@ import hx.widget.adapterview.swiperefresh.SwipeRefreshLoader;
 
 public class FSwipeRefresh extends FBase {
 
-    protected SwipeRefreshContainer _sr_container;
+    private SwipeRefreshContainer _sr_container;
+    private RecyclerView _sr_target;
     protected SwipeRefreshLoader mSwipeRefreshLoader;
     private InitCallback mCb;
 
     public static FSwipeRefresh newInstance(InitCallback cb) {
-        if(cb == null){
-            throw new NullPointerException("Must specify a InitCallback");
-        }
+        if(cb == null) throw new NullPointerException("Must specify a InitCallback");
         FSwipeRefresh fragment = new FSwipeRefresh();
         fragment.mCb = cb;
         return fragment;
@@ -37,8 +36,20 @@ public class FSwipeRefresh extends FBase {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         _sr_container = (SwipeRefreshContainer)view.findViewById(R.id._sr_container);
-        mSwipeRefreshLoader = mCb.getSwipeRefreshLoader(_sr_container, (RecyclerView)_sr_container.getTargetView());
+        init();
+    }
+
+    private void init(){
+        if(mCb == null || _sr_container == null) return;
+        _sr_target = (RecyclerView) _sr_container.getTargetView();
+        mSwipeRefreshLoader = mCb.getSwipeRefreshLoader(_sr_container, _sr_target);
         sRegisterRefreshCb(() -> mSwipeRefreshLoader.doRefresh());
+    }
+
+    protected void sSetInitCallback(InitCallback cb){
+        if(cb == null) throw new NullPointerException("Must specify a InitCallback");
+        this.mCb = cb;
+        init();
     }
 
     public interface InitCallback{

@@ -3,6 +3,7 @@ package hx.toolkit;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by Administrator on 2017/6/15 0015.
  */
 
-public class AppChecker {
+public class AppHelper {
 
      public static boolean isActForeground(Activity act) {
          ActivityManager am;
@@ -46,6 +47,11 @@ public class AppChecker {
             if(process.processName.equals(packageName) && process.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) return true;
         }
         return false;
+    }
+
+    public static void start(Activity act, Class<? extends Activity> targetAct){
+        Intent intent = new Intent(act, targetAct);
+        act.startActivity(intent);
     }
 
 

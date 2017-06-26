@@ -19,10 +19,6 @@
     <string name="text_copied_to_clipboard">文本已复制到剪切板</string>
     <string name="confirm_finish_current_page">确定退出当前页面?</string>
 
-
-
-
-
     <string name="yuan_int">%1$d元</string>
     <string name="yuan_float">%1$.2f元</string>
 

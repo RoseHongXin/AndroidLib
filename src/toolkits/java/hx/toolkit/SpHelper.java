@@ -13,6 +13,10 @@ public class SpHelper {
         init(ctx);
     }
 
+    public static SharedPreferences get(){
+        return mSp;
+    }
+
     public static void init(Context ctx){
         mSp = ctx.getSharedPreferences(ctx.getPackageName(), Context.MODE_PRIVATE);
     }
@@ -20,6 +24,10 @@ public class SpHelper {
     public static String get(String key){
         if(mSp == null) return "";
         return mSp.getString(key, "");
+    }
+    public static boolean getBoolean(String key, boolean def){
+        if(mSp == null) return def;
+        return mSp.getBoolean(key, def);
     }
 
     public static void set(String key, String data){
@@ -33,6 +41,9 @@ public class SpHelper {
     public static <T> void set(String key, T t){
         String data = JSON.toJSONString(t);
         if(mSp != null) mSp.edit().putString(key, data).apply();
+    }
+    public static void set(String key, boolean b){
+        if(mSp != null) mSp.edit().putBoolean(key, b).apply();
     }
 
     public static void clear(String key) {

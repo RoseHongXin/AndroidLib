@@ -4,23 +4,23 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Toast;
 
 import hx.lib.R;
 
 
-public class OptHelper {
-    /**
-     * 防止多次点击
-     */
-    private static long lastClickTime;
+public class ClickHelper {
+
+    private static long mLastClickTime = 0;
+    private static int mClickCount = 0;
 
     public static boolean isFastDoubleClick() {
         long time = System.currentTimeMillis();
-        long timeD = time - lastClickTime;
+        long timeD = time - mLastClickTime;
         if (0 < timeD && timeD < 500) {
             return true;
         }
-        lastClickTime = time;
+        mLastClickTime = time;
         return false;
     }
     public static void fastDoubleClick(final View view) {
@@ -38,5 +38,22 @@ public class OptHelper {
                 .setMessage(R.string.confirm_finish_current_page)
                 .create()
                 .show();
+    }
+
+    public static void doubleClick(Activity act, String msg, View.OnClickListener cb){
+        long cur = System.currentTimeMillis();
+        if(mLastClickTime == 0 || cur - mLastClickTime < 3000) ++mClickCount;
+        if(mClickCount == 2){
+            cb.onClick(null);
+            mClickCount = 0;
+            mLastClickTime = 0;
+            return;
+        }
+        mLastClickTime = cur;
+        Toast.makeText(act, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void swipe2Home(Activity act) {
+        act.moveTaskToBack(true);
     }
 }

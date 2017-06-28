@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -50,7 +51,18 @@ public class AppHelper {
     }
 
     public static void start(Activity act, Class<? extends Activity> targetAct){
+        start(act, targetAct, 0, null);
+    }
+    public static void start(Activity act, Class<? extends Activity> targetAct, int flags){
+        start(act, targetAct, flags, null);
+    }
+    public static void start(Activity act, Class<? extends Activity> targetAct, Bundle bundle){
+        start(act, targetAct, 0, bundle);
+    }
+    public static void start(Activity act, Class<? extends Activity> targetAct, int flags, Bundle bundle){
         Intent intent = new Intent(act, targetAct);
+        if(flags != 0) intent.setFlags(flags);
+        if(bundle != null) intent.putExtras(bundle);
         act.startActivity(intent);
     }
 

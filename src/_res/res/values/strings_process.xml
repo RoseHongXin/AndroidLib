@@ -8,7 +8,8 @@
     <string name="date_format">yyyy-MM-dd</string>
     <string name="date_format_detail">yyyy-MM-dd HH:mm</string>
 
-    <string name="back_press_exit_note">再按一次，退出程序</string>
+    <string name="back_press_exit_note">再按一次，退出程序!</string>
+    <string name="back_press_to_home_note">再按一次，回到桌面!</string>
     <string name="socket_timeout">请求超时</string>
     <string name="data_problem">页面数据错误，请重新操作！</string>
 

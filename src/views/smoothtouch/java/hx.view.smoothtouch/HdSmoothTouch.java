@@ -3,6 +3,7 @@ package hx.view.smoothtouch;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -18,9 +19,8 @@ import android.widget.ScrollView;
 /**
  * Created by Administrator on 2017/6/27 0027.
  *
- * 实现列表控件拖拽的柔和手感.
+ * 实现滑动View控件拖拽的柔和手感.
  *
- * 是否考虑touch滑动的速度?
  */
 
 public class HdSmoothTouch {
@@ -36,7 +36,7 @@ public class HdSmoothTouch {
     private float mInitDownX;
     private float mInitDownY;
     private int mActivePointerId;
-    boolean mFling = false;
+    private boolean mTouchFling = false;
 
     private TranslateAnimation mBounceAnim;
     private TouchStateImpl mTouchStateImpl;
@@ -105,23 +105,27 @@ public class HdSmoothTouch {
                     mVelocityTracker.computeCurrentVelocity(1000, mMaximumTouchVelocity);
                     if (mOrientation == LinearLayoutCompat.HORIZONTAL && mTouchStateImpl.couldHorizontalOffset(xDelta)) {
                         float xVel = mVelocityTracker.getXVelocity(mActivePointerId);
-                        _vg.layout(_vg.getLeft() + xDelta, mRectOriginalPosition.top, _vg.getRight() + xDelta, mRectOriginalPosition.bottom);
+                        if(Math.abs(xVel) > ISmooth.MAXIMUM_HORIZONTAL_TOUCH_VELOCITY || Math.abs(xDelta) > ISmooth.MAXIMUM_HORIZONTAL_TOUCH_DELTA) {
+                            mTouchFling = true;
+//                            return true;
+                        }
+//                        _vg.layout(_vg.getLeft() + xDelta, mRectOriginalPosition.top, _vg.getRight() + xDelta, mRectOriginalPosition.bottom);
+                        ViewCompat.offsetLeftAndRight(_vg, xDelta);
                     } else if (mOrientation == LinearLayoutCompat.VERTICAL && mTouchStateImpl.couldVerticalOffset(yDelta)) {
                         float yVel = mVelocityTracker.getYVelocity(mActivePointerId);
                         if(Math.abs(yVel) > ISmooth.MAXIMUM_VERTICAL_TOUCH_VELOCITY || Math.abs(yDelta) > ISmooth.MAXIMUM_VERTICAL_TOUCH_DELTA) {
-                            mFling = true;
-                            return true;
+                            mTouchFling = true;
+//                            return true;
                         }
-                        _vg.layout(mRectOriginalPosition.left, _vg.getTop() + yDelta, mRectOriginalPosition.right, _vg.getBottom() + yDelta);
+//                        _vg.layout(mRectOriginalPosition.left, _vg.getTop() + yDelta, mRectOriginalPosition.right, _vg.getBottom() + yDelta);
+                        ViewCompat.offsetTopAndBottom(_vg, yDelta);
                     }
                     mLastX = x;
                     mLastY = y;
-//                    if(mFling) return true;
                     break;
                 case MotionEvent.ACTION_UP:
                     if (mTouchStateImpl.isVerticalDrag()) {
                         yDelta = (int) ((mLastY - mInitDownY) * mDragRatio + 0.5f);
-//                        if(mFling) { yDelta = (int) ((mLastY - mInitDownY) * mDragRatio + 0.5f); }
                         mBounceAnim = new TranslateAnimation(0, 0, yDelta, 0);
                         startAnim();
                     } else if (mTouchStateImpl.isHorizontalDrag()) {
@@ -133,8 +137,8 @@ public class HdSmoothTouch {
                     }
                     mVelocityTracker.clear();
                     mActivePointerId = INVALID_POINTER_ID;
-                    if(mFling){
-                        mFling = false;
+                    if(mTouchFling){
+                        mTouchFling = false;
                         return true;
                     }
                     break;

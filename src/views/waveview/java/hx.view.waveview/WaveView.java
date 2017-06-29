@@ -1,5 +1,6 @@
 package hx.view.waveview;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -40,15 +41,15 @@ public class WaveView extends View{
     private float mAngularFrequency;
     private float mWaveLength;
     private int mShiftSpeed = SHIFT_SPEED;
-    private int mShiftLength;
+    private int mShiftedLength;
     private float mInitialXCoordinate;
     private Handler mWaveHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if(msg.what == MSG_WAVE){
-                mShiftLength += mShiftSpeed;
-                if(mShiftLength >= mWaveLength) mShiftLength = 0;
+                mShiftedLength += mShiftSpeed;
+                if(mShiftedLength >= mWaveLength) mShiftedLength = 0;
                 invalidate();
             }
         }
@@ -74,16 +75,9 @@ public class WaveView extends View{
         mWavePaint = new Paint();
         mWavePaint.setAntiAlias(true);
         mWavePaint.setColor(Color.parseColor("red"));
-        mWavePaint.setStyle(Paint.Style.STROKE);
+        mWavePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mWavePaint.setStrokeWidth(4.0f);
         mWavePath = new Path();
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mWidth = getMeasuredWidth();
-        mHeight = getMeasuredHeight();
     }
 
     @Override
@@ -92,8 +86,8 @@ public class WaveView extends View{
         if(changed){
             mWidth = getMeasuredWidth();
             mHeight = getMeasuredHeight();
+            init();
         }
-        init();
     }
 
     private void init(){
@@ -101,21 +95,21 @@ public class WaveView extends View{
         mWaveLength = mWidth;
         mInitialXCoordinate = -mWaveLength;
         mWavePoints = new ArrayList<>();
-        //计算所有的点 这里取宽度为整个波长  往左再延伸一个波长 两个波长则需要9个点
-        for (int i = 0; i <= 9; i++) {
+        int pointCnt = 9 * (int)(mWidth / mWaveLength);
+        for (int i = 0; i < pointCnt; i++) {
             int y = 0;
             switch (i % 4) {
                 case 0:
                     y = mAmplitude;
                     break;
                 case 1:
-                    y = mAmplitude * 2;
+                    y = 0;
                     break;
                 case 2:
                     y = mAmplitude;
                     break;
                 case 3:
-                    y = 0;
+                    y = mAmplitude * 2;
                     break;
             }
             Point point = new Point((int)(mInitialXCoordinate + i * mWaveLength / 4), y);
@@ -128,14 +122,11 @@ public class WaveView extends View{
         super.onDraw(canvas);
         mWavePath.reset();
         int i = 0;
-        mWavePath.moveTo(mWavePoints.get(i).x + mShiftLength, mWavePoints.get(i).y);
+        mWavePath.moveTo(mWavePoints.get(i).x + mShiftedLength, mWavePoints.get(i).y);
         for (; i < mWavePoints.size() - 2; i += 2) {
-            mWavePath.quadTo(mWavePoints.get(i + 1).x + mShiftLength, mWavePoints.get(i + 1).y * 2, mWavePoints.get(i + 2).x + mShiftLength, mWavePoints.get(i + 2).y * 2);
+            mWavePath.quadTo(mWavePoints.get(i + 1).x + mShiftedLength, mWavePoints.get(i + 1).y, mWavePoints.get(i + 2).x + mShiftedLength, mWavePoints.get(i + 2).y);
         }
-        mWavePath.moveTo(mWavePoints.get(0).x, mWavePoints.get(0).y);
-//        mWavePath.moveTo(mWavePoints.get(0).x, mAmplitude);
-//        mWavePath.lineTo(mWavePoints.get(i).x + mShiftLength, mAmplitude);
-//        mWavePath.lineTo(mWavePoints.get(0).x + mShiftLength, mAmplitude);
+        mWavePath.moveTo(mWavePoints.get(i).x, mWavePoints.get(i).y);
         mWavePath.close();
         canvas.drawPath(mWavePath, mWavePaint);
         mWaveHandler.sendEmptyMessageDelayed(MSG_WAVE, DRAW_DELAY);

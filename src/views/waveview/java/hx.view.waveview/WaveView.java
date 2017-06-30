@@ -1,12 +1,15 @@
 package hx.view.waveview;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
+import android.graphics.Xfermode;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -28,28 +31,38 @@ public class WaveView extends View{
 
     private int mWidth;
     private int mHeight;
+    private RectF mDrawRect;
 
     // shader containing repeated waves
 //    private BitmapShader mWaveShader;
 //    private Matrix mShaderMatrix;
 
-    private Paint mWavePaint;
-    private List<Point> mWavePoints;
-    private Path mWavePath;
+    private List<Point> mPoints;
+    private Paint mFirstWavePaint;
+    private Paint mSecondWavePaint;
+
+    private Path mFirstWavePath;
+    private Path mSecondWavePath;
 
     private int mAmplitude;
     private float mAngularFrequency;
     private float mWaveLength;
-    private int mShiftSpeed = SHIFT_SPEED;
-    private int mShiftedLength;
-    private float mInitialXCoordinate;
-    private Handler mWaveHandler = new Handler(){
+    private int mWaveShiftSpeed = SHIFT_SPEED;
+    private int mRippleShiftSpeed = SHIFT_SPEED * 2;
+    private int mWaveShiftedLength;
+    private int mRippleShiftedLength;
+    private float mWaveInitialX;
+    private float mWaveInitialY;
+
+    private Handler mDrawHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if(msg.what == MSG_WAVE){
-                mShiftedLength += mShiftSpeed;
-                if(mShiftedLength >= mWaveLength) mShiftedLength = 0;
+                mWaveShiftedLength += mWaveShiftSpeed;
+                mRippleShiftedLength += mRippleShiftSpeed;
+                if(mWaveShiftedLength >= mWaveLength) mWaveShiftedLength = 0;
+                if(mRippleShiftedLength >= mWaveLength) mRippleShiftedLength = 0;
                 invalidate();
             }
         }
@@ -72,12 +85,22 @@ public class WaveView extends View{
     }
 
     private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr){
-        mWavePaint = new Paint();
-        mWavePaint.setAntiAlias(true);
-        mWavePaint.setColor(Color.parseColor("red"));
-        mWavePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mWavePaint.setStrokeWidth(4.0f);
-        mWavePath = new Path();
+        mFirstWavePaint = new Paint();
+        mFirstWavePaint.setAntiAlias(true);
+        mFirstWavePaint.setColor(Color.parseColor("red"));
+        mFirstWavePaint.setStyle(Paint.Style.STROKE);
+        mFirstWavePaint.setStrokeWidth(4.0f);
+
+        mSecondWavePaint = new Paint();
+        mSecondWavePaint.setAntiAlias(true);
+        mSecondWavePaint.setColor(Color.CYAN);
+        mSecondWavePaint.setStyle(Paint.Style.FILL);
+        mSecondWavePaint.setStrokeWidth(4.0f);
+        mSecondWavePaint.setAlpha(100);
+        mSecondWavePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+
+        mFirstWavePath = new Path();
+        mSecondWavePath = new Path();
     }
 
     @Override
@@ -86,50 +109,66 @@ public class WaveView extends View{
         if(changed){
             mWidth = getMeasuredWidth();
             mHeight = getMeasuredHeight();
+            mDrawRect = new RectF(left, top, right, bottom);
+            mWaveInitialX = left;
+            mWaveInitialY = bottom;
             init();
         }
     }
 
     private void init(){
-        mAmplitude = mHeight / 2;
+        mAmplitude = mHeight / 4;
         mWaveLength = mWidth;
-        mInitialXCoordinate = -mWaveLength;
-        mWavePoints = new ArrayList<>();
+        float initialX = -mWaveLength;
+        mPoints = new ArrayList<>();
         int pointCnt = 9 * (int)(mWidth / mWaveLength);
+        Point point = new Point((int)initialX, (int)mWaveInitialY);
+        mPoints.add(point);
         for (int i = 0; i < pointCnt; i++) {
             int y = 0;
-            switch (i % 4) {
+            switch (i % 2) {
                 case 0:
-                    y = mAmplitude;
+                    y = (int)mWaveInitialY;
                     break;
                 case 1:
-                    y = 0;
-                    break;
-                case 2:
-                    y = mAmplitude;
-                    break;
-                case 3:
-                    y = mAmplitude * 2;
+                    y = (int)mWaveInitialY - mAmplitude;
                     break;
             }
-            Point point = new Point((int)(mInitialXCoordinate + i * mWaveLength / 4), y);
-            mWavePoints.add(point);
+            point = new Point((int)(initialX + i * mWaveLength / 4), y);
+            mPoints.add(point);
         }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mWavePath.reset();
+        mFirstWavePath.reset();
+        mSecondWavePath.reset();
         int i = 0;
-        mWavePath.moveTo(mWavePoints.get(i).x + mShiftedLength, mWavePoints.get(i).y);
-        for (; i < mWavePoints.size() - 2; i += 2) {
-            mWavePath.quadTo(mWavePoints.get(i + 1).x + mShiftedLength, mWavePoints.get(i + 1).y, mWavePoints.get(i + 2).x + mShiftedLength, mWavePoints.get(i + 2).y);
+
+//        mFirstWavePath.moveTo(mPoints.get(i).x + mWaveShiftedLength, mPoints.get(i).y);
+        mFirstWavePath.moveTo(mPoints.get(i).x + mWaveShiftedLength, mPoints.get(i).y);
+        for (; i < mPoints.size() - 2; i += 2) {
+            mFirstWavePath.quadTo(mPoints.get(i + 1).x + mWaveShiftedLength, mPoints.get(i + 1).y, mPoints.get(i + 2).x + mWaveShiftedLength, mPoints.get(i + 2).y);
         }
-        mWavePath.moveTo(mWavePoints.get(i).x, mWavePoints.get(i).y);
-        mWavePath.close();
-        canvas.drawPath(mWavePath, mWavePaint);
-        mWaveHandler.sendEmptyMessageDelayed(MSG_WAVE, DRAW_DELAY);
+        mFirstWavePath.moveTo(mPoints.get(i).x, mPoints.get(i).y);
+        mFirstWavePath.close();
+
+        i = 0;
+        mSecondWavePath.moveTo(mPoints.get(i).x + mRippleShiftedLength, mPoints.get(i).y);
+        for (; i < mPoints.size() - 2; i += 2) {
+            mSecondWavePath.quadTo(mPoints.get(i + 1).x + mRippleShiftedLength, mPoints.get(i + 1).y, mPoints.get(i + 2).x + mRippleShiftedLength, mPoints.get(i + 2).y);
+        }
+        mSecondWavePath.moveTo(mPoints.get(i).x + mRippleShiftedLength, mPoints.get(i).y);
+        mSecondWavePath.close();
+
+        canvas.drawPath(mFirstWavePath, mFirstWavePaint);
+        canvas.drawPath(mSecondWavePath, mSecondWavePaint);
+
+//        canvas.saveLayer(mDrawRect, mFirstWavePaint);
+//        canvas.saveLayerAlpha(mDrawRect.left, mDrawRect.top, mDrawRect.right, mDrawRect.bottom, 50);
+
+        mDrawHandler.sendEmptyMessageDelayed(MSG_WAVE, DRAW_DELAY);
     }
 
    /* private void createShader() {

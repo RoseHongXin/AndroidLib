@@ -1,20 +1,26 @@
 package hx.view.waveview;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.RectF;
-import android.graphics.Xfermode;
-import android.os.Handler;
-import android.os.Message;
+import android.graphics.Rect;
+import android.graphics.Shader;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,48 +31,44 @@ import java.util.List;
 
 public class WaveView extends View{
 
-    private final int MSG_WAVE = 1;
-    private final int DRAW_DELAY = 16;
-    private final int SHIFT_SPEED = 4;
+    private final float DEFAULT_WAVE_SHIFT_RATIO = 1.0f;
+    private final float DEFAULT_WAVE_AMPLITUDE_RATIO = 1f;
+    private final float DEFAULT_WATER_LEVEL_RATIO = 1f;
 
-    private int mWidth;
-    private int mHeight;
-    private RectF mDrawRect;
+    public int mFirstWaveColor = Color.parseColor("#28FFFFFF");
+    public int mSecondWaveColor = Color.parseColor("#3CFFFFFF");
 
-    // shader containing repeated waves
-//    private BitmapShader mWaveShader;
-//    private Matrix mShaderMatrix;
+    private int mViewWidth;
+    private int mViewHeight;
+    private Paint mViewPaint;
+    private Rect mViewRect;
 
-    private List<Point> mPoints;
-    private Paint mFirstWavePaint;
-    private Paint mSecondWavePaint;
+    private List<Point> mWavePoints;
+    private float mAxisX, mAxisY;
+    private float mPivotX, mPivotY;
 
+    private BitmapShader mWaveShader;
+    private Matrix mWaveShaderMatrix;
+    private Paint mWavePaint;
     private Path mFirstWavePath;
     private Path mSecondWavePath;
 
+    private float mWaterLevel;
+    private double mAngularFrequency;
     private int mAmplitude;
-    private float mAngularFrequency;
-    private float mWaveLength;
-    private int mWaveShiftSpeed = SHIFT_SPEED;
-    private int mRippleShiftSpeed = SHIFT_SPEED * 2;
-    private int mWaveShiftedLength;
-    private int mRippleShiftedLength;
-    private float mWaveInitialX;
-    private float mWaveInitialY;
+    private int mWaveDiff;
+    private int mWaveLength;
+    private int mWaveShiftDelta = 0;
+    private int mWaterLevelShiftDelta = 0;
+    private int mAmplitudeShiftDelta;
+    private float mWaterLevelShiftRatio = 0f;
+    private float mWaveShiftRatio = 0f;
+    private float mAmplitudeShiftRatio = 0f;
 
-    private Handler mDrawHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if(msg.what == MSG_WAVE){
-                mWaveShiftedLength += mWaveShiftSpeed;
-                mRippleShiftedLength += mRippleShiftSpeed;
-                if(mWaveShiftedLength >= mWaveLength) mWaveShiftedLength = 0;
-                if(mRippleShiftedLength >= mWaveLength) mRippleShiftedLength = 0;
-                invalidate();
-            }
-        }
-    };
+
+
+    private boolean mWaveEnable;
+    private AnimatorSet mAnims;
 
 
     public WaveView(Context context) {
@@ -85,19 +87,10 @@ public class WaveView extends View{
     }
 
     private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr){
-        mFirstWavePaint = new Paint();
-        mFirstWavePaint.setAntiAlias(true);
-        mFirstWavePaint.setColor(Color.parseColor("red"));
-        mFirstWavePaint.setStyle(Paint.Style.STROKE);
-        mFirstWavePaint.setStrokeWidth(4.0f);
+        mViewPaint = new Paint();
+        mViewPaint.setAntiAlias(true);
 
-        mSecondWavePaint = new Paint();
-        mSecondWavePaint.setAntiAlias(true);
-        mSecondWavePaint.setColor(Color.CYAN);
-        mSecondWavePaint.setStyle(Paint.Style.FILL);
-        mSecondWavePaint.setStrokeWidth(4.0f);
-        mSecondWavePaint.setAlpha(100);
-        mSecondWavePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        mWaveShaderMatrix = new Matrix();
 
         mFirstWavePath = new Path();
         mSecondWavePath = new Path();
@@ -106,99 +99,208 @@ public class WaveView extends View{
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if(changed){
-            mWidth = getMeasuredWidth();
-            mHeight = getMeasuredHeight();
-            mDrawRect = new RectF(left, top, right, bottom);
-            mWaveInitialX = left;
-            mWaveInitialY = bottom;
-            init();
-        }
+        if(changed) init();
     }
 
     private void init(){
-        mAmplitude = mHeight / 4;
-        mWaveLength = mWidth;
-        float initialX = -mWaveLength;
-        mPoints = new ArrayList<>();
-        int pointCnt = 9 * (int)(mWidth / mWaveLength);
-        Point point = new Point((int)initialX, (int)mWaveInitialY);
-        mPoints.add(point);
+        mViewWidth = getMeasuredWidth();
+        mViewHeight = getMeasuredHeight();
+        mViewRect = new Rect(getLeft(), getTop(), getRight(), getBottom());
+
+        mAmplitude = mViewHeight / 8;
+        mWaveLength = mViewWidth;
+        mWaterLevel = mViewHeight / 7 * 4;
+
+        mAxisX = -mWaveLength + mViewRect.left;
+        /*
+         * very important.
+         * make sure a whole wave's coordinate y the wave lower than the bottom edge.
+         *      which means the wave higher than the bottom edge by human seen.
+         *
+         * the shader of canvas coordinate y's TileMode is CLAMP.
+          *     if first draw wave and bottom edge is not enough,
+          *     the attribute CLAMP will make the wave curve missing. (the missing part cut by bottom edge, fill in the background color.)
+         * */
+        mAxisY = mViewRect.bottom - mAmplitude - 20;
+
+        mPivotX = mViewWidth / 2 + mViewRect.left;
+        mPivotY =  mViewRect.bottom;
+
+        mAngularFrequency = 2.0f * Math.PI / mWaveLength;
+        mWaveDiff = -mWaveLength / 3;
+
+        createWaveShader();
+    }
+
+    private void calPoints(){
+        int initialX = (int)mAxisX;
+        int initialY = (int)mAxisY;
+        int pointCnt = 9 + 5;
+        mWavePoints = new ArrayList<>(pointCnt);
         for (int i = 0; i < pointCnt; i++) {
             int y = 0;
-            switch (i % 2) {
+            switch (i % 4) {
                 case 0:
-                    y = (int)mWaveInitialY;
+                    y = initialY;
                     break;
                 case 1:
-                    y = (int)mWaveInitialY - mAmplitude;
+                    y = initialY + mAmplitude;
+                    break;
+                case 2:
+                    y = initialY;
+                    break;
+                case 3:
+                    y = initialY - mAmplitude;
                     break;
             }
-            point = new Point((int)(initialX + i * mWaveLength / 4), y);
-            mPoints.add(point);
+            Point point = new Point((initialX + i * mWaveLength / 4), y);
+            mWavePoints.add(point);
+        }
+    }
+
+    private void createWaveShader(){
+        Bitmap bitmap = Bitmap.createBitmap(mViewWidth, mViewHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        drawWaveByQuad(canvas);
+//        drawWaveBySin(canvas);
+
+        mWaveShader = new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.CLAMP);
+        mViewPaint.setShader(mWaveShader);
+    }
+    private void drawWaveByQuad(Canvas canvas){
+        calPoints();
+        int initialX = (int)mAxisX;
+        int initialY = (int)mAxisY;
+        int pointCnt = 9 + 3;
+        mWavePoints = new ArrayList<>(pointCnt);
+        for (int i = 0; i < pointCnt; i++) {
+            int y = 0;
+            switch (i % 4) {
+                case 0:
+                    y = initialY;
+                    break;
+                case 1:
+                    y = initialY + mAmplitude;
+                    break;
+                case 2:
+                    y = initialY;
+                    break;
+                case 3:
+                    y = initialY - mAmplitude;
+                    break;
+            }
+            Point point = new Point((initialX + i * mWaveLength / 4), y);
+            mWavePoints.add(point);
+        }
+        mFirstWavePath.rewind();
+        mSecondWavePath.rewind();
+        int i = 0;
+        mFirstWavePath.moveTo(mWavePoints.get(i).x, mWavePoints.get(i).y);
+        mSecondWavePath.moveTo(mWavePoints.get(i).x + mWaveDiff, mWavePoints.get(i).y);
+        for (; i < mWavePoints.size() - 2; i += 2) {
+            Point first = mWavePoints.get(i + 1);
+            Point second = mWavePoints.get(i + 2);
+            mFirstWavePath.quadTo(first.x, first.y, second.x, second.y);
+            mSecondWavePath.quadTo(first.x + mWaveDiff, first.y, second.x + mWaveDiff, second.y);
+        }
+        mFirstWavePath.lineTo(mWavePoints.get(i).x, mViewRect.bottom);
+        mFirstWavePath.lineTo(mWavePoints.get(0).x, mViewRect.bottom);
+        mFirstWavePath.close();
+
+        mSecondWavePath.lineTo(mWavePoints.get(i).x + mWaveDiff, mViewRect.bottom);
+        mSecondWavePath.lineTo(mWavePoints.get(0).x + mWaveDiff, mViewRect.bottom);
+        mSecondWavePath.close();
+
+        mWavePaint = new Paint();
+        mWavePaint.setAntiAlias(true);
+        mWavePaint.setStyle(Paint.Style.FILL);
+
+        mWavePaint.setColor(mFirstWaveColor);
+        canvas.drawPath(mFirstWavePath, mWavePaint);
+
+        mWavePaint.setColor(mSecondWaveColor);
+        mWavePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+//        mWavePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
+        canvas.drawPath(mSecondWavePath, mWavePaint);
+    }
+    private void drawWaveBySin(Canvas canvas){
+        mWavePaint = new Paint();
+        mWavePaint.setAntiAlias(true);
+        final int endX = mViewWidth + 1;
+        final int endY = mViewHeight;
+        float[] waveY = new float[endX];
+        mWavePaint.setColor(mFirstWaveColor);
+        for (int beginX = 0; beginX < endX; beginX++) {
+            double wx = beginX * mAngularFrequency;
+            float beginY = (float) (mAxisY + mAmplitude * Math.sin(wx));
+//            float beginY = (float) (mAxisY + mAmplitude * Math.sin(wx));
+            canvas.drawLine(beginX, beginY, beginX, endY, mWavePaint);
+            waveY[beginX] = beginY;
+        }
+        mWavePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        mWavePaint.setColor(mSecondWaveColor);
+        final int wave2Shift = mWaveLength / 4;
+        for (int beginX = 0; beginX < endX; beginX++) {
+            canvas.drawLine(beginX, waveY[(beginX + wave2Shift) % endX], beginX, endY, mWavePaint);
         }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mFirstWavePath.reset();
-        mSecondWavePath.reset();
-        int i = 0;
-
-//        mFirstWavePath.moveTo(mPoints.get(i).x + mWaveShiftedLength, mPoints.get(i).y);
-        mFirstWavePath.moveTo(mPoints.get(i).x + mWaveShiftedLength, mPoints.get(i).y);
-        for (; i < mPoints.size() - 2; i += 2) {
-            mFirstWavePath.quadTo(mPoints.get(i + 1).x + mWaveShiftedLength, mPoints.get(i + 1).y, mPoints.get(i + 2).x + mWaveShiftedLength, mPoints.get(i + 2).y);
+        if(mWaveEnable) {
+//            mWaveShaderMatrix.setScale(1f, mAmplitudeShiftRatio, mPivotX, mWaterLevel);
+            mWaveShaderMatrix.setScale(1f, mAmplitudeShiftRatio, mPivotX, mPivotY);
+            mWaveShaderMatrix.postTranslate(mWaveShiftDelta, mWaterLevelShiftDelta);
+            mWaveShader.setLocalMatrix(mWaveShaderMatrix);
+            canvas.drawRect(mViewRect, mViewPaint);
+//        canvas.drawCircle(mViewRect.right / 2 , mViewRect.top / 2, mWaveLength / 2, mViewPaint);
+        }else{
+            mWaveShader.setLocalMatrix(null);
         }
-        mFirstWavePath.moveTo(mPoints.get(i).x, mPoints.get(i).y);
-        mFirstWavePath.close();
-
-        i = 0;
-        mSecondWavePath.moveTo(mPoints.get(i).x + mRippleShiftedLength, mPoints.get(i).y);
-        for (; i < mPoints.size() - 2; i += 2) {
-            mSecondWavePath.quadTo(mPoints.get(i + 1).x + mRippleShiftedLength, mPoints.get(i + 1).y, mPoints.get(i + 2).x + mRippleShiftedLength, mPoints.get(i + 2).y);
-        }
-        mSecondWavePath.moveTo(mPoints.get(i).x + mRippleShiftedLength, mPoints.get(i).y);
-        mSecondWavePath.close();
-
-        canvas.drawPath(mFirstWavePath, mFirstWavePaint);
-        canvas.drawPath(mSecondWavePath, mSecondWavePaint);
-
-//        canvas.saveLayer(mDrawRect, mFirstWavePaint);
-//        canvas.saveLayerAlpha(mDrawRect.left, mDrawRect.top, mDrawRect.right, mDrawRect.bottom, 50);
-
-        mDrawHandler.sendEmptyMessageDelayed(MSG_WAVE, DRAW_DELAY);
     }
 
-   /* private void createShader() {
-        Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
+    public void setWaveShift(float ratio){
+        mWaveShiftDelta = (int)(ratio * mWaveLength + 0.5f);
+        mWaveShiftRatio = ratio;
+        invalidate();
+    }
+    public void setAmplitudeShift(float ratio){
+        mAmplitudeShiftRatio = ratio;
+        mAmplitudeShiftDelta = (int) (mAmplitude * mAmplitudeShiftRatio + 0.5f);
+        invalidate();
+    }
+    public void setWaterLevelShift(float ratio){
+        mWaterLevelShiftDelta = (int)(mWaterLevel * ratio + 0.5f);
+        mWaterLevelShiftRatio = ratio;
+        invalidate();
+    }
 
+    public void start(){
+        ObjectAnimator waveShiftAnim = ObjectAnimator.ofFloat(WaveView.this, "waveShift", 0f, 1f).setDuration(2000);
+        waveShiftAnim.setRepeatCount(ValueAnimator.INFINITE);
+        waveShiftAnim.setInterpolator(new LinearInterpolator());
 
-        // Draw default waves into the bitmap
-        // y=Asin(ωx+φ)+h
-        float waveX1 = 0;
-        final float wave2Shift = mWidth / 4;
-        final float endX = getWidth();
-        final float endY = getHeight();
+        ObjectAnimator amplitudeShiftAnim = ObjectAnimator.ofFloat(WaveView.this, "amplitudeShift", 0f, 1f).setDuration(6000);
+        amplitudeShiftAnim.setRepeatCount(ValueAnimator.INFINITE);
+        amplitudeShiftAnim.setRepeatMode(ValueAnimator.REVERSE);
+        amplitudeShiftAnim.setInterpolator(new LinearInterpolator());
 
-        while (waveX1 < endX) {
-            double wx = waveX1 * mDefaultAngularFrequency;
-            int startY = (int) (mDefaultWaterLevel + mDefaultAmplitude * Math.sin(wx));
+        ObjectAnimator waterLevelShiftAnim = ObjectAnimator.ofFloat(WaveView.this, "waterLevelShift", -0.0001f, -1.0f).setDuration(10000);
+        waterLevelShiftAnim.setInterpolator(new DecelerateInterpolator());
+//        waterLevelShiftAnim.setInterpolator(new LinearInterpolator());
 
-            // draw bottom wave with the alpha 40
-            canvas.drawLine(waveX1, startY, waveX1, endY, wavePaint1);
-            // draw top wave with the alpha 60
-            float waveX2 = (waveX1 + wave2Shift) % endX;
-            canvas.drawLine(waveX2, startY, waveX2, endY, wavePaint2);
-
-            waveX1++;
-        }
-
-        // use the bitamp to create the shader
-        mWaveShader = new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.CLAMP);
-        mViewPaint.setShader(mWaveShader);
-    }*/
+        mAnims = new AnimatorSet();
+        mAnims.playTogether(waveShiftAnim, waterLevelShiftAnim, amplitudeShiftAnim);
+        mWaveEnable = true;
+        mAnims.start();
+    }
+    public void stop(){
+        mWaveEnable = false;
+        if(mAnims != null) mAnims.cancel();
+        if(mAnims != null) mAnims.end();
+        invalidate();
+    }
 
 }

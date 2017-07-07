@@ -56,8 +56,8 @@ public class SwipeRefreshLoader {
         if(api != null) {
             _src.setOnRefreshListener(() -> {
                 api.get(1)
-                        .doOnCompleted(() -> _src.setRefreshing(false))
                         .takeWhile(this::dataIsReady)
+                        .doOnCompleted(() -> _src.setRefreshing(false))
                         .subscribe(datas -> {
                             mCurPage = 1;
                             adapter.setData(datas);
@@ -69,6 +69,7 @@ public class SwipeRefreshLoader {
                     return;
                 }
                 api.get(mCurPage + 1)
+                        .doOnTerminate(() -> _src.setRefreshing(false))
                         .doOnCompleted(() -> _src.setLoadingMore(false))
                         .takeWhile(this::dataIsReady)
                         .subscribe(datas -> {

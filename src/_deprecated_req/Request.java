@@ -1,4 +1,4 @@
-package com.powerbee.gprs.entry.request;
+package com.powerbee.gprs.bizz.request;
 
 import android.app.Activity;
 import android.app.Application;
@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.powerbee.ALogin;
 import com.powerbee.R;
-import com.powerbee.gprs.entry.DataPool;
+import com.powerbee.gprs.bizz.DataPool;
 import com.powerbee.util.RespHelper;
 import com.sdk.powerbee.utils.Log4Android;
 

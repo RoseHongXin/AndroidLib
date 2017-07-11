@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 /**
- * Created by Administrator on 2017/6/23 0023.
+ * Created by RoseHongXin on 2017/6/23 0023.
  */
 
 public class SmoothRecyclerView extends RecyclerView implements ISmooth {

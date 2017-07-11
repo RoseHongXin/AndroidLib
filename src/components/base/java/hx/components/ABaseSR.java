@@ -9,7 +9,7 @@ import hx.view.swiperefresh.SwipeRefreshContainer;
 import hx.widget.adapterview.swiperefresh.SwipeRefreshLoader;
 
 /**
- * Created by Administrator on 2017/6/21 0021.
+ * Created by RoseHongXin on 2017/6/21 0021.
  */
 
 public abstract class ABaseSR extends ABase {

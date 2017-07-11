@@ -20,7 +20,7 @@ import java.io.File;
 
 /**
  * 图片压缩
- * Created by Administrator on 2016/8/8.
+ * Created by RoseHongXin on 2016/8/8.
  */
 public class BitmapCompress {
 

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2016/5/9.
+ * Created by RoseHongXin on 2016/5/9.
  *
  * For Retrofit 2.0 JacksonConverterFactory
  */

@@ -1,7 +1,7 @@
 package hx.view.smoothtouch;
 
 /**
- * Created by Administrator on 2017/6/27 0027.
+ * Created by RoseHongXin on 2017/6/27 0027.
  */
 
 public interface ISmooth {

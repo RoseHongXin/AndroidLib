@@ -1,11 +1,12 @@
 package hx.toolkit;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
  * Created by Rose on 9/23/2016.
  */
-public class FormatChecker {
+public class Formater {
 
     public static final String EMAIL_FORMAT = "^([a-zA-Z0-9_\\.\\-])+(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})$";
     public static final String MOBILE_FORMAT = "^(13[0-9]|15[^4]|17[0,6,7,8]|18[0-9]|14[5,7])\\d{8}$";
@@ -39,6 +40,10 @@ public class FormatChecker {
         }
         return true;
         //return !hasCharacter(str);
+    }
+
+    public static String getIpAddress(int ipVal){
+        return String.format(Locale.CHINA, "%d.%d.%d.%d", (ipVal & 0xff), (ipVal >> 8 & 0xff), (ipVal >> 16 & 0xff), (ipVal >> 24 & 0xff));
     }
 
 }

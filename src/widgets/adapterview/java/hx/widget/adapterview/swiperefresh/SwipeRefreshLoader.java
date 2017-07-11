@@ -11,7 +11,7 @@ import hx.widget.adapterview.recyclerview.ApBase;
 import rx.Observable;
 
 /**
- * Created by Administrator on 2017/6/20 0020.
+ * Created by RoseHongXin on 2017/6/20 0020.
  */
 
 public class SwipeRefreshLoader {

@@ -8,7 +8,7 @@ import hx.components.ABase;
 import hx.lib.R;
 
 /**
- * Created by Administrator on 2017/6/5 0005.
+ * Created by RoseHongXin on 2017/6/5 0005.
  */
 
 public abstract class ABaseWeb extends ABase {

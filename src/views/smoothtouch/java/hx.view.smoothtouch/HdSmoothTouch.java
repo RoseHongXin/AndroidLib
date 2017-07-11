@@ -17,7 +17,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
 
 /**
- * Created by Administrator on 2017/6/27 0027.
+ * Created by RoseHongXin on 2017/6/27 0027.
  *
  * 实现滑动View控件拖拽的柔和手感.
  *

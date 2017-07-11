@@ -1,7 +1,7 @@
 package hx.comonents.specific.edit;
 
 /**
- * Created by Administrator on 2016/5/27.
+ * Created by RoseHongXin on 2016/5/27.
  */
 
 public class RbEdit {

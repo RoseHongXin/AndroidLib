@@ -7,7 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * Created by Administrator on 2017/5/17 0017.
+ * Created by RoseHongXin on 2017/5/17 0017.
  */
 
 public class DialogHelper {

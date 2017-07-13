@@ -86,11 +86,11 @@ class Request {
     private boolean isVerificationFailure(JSONObject json){
         return json != null && json.getIntValue(Resp.Code) == Resp.VerificationFailure;
         /*if(code == Resp.VerificationFailure){
-            Toast.makeText(mApp, R.string.login_expire, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mApp, R.string.login_expire, Toast.LENGTH_SHORT).create();
             ALogin.start(mApp.getApplicationContext());
             return false;
         }*/
-//        Toast.makeText(mApp, "Verificatioin .....", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mApp, "Verificatioin .....", Toast.LENGTH_SHORT).create();
 //        return true;
     }
 

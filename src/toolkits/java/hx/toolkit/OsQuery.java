@@ -1,11 +1,15 @@
 package hx.toolkit;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.database.Cursor;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 

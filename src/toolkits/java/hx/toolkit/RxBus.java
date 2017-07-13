@@ -1,5 +1,7 @@
 package hx.toolkit;
 
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.subjects.PublishSubject;
@@ -17,7 +19,11 @@ public class RxBus {
      * PublishSubject只会把在订阅发生的时间点之后来自原始Observable的数据发射给观察者
      */
 
-    private Subject<Object, Object> mBus = new SerializedSubject<>(PublishSubject.create());
+    private Subject<Object, Object> mBus;
+
+    private RxBus(){
+        mBus = new SerializedSubject<>(PublishSubject.create());
+    }
 
     public static synchronized RxBus get() {
         if (_THIS == null) _THIS = new RxBus();
@@ -33,7 +39,7 @@ public class RxBus {
     }
 
     public <T> Observable<T> toObservable(final Class<T> eventType) {
-        return mBus.filter(o -> eventType.isInstance(o)).cast(eventType);
+        return mBus.filter(eventType::isInstance).cast(eventType);
     }
 
     public <T> void post(Class<T> clz, String tag){

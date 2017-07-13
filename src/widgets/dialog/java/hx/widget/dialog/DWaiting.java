@@ -20,17 +20,20 @@ import hx.lib.R;
 
 public class DWaiting {
 
-    public static Dialog show(Activity act){
-        return show(act, null);
+    public static Dialog create(Activity act){
+        return create(act, null);
     }
-    public static Dialog show(Activity act, String hint){
-        return show(act, hint, true);
+    public static Dialog create(Activity act, String hint){
+        return create(act, hint, true);
     }
 
-    public static Dialog force(Activity act){
-        return show(act, null, false);
+    public static Dialog force(Activity act, String hint){
+        return create(act, hint, false);
     }
-    public static Dialog show(Activity act, String hint, boolean cancelable){
+    public static Dialog force(Activity act){
+        return create(act, null, false);
+    }
+    public static Dialog create(Activity act, String hint, boolean cancelable){
         Dialog dialog = new Dialog(act, R.style.Dialog_Waiting);
         View layout = dialog.getLayoutInflater().inflate(R.layout.d_waiting, null);
         dialog.setContentView(layout);
@@ -46,7 +49,8 @@ public class DWaiting {
             _tv_hint.setVisibility(View.VISIBLE);
             _tv_hint.setText(hint);
         }
-        dialog.show();
+//        act.getWindow().getDecorView().post(dialog::create);
+//        dialog.show();
         return dialog;
     }
 

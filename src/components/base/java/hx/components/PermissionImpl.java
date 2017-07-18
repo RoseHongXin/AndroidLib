@@ -19,7 +19,7 @@ public class PermissionImpl {
 
     public static final int PERMISSION_REQ_CODE = 0x1234;
 
-    public static void require(AppCompatActivity act, String ... permissions) {
+    public static void require(Activity act, String ... permissions) {
         boolean[] granted = new boolean[permissions.length];
         Arrays.fill(granted, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

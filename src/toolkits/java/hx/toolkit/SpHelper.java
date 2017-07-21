@@ -32,11 +32,6 @@ public class SpHelper {
 
     public static void set(String key, String data){
         if(mSp != null) mSp.edit().putString(key, data).apply();
-        /*if(mSp != null){
-            mSp.edit().putString(key, data).apply();
-            return true;
-        }
-        return false;*/
     }
     public static <T> void set(String key, T t){
         String data = JSON.toJSONString(t);

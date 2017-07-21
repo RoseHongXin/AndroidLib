@@ -69,5 +69,10 @@ public class DWaiting {
         dialog.show();
         return dialog;
     }
+    public static Dialog showForce(Activity act, String hint){
+        Dialog dialog = force(act, hint);
+        dialog.show();
+        return dialog;
+    }
 
 }

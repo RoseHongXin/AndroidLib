@@ -28,7 +28,8 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:minWidth">@dimen/opt_title_min_width</item>
         <!--<item name="android:maxWidth">@dimen/form_title_max_width</item>-->
-        <item name="android:layout_height">match_parent</item>
+        <!--<item name="android:layout_height">match_parent</item>-->
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/txt_content</item>
     </style>
     <style name="Opt.et" parent="et">

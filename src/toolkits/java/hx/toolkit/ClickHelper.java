@@ -53,7 +53,7 @@ public class ClickHelper {
         Toast.makeText(act, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public static void swipe2Home(Activity act) {
-        act.moveTaskToBack(true);
+    public static void doubleClick2Home(Activity act) {
+        doubleClick(act, act.getString(R.string.back_press_to_home_note), v -> act.moveTaskToBack(true));
     }
 }
